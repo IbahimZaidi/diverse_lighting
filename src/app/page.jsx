@@ -40,8 +40,8 @@ export default function Home() {
   // extract the limit from the data.cars.length
   useEffect(() => {
     // set the numberPaginaation to the new value :
-    setNumberPagination(data?.cars?.length / 2 - 1); // i devide /2 because each slice of the slider have 2 items
-    console.log("this is the length : ", data?.cars?.length);
+    setNumberPagination(data?.cars?.length / 2); // i devide /2 because each slice of the slider have 2 items
+    // console.log("this is the length : ", data?.cars?.length);
   }, [data]);
 
   //  test the numberPagination value :
@@ -57,17 +57,25 @@ export default function Home() {
     );
   }, [numberPagination]);
 
-  // declare the array of array's
-  const [arrayOfArrays, setArrayOfArrays] = useState([]);
-  // arrayOfArrays :
   useEffect(() => {
-    setArrayOfArrays(
-      Array.from(
-        { length: Math.ceil(numberPagination / 5) },
-        (_, index) => (index + 1) * 5 // this 5 is the max slide span can show in the same time
-      )
+    console.log(
+      "-------------------------- arrayIndexFrom",
+      arrayFromIndex,
+      numberPagination
     );
   }, [arrayFromIndex]);
+
+  // // declare the array of array's
+  // const [arrayOfArrays, setArrayOfArrays] = useState([]);
+  // // arrayOfArrays :
+  // useEffect(() => {
+  //   setArrayOfArrays(
+  //     Array.from(
+  //       { length: Math.ceil(numberPagination / 5) },
+  //       (_, index) => (index + 1) * 5 // this 5 is the max slide span can show in the same time
+  //     )
+  //   );
+  // }, [arrayFromIndex]);
 
   // console.log("###############################");
   // console.log("test math equation : ", arrayOfArrays);
@@ -114,44 +122,52 @@ export default function Home() {
               setIndexSlider
             )
           }
-          className="buttonClick"
+          className={`buttonClick ${indexSlider == 1 ? "disableClass" : ""}`}
         >
           {" "}
           rightFun{" "}
         </button>
         <div className="containerOfIndex flex justify-around w-50%">
+          {/* add this div for more element div  */}
+          {arrayFromIndex.length > 5 && indexSlider >= 5 ? (
+            <div className="moreElementDiv"> . . . </div>
+          ) : (
+            ""
+          )}
+          {/* start the loop over arrayFromIndex */}
           {arrayFromIndex.length > 0 ? (
             arrayFromIndex.map((elem, index, theArray) => {
               // first specifie each number equivalant from the arrayOfArray
-              // the number of index 0 to 4 must have the arrayOfArray[0]
-              // the number of index 5 to 9  must have the arrayOfArray[1]
-              const cheakIndexArrayOfArraysMin =
-                Math.floor(indexSlider / 5) * 5;
-              const cheakIndexArrayOfArraysMax =
-                Math.floor(indexSlider / 5) * 5 + 5;
-              // console.log(
-              //   "cheakIndexArrayOfArrays : ",
-              //   cheakIndexArrayOfArraysMin,
-              //   cheakIndexArrayOfArraysMax,
-              //   "index slider : ",
-              //   indexSlider,
-              //   "current element : ",
-              //   elem
-              // );
+              // the number of index 0 to 5 must have the arrayOfArray[0]
+              // the number of index 6 to 10  must have the arrayOfArray[1]
+              const start = Math.floor(indexSlider / 5) * 5;
+              const end = Math.floor(indexSlider / 5) * 5 + 5;
+              console.log(
+                "start , end  : ",
+                start,
+                end,
+                "index slider : ",
+                indexSlider,
+                "current element : ",
+                elem
+              );
 
               if (
-                index >= cheakIndexArrayOfArraysMin &&
-                index < cheakIndexArrayOfArraysMax
+                elem >= start && // case elem = 10
+                elem <= end
               ) {
                 return (
                   <sapn
-                    className=" flex justify-center items-center bg-blue-500 w-6 text-white border-black cursor-pointer"
+                    className={`flex justify-center items-center bg-blue-500 w-6 text-white border-black cursor-pointer ${
+                      indexSlider == elem ? "activeSpan" : ""
+                    }`}
                     onClick={() => {
                       if (elem > indexSlider) {
-                        handleRight(
+                        // elem = 2 > indexSlider = 1
+                        handleLeft(
                           moveDivRef.current,
                           numberPagination,
-                          elem,
+                          elem - 1,
                           setIndexSlider
                         );
 
@@ -175,10 +191,10 @@ export default function Home() {
                         );
                         console.log("#########################");
 
-                        handleLeft(
+                        handleRight(
                           moveDivRef.current,
                           numberPagination,
-                          indexSlider,
+                          elem + 1,
                           setIndexSlider
                         );
                       }
@@ -204,8 +220,8 @@ export default function Home() {
           )}
 
           {/* add this div for more element div  */}
-          {arrayFromIndex.length > 5 ? (
-            <div className="moreElementDiv"> ... </div>
+          {arrayFromIndex.length > 5 && indexSlider < arrayFromIndex.length ? (
+            <div className="moreElementDiv"> . . . </div>
           ) : (
             ""
           )}
@@ -219,7 +235,9 @@ export default function Home() {
               setIndexSlider
             )
           }
-          className="buttonClick"
+          className={`buttonClick ${
+            indexSlider == arrayFromIndex.length ? "disableClass" : ""
+          }`}
         >
           {" "}
           leftFun{" "}

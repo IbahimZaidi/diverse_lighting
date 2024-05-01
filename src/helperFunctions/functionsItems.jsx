@@ -30,7 +30,7 @@ export const handleLeft = (elem, numberPagination, index, setIndexSlider) => {
     "hello from the index in function handleLeft value _______________________ : ",
     index
   );
-  if (index <= numberPagination) {
+  if (index < numberPagination) {
     // Update the left value
     elem.style.left = `${-820 * index}px`;
 

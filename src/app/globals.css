@@ -38,3 +38,15 @@ body {
 .buttonClick {
   @apply bg-blue-700 text-white flex justify-center items-center w-100px h-10;
 }
+
+/* active span  class  */
+
+.activeSpan {
+  @apply border border-black;
+}
+
+/* disabled class */
+
+.disableClass {
+  @apply bg-slate-400;
+}
