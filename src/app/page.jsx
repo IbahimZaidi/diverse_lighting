@@ -157,7 +157,7 @@ export default function Home() {
       {" "}
       {/* this section have the container of the items */}
       <section
-        className="container m-auto  flex bg-slate-500  relative h-500px overflow-hidden w-400px lg:w-830px 2xl:w-1240px  "
+        className="container m-auto  flex bg-slate-500  relative h-500px overflow-hidden w-300px lg:w-830px 2xl:w-1240px  "
         style={{ transition: "width .5s" }}
         ref={containerMove}
       >
@@ -182,7 +182,7 @@ export default function Home() {
         </div>
       </section>
       {/* this is the second section of the js controll button */}
-      <section className="jsControllButtons flex justify-around items-center w-400px h-100px border border-red-300 m-auto mt-5 ">
+      <section className="jsControllButtons flex justify-around items-center w-300px xl:w-400px 2xl:w-500px h-100px border border-red-300 m-auto mt-5 ">
         <button
           onClick={() =>
             handleRight(
