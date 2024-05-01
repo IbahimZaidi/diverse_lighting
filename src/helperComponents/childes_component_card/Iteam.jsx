@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Iteam = ({ theIndex, objectVal }) => {
-  const [valueOfColor, setValueOfColor] = useState("green");
+  const [valueOfColor, setValueOfColor] = useState(objectVal.colors[0].code);
   return (
     <div
       className=" bg-green border border-red-500  h-400px w-400px flex flex-col justify-center items-center"
