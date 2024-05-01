@@ -127,7 +127,7 @@ export default function Home() {
           {" "}
           rightFun{" "}
         </button>
-        <div className="containerOfIndex flex justify-around w-50%">
+        <div className="containerOfIndex flex justify-center space-x-1 w-50%">
           {/* add this div for more element div  */}
           {arrayFromIndex.length > 5 && indexSlider >= 5 ? (
             <div className="moreElementDiv"> . . . </div>
@@ -140,8 +140,10 @@ export default function Home() {
               // first specifie each number equivalant from the arrayOfArray
               // the number of index 0 to 5 must have the arrayOfArray[0]
               // the number of index 6 to 10  must have the arrayOfArray[1]
-              const start = Math.floor(indexSlider / 5) * 5;
+
+              const start = Math.floor(indexSlider / 5) * 5 - 1;
               const end = Math.floor(indexSlider / 5) * 5 + 5;
+
               console.log(
                 "start , end  : ",
                 start,
