@@ -14,41 +14,46 @@
 //   elem.style.left = `${elem.style.left + 100}px`;
 // };
 
-export const handleLeft = (elem) => {
-  console.log("Hello from the handleLeft function ", elem);
+// function handle the left -
 
-  // Get the current left value
-  const currentLeft = parseFloat(window.getComputedStyle(elem).left);
-  const currentWidth = parseFloat(window.getComputedStyle(elem).width);
-  const widthParent = 900;
+export const handleLeft = (elem, numberPagination, index, changeIndex) => {
+  // console.log("Hello from the handleLeft function ", elem);
 
-  // Update the left value
-  elem.style.left = `${currentLeft - 820}px`;
+  if (index < numberPagination) {
+    // Update the left value
+    elem.style.left = `${-820 * (index + 1)}px`;
 
-  console.log(
-    currentLeft,
-    currentWidth,
-    widthParent,
-    "value is : ",
-    currentWidth - 900
-  );
+    changeIndex((prev) => {
+      return prev + 1;
+    });
+  }
+  // test the index :
+  // console.log("hello from the index in function handleLeft value : ", index);
 };
 
-export const handleRight = (elem) => {
-  console.log("Hello from the handleRight function ", elem);
+// function handle the left +
+export const handleRight = (elem, numberPagination, index, changeIndex) => {
+  // console.log("Hello from the handleRight function ", elem);
 
-  // Get the current left value
-  const currentLeft = parseFloat(window.getComputedStyle(elem).left);
-  const currentWidth = parseFloat(window.getComputedStyle(elem).width);
-  const widthParent = 900;
+  if (index > 0) {
+    // Update the left value
+    elem.style.left = `${-820 * (index - 1)}px`;
 
-  // Update the left value
-  elem.style.left = `${currentLeft + 820}px`;
-  console.log(
-    currentLeft,
-    currentWidth,
-    widthParent,
-    "value is : ",
-    currentWidth - 900
-  );
+    console.log(
+      "cheak value of index : ",
+      index,
+      " , new left :  ",
+      820 * (index - 1)
+    );
+
+    changeIndex((prev) => {
+      return prev - 1;
+    });
+  }
+  // console.log(
+  //   "hello from the index in function handleRight value : ",
+  //   index,
+  //   "and this the max : ",
+  //   numberPagination
+  // );
 };

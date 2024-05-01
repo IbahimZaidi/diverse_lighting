@@ -31,11 +31,15 @@ export default function Home() {
   // first declare the variable contain the number of pagination :
   const [numberPagination, setNumberPagination] = useState(0);
 
+  // set container cheak the slider case :
+
+  const [indexSlider, setIndexSlider] = useState(0);
+
   // extract the limit from the data.cars.length
 
   useEffect(() => {
     // set the numberPaginaation to the new value :
-    setNumberPagination(data?.cars?.length);
+    setNumberPagination(data?.cars?.length / 2 - 1); // i devide /2 because each slice of the slider have 2 items
     console.log("this is the length : ", data?.cars?.length);
   }, [data]);
 
@@ -76,14 +80,28 @@ export default function Home() {
       {/* this is the second section of the js controll button */}
       <section className="jsControllButtons flex justify-around items-center w-300px h-100px border border-red-300 m-auto mt-5 ">
         <button
-          onClick={() => handleLeft(moveDivRef.current)}
+          onClick={() =>
+            handleLeft(
+              moveDivRef.current,
+              numberPagination,
+              indexSlider,
+              setIndexSlider
+            )
+          }
           className="buttonClick"
         >
           {" "}
           left{" "}
         </button>
         <button
-          onClick={() => handleRight(moveDivRef.current)}
+          onClick={() =>
+            handleRight(
+              moveDivRef.current,
+              numberPagination,
+              indexSlider,
+              setIndexSlider
+            )
+          }
           className="buttonClick"
         >
           {" "}
