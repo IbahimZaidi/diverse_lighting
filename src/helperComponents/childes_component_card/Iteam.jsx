@@ -4,7 +4,7 @@ const Iteam = ({ theIndex, objectVal }) => {
   const [valueOfColor, setValueOfColor] = useState(objectVal.colors[0].code);
   return (
     <div
-      className=" bg-green border border-red-500  h-400px w-400px flex flex-col justify-center items-center"
+      className=" bg-green border border-red-500  h-400px w-400px  flex flex-col justify-center items-center"
       style={{ marginRight: "10px" }}
     >
       {/* the container of the image  */}
@@ -25,6 +25,10 @@ const Iteam = ({ theIndex, objectVal }) => {
         className="containerSpansColors flex justify-center items-center  space-x-3 w-100% h-30%"
         style={{ backgroundColor: "black" }}
       >
+        <span className=" w-6 h-6 flex justify-center items-center text-white bg-yellow-500 ">
+          {" "}
+          {theIndex + 1}{" "}
+        </span>
         {objectVal.colors.map((elem, index) => {
           return (
             <span

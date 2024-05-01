@@ -9,6 +9,9 @@ import { data } from "@/data/data";
 // imort the handle on click functions :
 import { handleLeft, handleRight } from "@/helperFunctions/functionsItems";
 import { useEffect, useRef, useState } from "react";
+
+// import the function handle the change of the width of the body :
+import { cheakWidthChangeCurrentWidthNumber } from "@/helperFunctions/functionsItems";
 //
 //
 // start of the main component
@@ -19,14 +22,20 @@ export default function Home() {
   // useRef() for the div mouvemenet :
   const moveDivRef = useRef();
 
-  // test the useRef :
+  // useRef() for the section contain the movement Div :
+  const containerMove = useRef();
 
-  // useEffect(() => {
-  //   console.log("hello this is the refference : ", moveDivRef.current);
-  // }, []);
+  // the number change with the width :
+  const [numberWidth, setNumberWidth] = useState(3);
 
-  // you need to specifie numbers of element inside data.cars array lenght
-  // then use it to make limit of pagination ;
+  useEffect(() => {
+    // this is to cheak the first time before the resize of the window :
+    cheakWidthChangeCurrentWidthNumber(containerMove.current, setNumberWidth);
+    // add eventLister in case of resize the window :
+    window.addEventListener("resize", () => {
+      cheakWidthChangeCurrentWidthNumber(containerMove.current, setNumberWidth);
+    });
+  }, []);
 
   // first declare the variable contain the number of pagination :
   const [numberPagination, setNumberPagination] = useState(0);
@@ -40,9 +49,17 @@ export default function Home() {
   // extract the limit from the data.cars.length
   useEffect(() => {
     // set the numberPaginaation to the new value :
-    setNumberPagination(Math.ceil(data?.cars?.length / 2)); // i devide /2 because each slice of the slider have 2 items
-    // console.log("this is the length : ", data?.cars?.length);
-  }, [data]);
+    setNumberPagination(Math.ceil(data?.cars?.length / numberWidth)); // i devide /2 because each slice of the slider have 2 items
+    console.log("this is the length : ");
+  }, [data, numberWidth]);
+
+  useEffect(() => {
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    console.log(numberPagination, numberWidth);
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+  }, [numberPagination]);
 
   //  test the numberPagination value :
   useEffect(() => {
@@ -88,8 +105,9 @@ export default function Home() {
       {" "}
       {/* this section have the container of the items */}
       <section
-        className="container m-auto  flex bg-slate-500  relative h-500px overflow-hidden "
-        style={{ width: "830px" }}
+        className="container m-auto  flex bg-slate-500  relative h-500px overflow-hidden w-420px lg:w-830px 2xl:w-1240px  "
+        style={{ transition: "width .5s" }}
+        ref={containerMove}
       >
         {/* this is the inside div contain the move div with changing the left in css  */}
         <div
@@ -119,7 +137,8 @@ export default function Home() {
               moveDivRef.current,
               numberPagination,
               indexSlider,
-              setIndexSlider
+              setIndexSlider,
+              numberWidth
             )
           }
           className={`buttonClick ${indexSlider == 1 ? "disableClass" : ""}`}
@@ -171,7 +190,8 @@ export default function Home() {
                           moveDivRef.current,
                           numberPagination,
                           elem - 1,
-                          setIndexSlider
+                          setIndexSlider,
+                          numberWidth
                         );
 
                         console.log("#########################");
@@ -198,7 +218,8 @@ export default function Home() {
                           moveDivRef.current,
                           numberPagination,
                           elem + 1,
-                          setIndexSlider
+                          setIndexSlider,
+                          numberWidth
                         );
                       }
 
@@ -236,7 +257,8 @@ export default function Home() {
               moveDivRef.current,
               numberPagination,
               indexSlider,
-              setIndexSlider
+              setIndexSlider,
+              numberWidth
             )
           }
           className={`buttonClick ${
