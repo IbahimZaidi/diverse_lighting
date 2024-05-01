@@ -17,7 +17,7 @@ import { cheakWidthChangeCurrentWidthNumber } from "@/helperFunctions/functionsI
 // start of the main component
 export default function Home() {
   // test the value of the data in the console first
-  console.log("this is the data json info : ", data);
+  // console.log("this is the data json info : ", data);
 
   // useRef() for the div mouvemenet :
   const moveDivRef = useRef();
@@ -30,10 +30,18 @@ export default function Home() {
 
   useEffect(() => {
     // this is to cheak the first time before the resize of the window :
-    cheakWidthChangeCurrentWidthNumber(containerMove.current, setNumberWidth);
+    cheakWidthChangeCurrentWidthNumber(
+      containerMove.current,
+      setNumberWidth,
+      numberWidth
+    );
     // add eventLister in case of resize the window :
     window.addEventListener("resize", () => {
-      cheakWidthChangeCurrentWidthNumber(containerMove.current, setNumberWidth);
+      cheakWidthChangeCurrentWidthNumber(
+        containerMove.current,
+        setNumberWidth,
+        numberWidth
+      );
     });
   }, []);
 
@@ -50,21 +58,65 @@ export default function Home() {
   useEffect(() => {
     // set the numberPaginaation to the new value :
     setNumberPagination(Math.ceil(data?.cars?.length / numberWidth)); // i devide /2 because each slice of the slider have 2 items
-    console.log("this is the length : ");
+    // console.log("this is the length : ");
+
+    // cheak the index Slider :
+
+    // if (indexSlider != 1) {
+    // != 1 to avoid the default case on refresh , and the case 1 will not be differente at any value of numberWidth (1,2,3)
+
+    // if (numberWidth == 1) {
+    //   setIndexSlider((prev) => {
+    //     const newValue = Math.floor(prev * 1);
+
+    //     moveDivRef.current.elem.style.left = `${-410 * newValue}px`;
+
+    //     return newValue;
+    //   });
+    //   // change the left of the mouvement Div
+    // } else if (numberWidth == 2) {
+    //   //
+    //   setIndexSlider((prev) => {
+    //     const newValue = Math.floor(prev * 1);
+
+    //     moveDivRef.current.elem.style.left = `${-820 * newValue}px`;
+
+    //     return newValue;
+    //   });
+    //   // change the left of the mouvement Div
+    // } else {
+    //   // mena numberWidth == 3
+
+    //   setIndexSlider((prev) => {
+    //     const newValue = Math.floor(prev * 1);
+
+    //     moveDivRef.current.elem.style.left = `${-1230 * newValue}px`;
+
+    //     return newValue;
+    //   });
+    //   // change the left of the mouvement Div
+    // }
+    // }
+
+    // window.reload();
+    // Reload the current page
   }, [data, numberWidth]);
 
+  const isInitialRender = useRef(true);
+
   useEffect(() => {
-    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-    console.log(numberPagination, numberWidth);
-    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    // console.log(numberPagination, numberWidth);
+    // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    // window.location.reload();
   }, [numberPagination]);
 
   //  test the numberPagination value :
   useEffect(() => {
     // log the numberPagination  :
-    console.log("test lenght value ", numberPagination);
+    // console.log("test lenght value ", numberPagination);
   }, [numberPagination]);
 
   // extract the arrayFromIndex array :
@@ -75,11 +127,11 @@ export default function Home() {
   }, [numberPagination]);
 
   useEffect(() => {
-    console.log(
-      "-------------------------- arrayIndexFrom",
-      arrayFromIndex,
-      numberPagination
-    );
+    // console.log(
+    //   "-------------------------- arrayIndexFrom",
+    //   arrayFromIndex,
+    //   numberPagination
+    // );
   }, [arrayFromIndex]);
 
   // // declare the array of array's
@@ -163,16 +215,16 @@ export default function Home() {
               const start = Math.floor(indexSlider / 5) * 5 - 1;
               const end = Math.floor(indexSlider / 5) * 5 + 5;
 
-              console.log(
-                "start , end  : ",
-                start,
-                end,
-                "index slider : ",
-                indexSlider,
-                arrayFromIndex.length,
-                "current element : ",
-                elem
-              );
+              // console.log(
+              //   "start , end  : ",
+              //   start,
+              //   end,
+              //   "index slider : ",
+              //   indexSlider,
+              //   arrayFromIndex.length,
+              //   "current element : ",
+              //   elem
+              // );
 
               if (
                 elem >= start && // case elem = 10
@@ -194,25 +246,25 @@ export default function Home() {
                           numberWidth
                         );
 
-                        console.log("#########################");
-                        console.log(
-                          "index slider : ",
-                          indexSlider,
-                          "current element : ",
-                          elem
-                        );
-                        console.log("#########################");
+                        // console.log("#########################");
+                        // console.log(
+                        //   "index slider : ",
+                        //   indexSlider,
+                        //   "current element : ",
+                        //   elem
+                        // );
+                        // console.log("#########################");
                       } else if (elem < indexSlider) {
-                        console.log("elem < index Slider ******************");
+                        // console.log("elem < index Slider ******************");
 
-                        console.log("#########################");
-                        console.log(
-                          "index slider : ",
-                          elem,
-                          "current element : ",
-                          elem
-                        );
-                        console.log("#########################");
+                        // console.log("#########################");
+                        // console.log(
+                        //   "index slider : ",
+                        //   elem,
+                        //   "current element : ",
+                        //   elem
+                        // );
+                        // console.log("#########################");
 
                         handleRight(
                           moveDivRef.current,
