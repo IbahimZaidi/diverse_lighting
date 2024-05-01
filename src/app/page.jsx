@@ -50,7 +50,7 @@ export default function Home() {
   }, [numberPagination]);
 
   return (
-    <main className=" bg-yellow-300 min-h-100vh  m-1   ">
+    <main className=" bg-yellow-300 min-h-100vh  m-1 py-16   ">
       {" "}
       {/* this section have the container of the items */}
       <section
@@ -81,7 +81,7 @@ export default function Home() {
       <section className="jsControllButtons flex justify-around items-center w-300px h-100px border border-red-300 m-auto mt-5 ">
         <button
           onClick={() =>
-            handleLeft(
+            handleRight(
               moveDivRef.current,
               numberPagination,
               indexSlider,
@@ -95,7 +95,7 @@ export default function Home() {
         </button>
         <button
           onClick={() =>
-            handleRight(
+            handleLeft(
               moveDivRef.current,
               numberPagination,
               indexSlider,

@@ -1,22 +1,6 @@
-// export const handleLeft = (elem) => {
-//   console.log("Hello from the handleLeft function ", elem);
-
-//   // move it to left (-..px  from the left , must be 1 item width )
-//   elem.style.left = `${elem.style.left - 100}px`;
-
-//   console.log(elem.style.left);
-// };
-
-// export const handleRight = (elem) => {
-//   console.log("Hello from the handleRight function ", elem);
-
-//   // move it to the right (+left )
-//   elem.style.left = `${elem.style.left + 100}px`;
-// };
-
 // function handle the left -
 
-export const handleLeft = (elem, numberPagination, index, changeIndex) => {
+export const handleRight = (elem, numberPagination, index, changeIndex) => {
   // console.log("Hello from the handleLeft function ", elem);
 
   if (index < numberPagination) {
@@ -32,7 +16,7 @@ export const handleLeft = (elem, numberPagination, index, changeIndex) => {
 };
 
 // function handle the left +
-export const handleRight = (elem, numberPagination, index, changeIndex) => {
+export const handleLeft = (elem, numberPagination, index, changeIndex) => {
   // console.log("Hello from the handleRight function ", elem);
 
   if (index > 0) {
