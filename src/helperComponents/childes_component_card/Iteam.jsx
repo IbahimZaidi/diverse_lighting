@@ -1,12 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Iteam = ({ theIndex, objectVal }) => {
+  const [valueOfColor, setValueOfColor] = useState("green");
   return (
     <div
-      className=" bg-white border border-red-500  h-400px w-400px flex justify-center items-center"
-      style={{ marginRight: "10px", backgroundColor: objectVal.colors[0].code }}
+      className=" bg-green border border-red-500  h-400px w-400px flex flex-col justify-center items-center"
+      style={{ marginRight: "10px" }}
     >
-      Iteam {theIndex ? theIndex : 0}
+      {/* the container of the image  */}
+      <div
+        className="containerImage  w-100% h-70%"
+        style={{ backgroundColor: valueOfColor }}
+      >
+        <img
+          src="/images_test/first_module.png"
+          alt="Error 404"
+          className="w-100% h-100%"
+        />
+      </div>
+
+      {/* the container of the color span's  */}
+
+      <div
+        className="containerSpansColors flex justify-center items-center  space-x-3 w-100% h-30%"
+        style={{ backgroundColor: "black" }}
+      >
+        {objectVal.colors.map((elem, index) => {
+          return (
+            <span
+              style={{ backgroundColor: elem.code }}
+              className=" rounded-full w-6 h-6 flex justify-center items-center "
+              key={index}
+              onClick={() => {
+                setValueOfColor(elem.code);
+              }}
+            ></span>
+          );
+        })}
+      </div>
     </div>
   );
 };

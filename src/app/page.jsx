@@ -161,7 +161,7 @@ export default function Home() {
               ) {
                 return (
                   <sapn
-                    className={`flex justify-center items-center bg-blue-500 w-6 text-white border-black cursor-pointer ${
+                    className={`flex justify-center items-center bg-blue-500 w-6 text-white  border-black cursor-pointer ${
                       indexSlider == elem ? "activeSpan" : ""
                     }`}
                     onClick={() => {
