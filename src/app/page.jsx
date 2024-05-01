@@ -182,7 +182,7 @@ export default function Home() {
         </div>
       </section>
       {/* this is the second section of the js controll button */}
-      <section className="jsControllButtons flex justify-around items-center w-500px h-100px border border-red-300 m-auto mt-5 ">
+      <section className="jsControllButtons flex justify-around items-center w-400px h-100px border border-red-300 m-auto mt-5 ">
         <button
           onClick={() =>
             handleRight(
@@ -198,7 +198,7 @@ export default function Home() {
           {" "}
           rightFun{" "}
         </button>
-        <div className="containerOfIndex flex justify-center space-x-1 w-50%">
+        <div className="containerOfIndex  justify-center space-x-1 w-50% hidden 2xl:flex ">
           {/* add this div for more element div  */}
           {arrayFromIndex.length > 5 && indexSlider >= 5 ? (
             <div className="moreElementDiv"> . . . </div>
