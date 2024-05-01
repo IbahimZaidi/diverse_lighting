@@ -13,7 +13,7 @@ const Iteam = ({ theIndex, objectVal }) => {
         style={{ backgroundColor: valueOfColor }}
       >
         <img
-          src="/images_test/first_module.png"
+          src="images_test/first_module.png"
           alt="Error 404"
           className="w-100% h-100%"
         />
