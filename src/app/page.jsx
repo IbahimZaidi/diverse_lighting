@@ -32,11 +32,12 @@ export default function Home() {
   const [numberPagination, setNumberPagination] = useState(0);
 
   // set container cheak the slider case :
+  const [indexSlider, setIndexSlider] = useState(1);
 
-  const [indexSlider, setIndexSlider] = useState(0);
+  // arrayFromIndex :
+  const [arrayFromIndex, setArrayFromIndex] = useState([]);
 
   // extract the limit from the data.cars.length
-
   useEffect(() => {
     // set the numberPaginaation to the new value :
     setNumberPagination(data?.cars?.length / 2 - 1); // i devide /2 because each slice of the slider have 2 items
@@ -48,6 +49,31 @@ export default function Home() {
     // log the numberPagination  :
     console.log("test lenght value ", numberPagination);
   }, [numberPagination]);
+
+  // extract the arrayFromIndex array :
+  useEffect(() => {
+    setArrayFromIndex(
+      Array.from({ length: numberPagination }, (_, index) => index + 1)
+    );
+  }, [numberPagination]);
+
+  // declare the array of array's
+  const [arrayOfArrays, setArrayOfArrays] = useState([]);
+  // arrayOfArrays :
+  useEffect(() => {
+    setArrayOfArrays(
+      Array.from(
+        { length: Math.ceil(numberPagination / 5) },
+        (_, index) => (index + 1) * 5 // this 5 is the max slide span can show in the same time
+      )
+    );
+  }, [arrayFromIndex]);
+
+  // console.log("###############################");
+  // console.log("test math equation : ", arrayOfArrays);
+  // console.log("###############################");
+
+  // console.log("the value of the arrayFromIndex is :  ", arrayFromIndex);
 
   return (
     <main className=" bg-yellow-300 min-h-100vh  m-1 py-16   ">
@@ -78,7 +104,7 @@ export default function Home() {
         </div>
       </section>
       {/* this is the second section of the js controll button */}
-      <section className="jsControllButtons flex justify-around items-center w-300px h-100px border border-red-300 m-auto mt-5 ">
+      <section className="jsControllButtons flex justify-around items-center w-500px h-100px border border-red-300 m-auto mt-5 ">
         <button
           onClick={() =>
             handleRight(
@@ -91,8 +117,99 @@ export default function Home() {
           className="buttonClick"
         >
           {" "}
-          left{" "}
+          rightFun{" "}
         </button>
+        <div className="containerOfIndex flex justify-around w-50%">
+          {arrayFromIndex.length > 0 ? (
+            arrayFromIndex.map((elem, index, theArray) => {
+              // first specifie each number equivalant from the arrayOfArray
+              // the number of index 0 to 4 must have the arrayOfArray[0]
+              // the number of index 5 to 9  must have the arrayOfArray[1]
+              const cheakIndexArrayOfArraysMin =
+                Math.floor(indexSlider / 5) * 5;
+              const cheakIndexArrayOfArraysMax =
+                Math.floor(indexSlider / 5) * 5 + 5;
+              // console.log(
+              //   "cheakIndexArrayOfArrays : ",
+              //   cheakIndexArrayOfArraysMin,
+              //   cheakIndexArrayOfArraysMax,
+              //   "index slider : ",
+              //   indexSlider,
+              //   "current element : ",
+              //   elem
+              // );
+
+              if (
+                index >= cheakIndexArrayOfArraysMin &&
+                index < cheakIndexArrayOfArraysMax
+              ) {
+                return (
+                  <sapn
+                    className=" flex justify-center items-center bg-blue-500 w-6 text-white border-black cursor-pointer"
+                    onClick={() => {
+                      if (elem > indexSlider) {
+                        handleRight(
+                          moveDivRef.current,
+                          numberPagination,
+                          elem,
+                          setIndexSlider
+                        );
+
+                        console.log("#########################");
+                        console.log(
+                          "index slider : ",
+                          indexSlider,
+                          "current element : ",
+                          elem
+                        );
+                        console.log("#########################");
+                      } else if (elem < indexSlider) {
+                        console.log("elem < index Slider ******************");
+
+                        console.log("#########################");
+                        console.log(
+                          "index slider : ",
+                          elem,
+                          "current element : ",
+                          elem
+                        );
+                        console.log("#########################");
+
+                        handleLeft(
+                          moveDivRef.current,
+                          numberPagination,
+                          indexSlider,
+                          setIndexSlider
+                        );
+                      }
+
+                      // console.log(
+                      //   "Hello from the click function span",
+                      //   elem,
+                      //   indexSlider
+                      // );
+                    }}
+                    key={index}
+                  >
+                    {" "}
+                    {elem}
+                  </sapn>
+                );
+              }
+
+              // case we more 5 slide :
+            })
+          ) : (
+            <div> is loading ..... </div>
+          )}
+
+          {/* add this div for more element div  */}
+          {arrayFromIndex.length > 5 ? (
+            <div className="moreElementDiv"> ... </div>
+          ) : (
+            ""
+          )}
+        </div>
         <button
           onClick={() =>
             handleLeft(
@@ -105,7 +222,7 @@ export default function Home() {
           className="buttonClick"
         >
           {" "}
-          right{" "}
+          leftFun{" "}
         </button>
       </section>
     </main>
