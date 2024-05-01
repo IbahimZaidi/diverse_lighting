@@ -153,11 +153,11 @@ export default function Home() {
   // console.log("the value of the arrayFromIndex is :  ", arrayFromIndex);
 
   return (
-    <main className=" bg-yellow-300 min-h-100vh  m-1 py-16   ">
+    <main className=" bg-yellow-300 min-h-100vh  m-1  py-16   ">
       {" "}
       {/* this section have the container of the items */}
       <section
-        className="container m-auto  flex bg-slate-500  relative h-500px overflow-hidden w-420px lg:w-830px 2xl:w-1240px  "
+        className="container m-auto  flex bg-slate-500  relative h-500px overflow-hidden w-400px lg:w-830px 2xl:w-1240px  "
         style={{ transition: "width .5s" }}
         ref={containerMove}
       >
@@ -167,7 +167,7 @@ export default function Home() {
           style={{
             left: "0%",
             top: "calc(50% - 200px - 16px)",
-            padding: "10px",
+            padding: `${numberWidth != 1 ? "10px" : ""}`,
             transition: "left 0.5s",
           }} // this 200px for the item half height , and 16px for the padding , to make the movement div in the middle
           ref={moveDivRef}

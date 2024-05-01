@@ -19,7 +19,7 @@ export const handleRight = (
     // mean the index must >= 2
     // Update the left value
     if (valueOfLeft == 1) {
-      elem.style.left = `${-410 * (index - 2)}px`;
+      elem.style.left = `${-400 * (index - 2)}px`;
     } else if (valueOfLeft == 2) {
       elem.style.left = `${-830 * (index - 2)}px`;
     } else {
@@ -51,7 +51,7 @@ export const handleLeft = (
   if (index < numberPagination) {
     // Update the left value
     if (valueOfLeft == 1) {
-      elem.style.left = `${-410 * index}px`;
+      elem.style.left = `${-400 * index}px`;
     } else if (valueOfLeft == 2) {
       elem.style.left = `${-820 * index}px`;
     } else {

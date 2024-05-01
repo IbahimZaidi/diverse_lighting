@@ -4,8 +4,8 @@ const Iteam = ({ theIndex, objectVal }) => {
   const [valueOfColor, setValueOfColor] = useState(objectVal.colors[0].code);
   return (
     <div
-      className=" bg-green border border-red-500  h-400px w-400px  flex flex-col justify-center items-center"
-      style={{ marginRight: "10px" }}
+      className=" bg-green border border-red-500 mr-0 lg:mr-10px h-400px w-400px  flex flex-col justify-center items-center"
+      // style={{ marginRight: "10px" }}
     >
       {/* the container of the image  */}
       <div
