@@ -6,7 +6,7 @@ export const data = {
       image: "toyota_camry_2023.jpg",
       colors: [
         { name: "White", code: "#FFFFFF" },
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
         { name: "Silver", code: "#C0C0C0" },
       ],
     },
@@ -26,7 +26,7 @@ export const data = {
       image: "bmw_5_series_2024.jpg",
       colors: [
         { name: "Silver", code: "#C0C0C0" },
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
         { name: "Blue", code: "#0000FF" },
       ],
     },
@@ -45,7 +45,7 @@ export const data = {
       model: "2024",
       image: "chevrolet_malibu_2024.jpg",
       colors: [
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
         { name: "White", code: "#FFFFFF" },
         { name: "Gray", code: "#808080" },
       ],
@@ -57,7 +57,7 @@ export const data = {
       colors: [
         { name: "Silver", code: "#C0C0C0" },
         { name: "Blue", code: "#0000FF" },
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
       ],
     },
     {
@@ -65,7 +65,7 @@ export const data = {
       model: "2022",
       image: "mercedes_e_class_2022.jpg",
       colors: [
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
         { name: "Silver", code: "#C0C0C0" },
         { name: "White", code: "#FFFFFF" },
       ],
@@ -76,7 +76,7 @@ export const data = {
       image: "lexus_es_2024.jpg",
       colors: [
         { name: "White", code: "#FFFFFF" },
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
         { name: "Silver", code: "#C0C0C0" },
       ],
     },
@@ -96,7 +96,7 @@ export const data = {
       image: "kia_optima_2022.jpg",
       colors: [
         { name: "White", code: "#FFFFFF" },
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
         { name: "Blue", code: "#0000FF" },
       ],
     },
@@ -106,7 +106,7 @@ export const data = {
       image: "volkswagen_passat_2024.jpg",
       colors: [
         { name: "Gray", code: "#808080" },
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
         { name: "Silver", code: "#C0C0C0" },
       ],
     },
@@ -125,7 +125,7 @@ export const data = {
       model: "2022",
       image: "subaru_legacy_2022.jpg",
       colors: [
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
         { name: "White", code: "#FFFFFF" },
         { name: "Blue", code: "#0000FF" },
       ],
@@ -137,7 +137,7 @@ export const data = {
       colors: [
         { name: "Red", code: "#FF0000" },
         { name: "Gray", code: "#808080" },
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
       ],
     },
     {
@@ -146,7 +146,7 @@ export const data = {
       image: "nissan_altima_2023.jpg",
       colors: [
         { name: "White", code: "#FFFFFF" },
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
         { name: "Blue", code: "#0000FF" },
       ],
     },
@@ -155,7 +155,7 @@ export const data = {
       model: "2022",
       image: "jeep_grand_cherokee_2022.jpg",
       colors: [
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
         { name: "White", code: "#FFFFFF" },
         { name: "Gray", code: "#808080" },
       ],
@@ -165,7 +165,7 @@ export const data = {
       model: "2024",
       image: "land_rover_range_rover_2024.jpg",
       colors: [
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
         { name: "White", code: "#FFFFFF" },
         { name: "Silver", code: "#C0C0C0" },
       ],
@@ -176,7 +176,7 @@ export const data = {
       image: "porsche_panamera_2023.jpg",
       colors: [
         { name: "Red", code: "#FF0000" },
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
         { name: "Blue", code: "#0000FF" },
       ],
     },
@@ -186,7 +186,7 @@ export const data = {
       image: "volvo_s60_2022.jpg",
       colors: [
         { name: "White", code: "#FFFFFF" },
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
         { name: "Silver", code: "#C0C0C0" },
       ],
     },
@@ -196,7 +196,17 @@ export const data = {
       image: "jaguar_xf_2024.jpg",
       colors: [
         { name: "Gray", code: "#808080" },
-        { name: "Black", code: "#000000" },
+        { name: "Black", code: "green" },
+        { name: "Blue", code: "#0000FF" },
+      ],
+    },
+    {
+      name: "Jaguar XF",
+      model: "2024",
+      image: "jaguar_xf_2024.jpg",
+      colors: [
+        { name: "Gray", code: "#0000FF" },
+        { name: "Black", code: "green" },
         { name: "Blue", code: "#0000FF" },
       ],
     },

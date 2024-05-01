@@ -40,7 +40,7 @@ export default function Home() {
   // extract the limit from the data.cars.length
   useEffect(() => {
     // set the numberPaginaation to the new value :
-    setNumberPagination(data?.cars?.length / 2); // i devide /2 because each slice of the slider have 2 items
+    setNumberPagination(Math.ceil(data?.cars?.length / 2)); // i devide /2 because each slice of the slider have 2 items
     // console.log("this is the length : ", data?.cars?.length);
   }, [data]);
 
@@ -150,6 +150,7 @@ export default function Home() {
                 end,
                 "index slider : ",
                 indexSlider,
+                arrayFromIndex.length,
                 "current element : ",
                 elem
               );
@@ -222,7 +223,8 @@ export default function Home() {
           )}
 
           {/* add this div for more element div  */}
-          {arrayFromIndex.length > 5 && indexSlider < arrayFromIndex.length ? (
+          {arrayFromIndex.length > 5 &&
+          indexSlider < Math.floor(arrayFromIndex.length / 5) * 5 ? ( // must indexSlider < 9 , 10 , 11 ( mean )
             <div className="moreElementDiv"> . . . </div>
           ) : (
             ""
