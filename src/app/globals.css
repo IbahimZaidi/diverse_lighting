@@ -42,7 +42,7 @@ body {
 /* active span  class  */
 
 .activeSpan {
-  @apply border border-black;
+  @apply border-2 border-black;
 }
 
 /* disabled class */
