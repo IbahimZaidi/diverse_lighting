@@ -81,18 +81,39 @@ export const handleLeft = (
 // function cheak the current Width change
 
 export const cheakWidthChangeCurrentWidthNumber = (
-  element,
   setNumberWidth,
-  numberWidth
+  historyPrevNumberWidth
 ) => {
   // cheak value of width and change the currentWidthNumber
-
   const currentWidthPage = window.innerWidth;
 
   // console.log(
   //   "hello , this is the currentWidth of the page : ",
   //   currentWidthPage
   // );
+
+  // fisrst slice the array of History screan :
+
+  const newHistory = historyPrevNumberWidth;
+  newHistory.lenghth > 3 ? newHistory : "";
+
+  // cheak the change of the width :
+  // if (currentWidthPage <= 1024) {
+  //   setNumberWidth((prev) => {
+  //     historyPrevNumberWidth.push(prev);
+  //     return 1;
+  //   });
+  // } else if (currentWidthPage > 1024 && currentWidthPage <= 1536) {
+  //   setNumberWidth((prev) => {
+  //     historyPrevNumberWidth.push(prev);
+  //     return 1;
+  //   });
+  // } else {
+  //   setNumberWidth((prev) => {
+  //     historyPrevNumberWidth.push(prev);
+  //     return 1;
+  //   });
+  // }
 
   if (currentWidthPage <= 1024) {
     setNumberWidth(() => 1);

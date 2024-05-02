@@ -33,21 +33,19 @@ export default function Home() {
   const containerMove = useRef();
 
   // the number change with the width :
-  const [numberWidth, setNumberWidth] = useState(3);
+  const [numberWidth, setNumberWidth] = useState();
 
+  // const of History of last 3 screan :
+
+  const [historyPrevNumberWidth, setHistoryPrevNumberWidth] = useState([]);
   useEffect(() => {
     // this is to cheak the first time before the resize of the window :
-    cheakWidthChangeCurrentWidthNumber(
-      containerMove.current,
-      setNumberWidth,
-      numberWidth
-    );
+    cheakWidthChangeCurrentWidthNumber(setNumberWidth, historyPrevNumberWidth);
     // add eventLister in case of resize the window :
     window.addEventListener("resize", () => {
       cheakWidthChangeCurrentWidthNumber(
-        containerMove.current,
         setNumberWidth,
-        numberWidth
+        historyPrevNumberWidth
       );
     });
   }, []);
@@ -75,6 +73,15 @@ export default function Home() {
     // window.reload();
     // Reload the current page
   }, [data, numberWidth]);
+
+  useEffect(() => {
+    // affiche the numberPagination :
+
+    console.log(
+      "YYYYYYYYYYYYYYYYYYYYYYYYYYYYY number pagination : ",
+      numberPagination
+    );
+  }, [numberPagination]);
 
   // tracker of the change of the numberWidth :
 
