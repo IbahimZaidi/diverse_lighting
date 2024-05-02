@@ -157,7 +157,7 @@ export default function Home() {
       {" "}
       {/* this section have the container of the items */}
       <section
-        className="container m-auto  flex bg-slate-500  relative h-500px overflow-hidden w-300px lg:w-830px 2xl:w-1240px  "
+        className="container m-auto  flex bg-slate-500  relative h-400px lg:h-500px overflow-hidden w-300px lg:w-830px 2xl:w-1240px  "
         style={{ transition: "width .5s" }}
         ref={containerMove}
       >
@@ -165,8 +165,14 @@ export default function Home() {
         <div
           className="moveDiv w-fit flex   absolute  "
           style={{
-            left: "0%",
-            top: "calc(50% - 200px - 16px)",
+            left: `${
+              numberWidth != 1 ? "0%" : "0%" // -150px for the hald width of the item(300px)
+            }`,
+            top: `${
+              numberWidth != 1
+                ? "calc(50% - 200px - 10px)" // -200px becaus the item have a height 400px , and 10px for the padding top
+                : "calc(50% - 150px )" // -150px for the hald height of the item(300px)
+            }`,
             padding: `${numberWidth != 1 ? "10px" : ""}`,
             transition: "left 0.5s",
           }} // this 200px for the item half height , and 16px for the padding , to make the movement div in the middle
