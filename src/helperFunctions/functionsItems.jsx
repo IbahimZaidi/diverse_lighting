@@ -80,47 +80,22 @@ export const handleLeft = (
 
 // function cheak the current Width change
 
-export const cheakWidthChangeCurrentWidthNumber = (
-  setNumberWidth,
-  historyPrevNumberWidth
-) => {
+export const cheakWidthChangeCurrentWidthNumber = (setNumberWidth) => {
   // cheak value of width and change the currentWidthNumber
   const currentWidthPage = window.innerWidth;
 
-  // console.log(
-  //   "hello , this is the currentWidth of the page : ",
-  //   currentWidthPage
-  // );
-
-  // fisrst slice the array of History screan :
-
-  const newHistory = historyPrevNumberWidth;
-  newHistory.lenghth > 3 ? newHistory : "";
-
-  // cheak the change of the width :
-  // if (currentWidthPage <= 1024) {
-  //   setNumberWidth((prev) => {
-  //     historyPrevNumberWidth.push(prev);
-  //     return 1;
-  //   });
-  // } else if (currentWidthPage > 1024 && currentWidthPage <= 1536) {
-  //   setNumberWidth((prev) => {
-  //     historyPrevNumberWidth.push(prev);
-  //     return 1;
-  //   });
-  // } else {
-  //   setNumberWidth((prev) => {
-  //     historyPrevNumberWidth.push(prev);
-  //     return 1;
-  //   });
-  // }
-
   if (currentWidthPage <= 1024) {
-    setNumberWidth(() => 1);
+    setNumberWidth(() => {
+      return 1;
+    });
   } else if (currentWidthPage > 1024 && currentWidthPage <= 1536) {
-    setNumberWidth(() => 2);
+    setNumberWidth(() => {
+      return 2;
+    });
   } else {
-    setNumberWidth(() => 3);
+    setNumberWidth(() => {
+      return 3;
+    });
   }
 };
 
@@ -139,7 +114,7 @@ export const changeLeftMovDiv = (
     if (numberWidth == 1) {
       console.log("hello from the number widht == 1 from the changeLeftMovDiv");
       setIndexSlider((prev) => {
-        const newValue = prev * 2;
+        const newValue = prev * 2 - 1;
 
         // console.log(
         //   "Hello from the change to 1 from 2 , this is saveOld3 : ",
@@ -157,7 +132,7 @@ export const changeLeftMovDiv = (
     } else if (numberWidth == 2) {
       //
       setIndexSlider((prev) => {
-        const newValue = Math.floor((prev * 3) / 2) - 1;
+        const newValue = Math.floor((prev * 3) / 2);
 
         // cheak if the prev == 3 and update the :
 
@@ -222,4 +197,23 @@ export const changeIndexSliderTracker = (
     );
   }
   // }
+};
+
+// function change the history Array when the numberWidth change :
+
+export const historyNubmerWidth = (
+  setHistoryPrevNumberWidth,
+  historyNubmerWidth,
+  numberWidth
+) => {
+  if (numberWidth) {
+    setHistoryPrevNumberWidth((prev) => {
+      if (prev != numberWidth) {
+        //
+        return [...prev, numberWidth];
+      } else {
+        return prev;
+      }
+    });
+  }
 };

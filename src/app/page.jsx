@@ -7,7 +7,11 @@ import Iteam from "@/helperComponents/childes_component_card/Iteam";
 import { data } from "@/data/data";
 
 // imort the handle on click functions :
-import { handleLeft, handleRight } from "@/helperFunctions/functionsItems";
+import {
+  handleLeft,
+  handleRight,
+  historyNubmerWidth,
+} from "@/helperFunctions/functionsItems";
 import { useEffect, useRef, useState } from "react";
 
 // import the function handle the change of the width of the body :
@@ -40,16 +44,41 @@ export default function Home() {
   const [historyPrevNumberWidth, setHistoryPrevNumberWidth] = useState([]);
   useEffect(() => {
     // this is to cheak the first time before the resize of the window :
-    cheakWidthChangeCurrentWidthNumber(setNumberWidth, historyPrevNumberWidth);
+    cheakWidthChangeCurrentWidthNumber(setNumberWidth);
     // add eventLister in case of resize the window :
     window.addEventListener("resize", () => {
-      cheakWidthChangeCurrentWidthNumber(
-        setNumberWidth,
-        historyPrevNumberWidth
-      );
+      cheakWidthChangeCurrentWidthNumber(setNumberWidth);
     });
   }, []);
 
+  // change the value of the history :
+
+  useEffect(() => {
+    const slicedHistory = historyPrevNumberWidth.slice(-3);
+    if (historyPrevNumberWidth.length > 3) {
+      historyNubmerWidth(setHistoryPrevNumberWidth, slicedHistory, numberWidth);
+    } else {
+      historyNubmerWidth(
+        setHistoryPrevNumberWidth,
+        historyNubmerWidth,
+        numberWidth
+      );
+    }
+  }, [numberWidth]);
+
+  // make sure remove repition :
+
+  // cheak the historyPrevNumberWidth :
+
+  useEffect(() => {
+    console.log(
+      "Y&&&&&&&&&&&&&&&&&&&&&&&&&&&&& __________________ ",
+      historyPrevNumberWidth,
+      historyPrevNumberWidth.length > 3
+        ? historyPrevNumberWidth.slice(-3)
+        : historyPrevNumberWidth
+    );
+  }, [historyPrevNumberWidth]);
   // first declare the variable contain the number of pagination :
   const [numberPagination, setNumberPagination] = useState(0);
 

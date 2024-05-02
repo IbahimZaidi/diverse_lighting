@@ -446,5 +446,16 @@ export const data = {
         { name: "Gray", code: "#808080" },
       ],
     },
+    {
+      name: "Porsche Panamera",
+      model: "2023",
+      image: "porsche_panamera_2023.jpg",
+      colors: [
+        { name: "Red", code: "#FF0000" },
+        { name: "Black", code: "#000000" },
+        { name: "Blue", code: "#0000FF" },
+        { name: "Gray", code: "#808080" },
+      ],
+    },
   ],
 };
