@@ -23,7 +23,9 @@ const Iteam = ({ theIndex, objectVal }) => {
 
       <div
         className="containerSpansColors flex justify-center items-center  space-x-3 w-100% h-30%"
-        style={{ backgroundColor: "black" }}
+        style={{
+          backgroundImage: "linear-gradient(to bottom,  #dcdfe4 , #a3c8ff)",
+        }}
       >
         <span className=" w-6 h-6 flex justify-center items-center text-white bg-yellow-500 ">
           {" "}
