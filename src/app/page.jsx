@@ -13,14 +13,21 @@ import { useEffect, useRef, useState } from "react";
 // import the function handle the change of the width of the body :
 import { cheakWidthChangeCurrentWidthNumber } from "@/helperFunctions/functionsItems";
 //
-//
+// import the change the index slider base on the resize of the sceane :
+import { changeLeftMovDiv } from "@/helperFunctions/functionsItems";
+
+// import the function track the change of the indexSlider :
+import { changeIndexSliderTracker } from "@/helperFunctions/functionsItems";
+
 // start of the main component
 export default function Home() {
   // test the value of the data in the console first
   // console.log("this is the data json info : ", data);
 
+  // make the data into a state :
+
   // useRef() for the div mouvemenet :
-  const moveDivRef = useRef();
+  const [moveDivRef, setMoveDiveRef] = useState(useRef());
 
   // useRef() for the section contain the movement Div :
   const containerMove = useRef();
@@ -54,70 +61,45 @@ export default function Home() {
   // arrayFromIndex :
   const [arrayFromIndex, setArrayFromIndex] = useState([]);
 
+  // this value for fix issue of resize width:
   // extract the limit from the data.cars.length
   useEffect(() => {
     // set the numberPaginaation to the new value :
     setNumberPagination(Math.ceil(data?.cars?.length / numberWidth)); // i devide /2 because each slice of the slider have 2 items
     // console.log("this is the length : ");
 
-    // cheak the index Slider :
+    // cheak the value of the index Slider :
 
-    // if (indexSlider != 1) {
-    // != 1 to avoid the default case on refresh , and the case 1 will not be differente at any value of numberWidth (1,2,3)
-
-    // if (numberWidth == 1) {
-    //   setIndexSlider((prev) => {
-    //     const newValue = Math.floor(prev * 1);
-
-    //     moveDivRef.current.elem.style.left = `${-410 * newValue}px`;
-
-    //     return newValue;
-    //   });
-    //   // change the left of the mouvement Div
-    // } else if (numberWidth == 2) {
-    //   //
-    //   setIndexSlider((prev) => {
-    //     const newValue = Math.floor(prev * 1);
-
-    //     moveDivRef.current.elem.style.left = `${-820 * newValue}px`;
-
-    //     return newValue;
-    //   });
-    //   // change the left of the mouvement Div
-    // } else {
-    //   // mena numberWidth == 3
-
-    //   setIndexSlider((prev) => {
-    //     const newValue = Math.floor(prev * 1);
-
-    //     moveDivRef.current.elem.style.left = `${-1230 * newValue}px`;
-
-    //     return newValue;
-    //   });
-    //   // change the left of the mouvement Div
-    // }
-    // }
+    console.log(" this is the value of the indexSlider ", indexSlider);
 
     // window.reload();
     // Reload the current page
   }, [data, numberWidth]);
 
-  const isInitialRender = useRef(true);
+  // tracker of the change of the numberWidth :
 
   useEffect(() => {
-    // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-    // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-    // console.log(numberPagination, numberWidth);
-    // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-    // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-    // window.location.reload();
-  }, [numberPagination]);
-
-  //  test the numberPagination value :
+    changeLeftMovDiv(indexSlider, numberWidth, setIndexSlider);
+  }, [numberWidth]);
+  // tarcker of indexSlider change :
   useEffect(() => {
-    // log the numberPagination  :
-    // console.log("test lenght value ", numberPagination);
-  }, [numberPagination]);
+    if (indexSlider != 1) {
+      changeIndexSliderTracker(
+        moveDivRef.current,
+        numberPagination,
+        indexSlider,
+        setIndexSlider,
+        numberWidth
+      ); // Change parameter name to divMovRef to reflect that it's a ref
+      console.log(
+        "this is the value of index Slider : ___________________________________",
+        indexSlider,
+        numberWidth
+      );
+    }
+  }, [indexSlider]);
+
+  // const isInitialRender = useRef(true);
 
   // extract the arrayFromIndex array :
   useEffect(() => {

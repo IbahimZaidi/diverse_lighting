@@ -78,6 +78,8 @@ export const handleLeft = (
   // console.log("from Left function , the current left : ", elem.style.left);
 };
 
+// function cheak the current Width change
+
 export const cheakWidthChangeCurrentWidthNumber = (
   element,
   setNumberWidth,
@@ -99,4 +101,104 @@ export const cheakWidthChangeCurrentWidthNumber = (
   } else {
     setNumberWidth(() => 3);
   }
+};
+
+//
+
+// a function for fix the width when the indexSlider changed :
+export const changeLeftMovDiv = (
+  indexSliderVal,
+  numberWidth,
+  setIndexSlider
+) => {
+  // cheak the index Slider :
+  if (indexSliderVal != 1) {
+    // != 1 to avoid the default case on refresh , and the case 1 will not be differente at any value of numberWidth (1,2,3)
+
+    if (numberWidth == 1) {
+      console.log("hello from the number widht == 1 from the changeLeftMovDiv");
+      setIndexSlider((prev) => {
+        const newValue = prev * 2;
+
+        // console.log(
+        //   "Hello from the change to 1 from 2 , this is saveOld3 : ",
+        //   saveOld3,
+        //   " , and this is the new value of the indexSlider :  ",
+        //   newValue,
+        //   "and this is the value of the number Width : ",
+        //   numberWidth
+        // );
+
+        // set the setSaveOld3 back to null
+        return newValue;
+      });
+      // change the left of the mouvement Div
+    } else if (numberWidth == 2) {
+      //
+      setIndexSlider((prev) => {
+        const newValue = Math.floor((prev * 3) / 2) - 1;
+
+        // cheak if the prev == 3 and update the :
+
+        return newValue;
+      });
+      // change the left of the mouvement Div
+    }
+  }
+};
+
+// // function not changing the indexSlider and run every time indexSlider change with useEffect :
+// export const changeIndexSliderTracker = (
+//   indexSliderVal,
+//   numberWidth,
+//   divMov
+// ) => {
+//   // we need to cheak to go forwad or backword ??
+//   divMov && divMov?.elem
+//     ? (window.getComputedStyle(divMov).left = `${-325 * indexSliderVal}px`)
+//     : "";
+
+//   if (indexSliderVal == 18) {
+//     console.log(
+//       "####################################### this is the value of the left current  ",
+//       window.getComputedStyle(divMov).left,
+//       " and this is the math calculation : ",
+//       -325 * indexSliderVal
+//     );
+//     // divMov && divMov?.elem ? (divMov.elem.style.left = `${-325}px`) : "";
+//     // value of new left :
+//   }
+// };
+
+export const changeIndexSliderTracker = (
+  divMovRef,
+  numberPagination,
+  index,
+  setIndexSlider,
+  valueOfLeft // Change parameter name to divMovRef to reflect that it's a ref
+) => {
+  // Check if divMovRef and divMovRef.current are both defined
+  // if (divMovRef && divMovRef.elem) {
+  // handleLeft(divMovRef, numberPagination, index, setIndexSlider, valueOfLeft);
+
+  if (index < numberPagination) {
+    // Update the left value
+    if (valueOfLeft == 1) {
+      divMovRef.style.left = `${-325 * (index - 1)}px`;
+    } else if (valueOfLeft == 2) {
+      divMovRef.style.left = `${-820 * (index - 1)}px`;
+    } else {
+      divMovRef.style.left = `${-1230 * (index - 1)}px`;
+    }
+
+    console.log(
+      "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% indexSlider ",
+      index,
+      " numberPagination : ",
+      numberPagination,
+      " number width : ",
+      valueOfLeft
+    );
+  }
+  // }
 };
