@@ -217,3 +217,15 @@ export const historyNubmerWidth = (
     });
   }
 };
+
+// slice only the 3 last elements :
+
+export const sliceLast3Element = (
+  historyPrevNumberWidth,
+  setHistoryPrevNumberWidth
+) => {
+  const sliceArrayTes = historyPrevNumberWidth.slice(-3);
+  setHistoryPrevNumberWidth(sliceArrayTes);
+};
+
+// use the history of numberWidth to move the mouvement div :

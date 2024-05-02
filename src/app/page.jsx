@@ -23,6 +23,9 @@ import { changeLeftMovDiv } from "@/helperFunctions/functionsItems";
 // import the function track the change of the indexSlider :
 import { changeIndexSliderTracker } from "@/helperFunctions/functionsItems";
 
+// import the function save only 3 last element in the history :
+import { sliceLast3Element } from "@/helperFunctions/functionsItems";
+
 // start of the main component
 export default function Home() {
   // test the value of the data in the console first
@@ -66,19 +69,14 @@ export default function Home() {
     }
   }, [numberWidth]);
 
-  // make sure remove repition :
-
-  // cheak the historyPrevNumberWidth :
+  // make sure only we have 3 last in the history div  :
 
   useEffect(() => {
-    console.log(
-      "Y&&&&&&&&&&&&&&&&&&&&&&&&&&&&& __________________ ",
-      historyPrevNumberWidth,
-      historyPrevNumberWidth.length > 3
-        ? historyPrevNumberWidth.slice(-3)
-        : historyPrevNumberWidth
-    );
+    historyPrevNumberWidth.length > 3
+      ? sliceLast3Element(historyPrevNumberWidth, setHistoryPrevNumberWidth)
+      : "";
   }, [historyPrevNumberWidth]);
+
   // first declare the variable contain the number of pagination :
   const [numberPagination, setNumberPagination] = useState(0);
 
