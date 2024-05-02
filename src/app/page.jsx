@@ -157,17 +157,15 @@ export default function Home() {
       {" "}
       {/* this section have the container of the items */}
       <section
-        className="container m-auto  flex bg-slate-500  relative h-400px lg:h-500px overflow-hidden w-300px lg:w-830px 2xl:w-1240px  "
+        className="container m-auto  flex bg-slate-500  relative h-400px lg:h-500px overflow-hidden w-350px lg:w-830px 2xl:w-1240px  "
         style={{ transition: "width .5s" }}
         ref={containerMove}
       >
         {/* this is the inside div contain the move div with changing the left in css  */}
         <div
-          className="moveDiv w-fit flex   absolute  "
+          className="moveDiv w-fit flex pl-25px lg:pl-0   absolute box-border  " // make border border-black to cheak it
           style={{
-            left: `${
-              numberWidth != 1 ? "0%" : "0%" // -150px for the hald width of the item(300px)
-            }`,
+            left: "0%", // -150px for the hald width of the item(300px),
             top: `${
               numberWidth != 1
                 ? "calc(50% - 200px - 10px)" // -200px becaus the item have a height 400px , and 10px for the padding top
