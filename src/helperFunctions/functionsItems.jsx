@@ -109,7 +109,7 @@ export const changeLeftMovDiv = (
   historyPrevNumberWidth
 ) => {
   // cheak the index Slider :
-  if (indexSliderVal != 1) {
+  if (indexSliderVal != 1 && historyPrevNumberWidth.length <= 2) {
     // != 1 to avoid the default case on refresh , and the case 1 will not be differente at any value of numberWidth (1,2,3)
 
     if (numberWidth == 1) {
@@ -162,7 +162,7 @@ export const changeLeftMovDiv = (
           if (prevLast == 1) {
             // in case we got from 1 screan to 2 screan :
 
-            newValue = Math.floor(prev / 2) + 1;
+            newValue = Math.floor(prev / 2);
           }
           if (prevLast == 3) {
             // in case we got from 3 screan to 2 screan :
