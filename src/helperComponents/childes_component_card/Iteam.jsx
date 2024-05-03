@@ -10,7 +10,10 @@ const Iteam = ({ theIndex, objectVal }) => {
       {/* the container of the image  */}
       <div
         className="containerImage  w-100% h-70%"
-        style={{ backgroundColor: valueOfColor }}
+        style={{
+          backgroundColor: valueOfColor,
+          transition: "background-color 1s",
+        }}
       >
         <img
           src={`images_test/${objectVal.image}`} // make the image dynamique from the json data :
