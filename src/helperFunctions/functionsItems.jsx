@@ -106,7 +106,8 @@ export const changeLeftMovDiv = (
   indexSliderVal,
   numberWidth,
   setIndexSlider,
-  historyPrevNumberWidth
+  historyPrevNumberWidth,
+  dataLength
 ) => {
   // cheak the index Slider :
   if (
@@ -130,7 +131,7 @@ export const changeLeftMovDiv = (
         if (historyPrevNumberWidth.length > 1) {
           if (prevLast == 2) {
             // in case we got from 2 screan to 1 screan :
-            newValue = prev * 2; // the case of prev = 0 don't exist and the case of 1 is already don't process do to the if fist in this function
+            newValue = prev * 2 == dataLength ? prev * 2 - 1 : prev * 2; // the case of prev = 0 don't exist and the case of 1 is already don't process do to the if fist in this function
           }
         }
 

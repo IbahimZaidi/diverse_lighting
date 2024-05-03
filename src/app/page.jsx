@@ -98,6 +98,10 @@ export default function Home() {
   // arrayFromIndex :
   const [arrayFromIndex, setArrayFromIndex] = useState([]);
 
+  // const set the data length :
+
+  const [dataLength, setDataLength] = useState(0);
+
   // this value for fix issue of resize width:
   // extract the limit from the data.cars.length
   useEffect(() => {
@@ -109,6 +113,7 @@ export default function Home() {
 
     console.log(" this is the value of the indexSlider ", indexSlider);
 
+    setDataLength(data?.cars?.length);
     // window.reload();
     // Reload the current page
   }, [data, numberWidth]);
@@ -129,7 +134,8 @@ export default function Home() {
       indexSlider,
       numberWidth,
       setIndexSlider,
-      historyPrevNumberWidth
+      historyPrevNumberWidth,
+      dataLength
     );
   }, [historyPrevNumberWidth]);
   // tarcker of indexSlider change :
