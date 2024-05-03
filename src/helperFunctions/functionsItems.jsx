@@ -149,6 +149,8 @@ export const changeLeftMovDiv = (
       // change the left of the mouvement Div
     } else if (numberWidth == 2) {
       //
+
+      //
       setIndexSlider((prev) => {
         // const newValue = Math.floor((prev * 3) / 2);
 
