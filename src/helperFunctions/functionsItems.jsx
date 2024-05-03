@@ -169,7 +169,10 @@ export const changeLeftMovDiv = (
           if (prevLast == 3) {
             // in case we got from 3 screan to 2 screan :
             // newValue = Math.floor((prev * 3) / 2);
-            newValue = 9;
+            newValue =
+              prev % 2 == 0
+                ? Math.floor(prev / 2) * 3
+                : (Math.floor(prev / 2) + 1) * 3;
           }
         }
 
@@ -203,12 +206,12 @@ export const changeLeftMovDiv = (
         if (historyPrevNumberWidth.length > 1) {
           if (prevLast == 2) {
             // in case we got from 2 screan to 3 screan :
-            newValue = (Math.floor(prev / 2) + 1) * 3;
+            newValue = Math.floor((prev * 2) / 3);
           }
         }
 
         console.log(
-          "the number of current Width ",
+          "########################## the number of current Width ",
           numberWidth,
           "and the previous number width : ",
           historyPrevNumberWidth,
