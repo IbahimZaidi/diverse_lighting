@@ -109,7 +109,10 @@ export const changeLeftMovDiv = (
   historyPrevNumberWidth
 ) => {
   // cheak the index Slider :
-  if (indexSliderVal != 1 && historyPrevNumberWidth.length <= 2) {
+  if (
+    indexSliderVal != 1 &&
+    historyPrevNumberWidth.length <= 2 // > 0 to avoid the first time
+  ) {
     // != 1 to avoid the default case on refresh , and the case 1 will not be differente at any value of numberWidth (1,2,3)
 
     if (numberWidth == 1) {
@@ -165,13 +168,12 @@ export const changeLeftMovDiv = (
           if (prevLast == 1) {
             // in case we got from 1 screan to 2 screan :
 
-            newValue =
-              prev % 2 == 0 ? Math.floor(prev / 2) : Math.floor(prev / 2) + 1;
+            newValue = Math.floor(prev / 2);
           }
           if (prevLast == 3) {
             // in case we got from 3 screan to 2 screan :
             // newValue = Math.floor((prev * 3) / 2);
-            newValue = Math.floor(prev * 3) / 2;
+            newValue = Math.floor((prev * 3) / 2);
           }
         }
 
@@ -211,6 +213,46 @@ export const changeLeftMovDiv = (
 
         console.log(
           "########################## the number of current Width ",
+          numberWidth,
+          "and the previous number width : ",
+          historyPrevNumberWidth,
+          "indexSliderVal is change from    ",
+          prev,
+          " to :",
+          newValue
+        );
+
+        // set the setSaveOld3 back to null
+        return newValue;
+      });
+      // change the left of the mouvement Div
+    }
+  }
+
+  if (indexSliderVal == 1 && historyPrevNumberWidth.length == 2) {
+    // mean come from 2 to 1
+
+    if (numberWidth == 1) {
+      setIndexSlider((prev) => {
+        // const newValue = prev * 2 - 1;
+
+        // declare the container of the new value :
+        let newValue;
+
+        // get the prev last from the historyPrevNumberWidth :
+
+        const prevLast =
+          historyPrevNumberWidth[historyPrevNumberWidth.length - 2];
+        if (historyPrevNumberWidth.length > 1) {
+          if (prevLast == 2) {
+            // in case we got from 2 screan to 1 screan :
+            newValue = prev * 2; // the case of prev = 0 don't exist and the case of 1 is already don't process do to the if fist in this function
+          }
+        }
+
+        console.log(
+          "####################################### the number of current Width ",
+
           numberWidth,
           "and the previous number width : ",
           historyPrevNumberWidth,
