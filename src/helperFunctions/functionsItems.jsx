@@ -169,10 +169,7 @@ export const changeLeftMovDiv = (
           if (prevLast == 3) {
             // in case we got from 3 screan to 2 screan :
             // newValue = Math.floor((prev * 3) / 2);
-            newValue =
-              prev % 2 == 0
-                ? Math.floor(prev / 2) * 3
-                : (Math.floor(prev / 2) + 1) * 3;
+            newValue = Math.floor(prev * 3) / 2;
           }
         }
 
