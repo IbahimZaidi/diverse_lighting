@@ -70,11 +70,19 @@ export default function Home() {
   }, [numberWidth]);
 
   // make sure only we have 3 last in the history div  :
-
   useEffect(() => {
-    historyPrevNumberWidth.length > 3
+    historyPrevNumberWidth.length > 2
       ? sliceLast3Element(historyPrevNumberWidth, setHistoryPrevNumberWidth)
       : "";
+  }, [historyPrevNumberWidth]);
+
+  // cheak the historyPrevNumberWidth :
+
+  useEffect(() => {
+    console.log(
+      "Y&&&&&&&&&&&&&&&&&&&&&&&&&&&&&(((((((((((((((((()))))))))))))))))) __________________ ",
+      historyPrevNumberWidth
+    );
   }, [historyPrevNumberWidth]);
 
   // first declare the variable contain the number of pagination :
@@ -113,8 +121,13 @@ export default function Home() {
   // tracker of the change of the numberWidth :
 
   useEffect(() => {
-    changeLeftMovDiv(indexSlider, numberWidth, setIndexSlider);
-  }, [numberWidth]);
+    changeLeftMovDiv(
+      indexSlider,
+      numberWidth,
+      setIndexSlider,
+      historyPrevNumberWidth
+    );
+  }, [historyPrevNumberWidth]);
   // tarcker of indexSlider change :
   useEffect(() => {
     if (indexSlider != 1) {
@@ -122,7 +135,7 @@ export default function Home() {
         moveDivRef.current,
         numberPagination,
         indexSlider,
-        setIndexSlider,
+        // setIndexSlider,
         numberWidth
       ); // Change parameter name to divMovRef to reflect that it's a ref
       console.log(
@@ -131,7 +144,7 @@ export default function Home() {
         numberWidth
       );
     }
-  }, [indexSlider]);
+  }, [indexSlider, numberWidth]);
 
   // const isInitialRender = useRef(true);
 
@@ -203,7 +216,7 @@ export default function Home() {
       </section>
       {/* this is the second section of the js controll button */}
       <section className="jsControllButtons flex justify-around items-center w-300px xl:w-400px 2xl:w-500px h-100px border border-red-300 m-auto mt-5 ">
-        <button
+        <buttonc
           onClick={() =>
             handleRight(
               moveDivRef.current,
@@ -217,8 +230,8 @@ export default function Home() {
         >
           {" "}
           rightFun{" "}
-        </button>
-        <div className="containerOfIndex  justify-center space-x-1 w-50% hidden 2xl:flex ">
+        </buttonc>
+        <div className="containerOfIndex  justify-center space-x-1 w-50% hidden lg:flex ">
           {/* add this div for more element div  */}
           {arrayFromIndex.length > 5 && indexSlider >= 5 ? (
             <div className="moreElementDiv"> . . . </div>

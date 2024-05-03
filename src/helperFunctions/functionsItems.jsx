@@ -101,11 +101,12 @@ export const cheakWidthChangeCurrentWidthNumber = (setNumberWidth) => {
 
 //
 
-// a function for fix the width when the indexSlider changed :
+// a function change the indexSlider value when the nubmerWidth change (1,2,3)
 export const changeLeftMovDiv = (
   indexSliderVal,
   numberWidth,
-  setIndexSlider
+  setIndexSlider,
+  historyPrevNumberWidth
 ) => {
   // cheak the index Slider :
   if (indexSliderVal != 1) {
@@ -114,16 +115,32 @@ export const changeLeftMovDiv = (
     if (numberWidth == 1) {
       console.log("hello from the number widht == 1 from the changeLeftMovDiv");
       setIndexSlider((prev) => {
-        const newValue = prev * 2 - 1;
+        // const newValue = prev * 2 - 1;
 
-        // console.log(
-        //   "Hello from the change to 1 from 2 , this is saveOld3 : ",
-        //   saveOld3,
-        //   " , and this is the new value of the indexSlider :  ",
-        //   newValue,
-        //   "and this is the value of the number Width : ",
-        //   numberWidth
-        // );
+        // declare the container of the new value :
+        let newValue;
+
+        // get the prev last from the historyPrevNumberWidth :
+
+        const prevLast =
+          historyPrevNumberWidth[historyPrevNumberWidth.length - 2];
+        if (historyPrevNumberWidth.length > 1) {
+          if (prevLast == 2) {
+            // in case we got from 2 screan to 1 screan :
+            newValue = prev * 2;
+          }
+        }
+
+        console.log(
+          "the number of current Width ",
+          numberWidth,
+          "and the previous number width : ",
+          historyPrevNumberWidth,
+          "indexSliderVal is change from    ",
+          prev,
+          " to :",
+          newValue
+        );
 
         // set the setSaveOld3 back to null
         return newValue;
@@ -132,10 +149,74 @@ export const changeLeftMovDiv = (
     } else if (numberWidth == 2) {
       //
       setIndexSlider((prev) => {
-        const newValue = Math.floor((prev * 3) / 2);
+        // const newValue = Math.floor((prev * 3) / 2);
 
-        // cheak if the prev == 3 and update the :
+        // declare the container of the new value :
+        let newValue;
 
+        // get the prev last from the historyPrevNumberWidth :
+
+        const prevLast =
+          historyPrevNumberWidth[historyPrevNumberWidth.length - 2];
+        if (historyPrevNumberWidth.length > 1) {
+          if (prevLast == 1) {
+            // in case we got from 1 screan to 2 screan :
+
+            newValue = Math.floor(prev / 2) + 1;
+          }
+          if (prevLast == 3) {
+            // in case we got from 3 screan to 2 screan :
+            // newValue = Math.floor((prev * 3) / 2);
+            newValue = 9;
+          }
+        }
+
+        console.log(
+          "the number of current Width ",
+          numberWidth,
+          "and the previous number width : ",
+          historyPrevNumberWidth,
+          "indexSliderVal is change from    ",
+          prev,
+          " to :",
+          newValue
+        );
+
+        // set the setSaveOld3 back to null
+        return newValue;
+      });
+      // change the left of the mouvement Div
+    } else if (numberWidth == 3) {
+      //
+      setIndexSlider((prev) => {
+        // const newValue = Math.floor((prev * 3) / 2);
+
+        // declare the container of the new value :
+        let newValue;
+
+        // get the prev last from the historyPrevNumberWidth :
+
+        const prevLast =
+          historyPrevNumberWidth[historyPrevNumberWidth.length - 2];
+        if (historyPrevNumberWidth.length > 1) {
+          if (prevLast == 2) {
+            // in case we got from 2 screan to 3 screan :
+            newValue = (Math.floor(prev / 2) + 1) * 3;
+          }
+        }
+
+        console.log(
+          "the number of current Width ",
+          numberWidth,
+          "and the previous number width : ",
+          historyPrevNumberWidth,
+          "indexSliderVal is change from    ",
+          prev,
+          " to :",
+          newValue
+        );
+
+        // set the setSaveOld3 back to null
         return newValue;
       });
       // change the left of the mouvement Div
@@ -143,34 +224,15 @@ export const changeLeftMovDiv = (
   }
 };
 
-// // function not changing the indexSlider and run every time indexSlider change with useEffect :
-// export const changeIndexSliderTracker = (
-//   indexSliderVal,
-//   numberWidth,
-//   divMov
-// ) => {
-//   // we need to cheak to go forwad or backword ??
-//   divMov && divMov?.elem
-//     ? (window.getComputedStyle(divMov).left = `${-325 * indexSliderVal}px`)
-//     : "";
+//
 
-//   if (indexSliderVal == 18) {
-//     console.log(
-//       "####################################### this is the value of the left current  ",
-//       window.getComputedStyle(divMov).left,
-//       " and this is the math calculation : ",
-//       -325 * indexSliderVal
-//     );
-//     // divMov && divMov?.elem ? (divMov.elem.style.left = `${-325}px`) : "";
-//     // value of new left :
-//   }
-// };
+// this function will run when the indexSlider changed :
 
 export const changeIndexSliderTracker = (
   divMovRef,
   numberPagination,
   index,
-  setIndexSlider,
+  // setIndexSlider,
   valueOfLeft // Change parameter name to divMovRef to reflect that it's a ref
 ) => {
   // Check if divMovRef and divMovRef.current are both defined
@@ -224,7 +286,7 @@ export const sliceLast3Element = (
   historyPrevNumberWidth,
   setHistoryPrevNumberWidth
 ) => {
-  const sliceArrayTes = historyPrevNumberWidth.slice(-3);
+  const sliceArrayTes = historyPrevNumberWidth.slice(-2);
   setHistoryPrevNumberWidth(sliceArrayTes);
 };
 
