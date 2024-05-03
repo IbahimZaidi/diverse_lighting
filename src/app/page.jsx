@@ -6,6 +6,10 @@ import Iteam from "@/helperComponents/childes_component_card/Iteam";
 // import the data json
 import { data } from "@/data/data";
 
+// import the icon :
+
+import { ImPrevious } from "react-icons/im";
+import { BiSkipNextCircle } from "react-icons/bi";
 // imort the handle on click functions :
 import {
   handleLeft,
@@ -229,7 +233,7 @@ export default function Home() {
           className={`buttonClick ${indexSlider == 1 ? "disableClass" : ""}`}
         >
           {" "}
-          rightFun{" "}
+          <ImPrevious className="w-6 h-6" />{" "}
         </buttonc>
         <div className="containerOfIndex  justify-center space-x-1 w-50%  hidden lg:flex ">
           {/* add this div for more element div  */}
@@ -351,7 +355,7 @@ export default function Home() {
           }`}
         >
           {" "}
-          leftFun{" "}
+          <BiSkipNextCircle className="w-6 h-6" />{" "}
         </button>
       </section>
     </main>
