@@ -50,3 +50,9 @@ body {
 .disableClass {
   @apply bg-slate-400;
 }
+
+/* active class in the Links component  in the header */
+
+.activeLink {
+  @apply bg-red-400 border-2 border-black;
+}
