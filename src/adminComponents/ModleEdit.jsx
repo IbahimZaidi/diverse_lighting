@@ -80,7 +80,7 @@ const ModleEdit = ({ id }) => {
                   className=" flex justify-center items-center"
                 >
                   {" "}
-                  color {elem.id} :
+                  color {index + 1} :
                 </label>
                 <input
                   type="color"
@@ -122,7 +122,7 @@ const ModleEdit = ({ id }) => {
                   ""
                 )}
 
-                {colorArray.length > 1 && elem.id != colorArray[0].id ? (
+                {elem.id != colorArray[0].id || colorArray.length > 1 ? (
                   <span
                     className="border border-red-600   h-8 m-auto px-2 flex justify-center items-center "
                     onClick={() => {
@@ -153,7 +153,7 @@ const ModleEdit = ({ id }) => {
         </span> */}
 
         {/* input of submit the changig , must show other modele of confirmation */}
-        <button type="submit" className=" bg-blue-400 text-white w-32">
+        <button type="submit" className=" bg-blue-400 text-white w-32 h-10 ">
           {" "}
           save change{" "}
         </button>
