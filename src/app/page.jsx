@@ -6,9 +6,13 @@ import Iteam from "@/helperComponents/childes_component_card/Iteam";
 // import the data json
 import { data } from "@/data/data";
 
+// import the data from the database online :
+
+import { getItems } from "@/helperFetchDataDB/getItems";
+
 // import the icon :
 
-import { ImPrevious } from "react-icons/im";
+import { ImPrevious, ImRoad } from "react-icons/im";
 import { BiSkipNextCircle } from "react-icons/bi";
 // imort the handle on click functions :
 import {
@@ -32,10 +36,28 @@ import { sliceLast3Element } from "@/helperFunctions/functionsItems";
 
 // start of the main component
 export default function Home() {
-  // test the value of the data in the console first
+  // make the data from the db  into a state :
+  const [theDataDb, setDataDB] = useState([]);
 
-  // make the data into a state :
+  // get data with help of function getItems :
 
+  useEffect(() => {
+    // the data :
+    getItems().then((resolve) => {
+      setDataDB(resolve);
+    });
+  }, []);
+
+  // console the data from the database online to cheak if first :
+
+  useEffect(() => {
+    // console log the data from the database :
+
+    console.log(
+      "@############################ , the data from the db is : ",
+      theDataDb
+    );
+  }, [theDataDb]);
   // useRef() for the div mouvemenet :
   const [moveDivRef, setMoveDiveRef] = useState(useRef());
 
@@ -70,7 +92,7 @@ export default function Home() {
         numberWidth
       );
     }
-  }, [numberWidth]);
+  }, [numberWidth]); // historyNumberWidth
 
   // make sure only we have 3 last in the history div  :
   useEffect(() => {
@@ -82,10 +104,10 @@ export default function Home() {
   // cheak the historyPrevNumberWidth :
 
   useEffect(() => {
-    console.log(
-      "Y&&&&&&&&&&&&&&&&&&&&&&&&&&&&&(((((((((((((((((()))))))))))))))))) __________________ ",
-      historyPrevNumberWidth
-    );
+    // console.log(
+    //   "Y&&&&&&&&&&&&&&&&&&&&&&&&&&&&&(((((((((((((((((()))))))))))))))))) __________________ ",
+    //   historyPrevNumberWidth
+    // );
   }, [historyPrevNumberWidth]);
 
   // first declare the variable contain the number of pagination :
@@ -105,27 +127,25 @@ export default function Home() {
   // extract the limit from the data.cars.length
   useEffect(() => {
     // set the numberPaginaation to the new value :
-    setNumberPagination(Math.ceil(data?.cars?.length / numberWidth)); // i devide /2 because each slice of the slider have 2 items
+    setNumberPagination(Math.ceil(theDataDb.length / numberWidth)); // i devide /2 because each slice of the slider have 2 items
     // console.log("this is the length : ");
 
     // cheak the value of the index Slider :
 
     console.log(" this is the value of the indexSlider ", indexSlider);
 
-    setDataLength(data?.cars?.length);
+    setDataLength(theDataDb.length > 0 ? theDataDb.length : 0);
     // window.reload();
     // Reload the current page
-  }, [data, numberWidth]);
+  }, [theDataDb, numberWidth]);
 
   useEffect(() => {
     // affiche the numberPagination :
-
-    console.log(
-      "YYYYYYYYYYYYYYYYYYYYYYYYYYYYY number pagination : ",
-      numberPagination
-    );
+    // console.log(
+    //   "YYYYYYYYYYYYYYYYYYYYYYYYYYYYY number pagination : ",
+    //   numberPagination
+    // );
   }, [numberPagination]);
-
   // tracker of the change of the numberWidth :
 
   useEffect(() => {
@@ -147,11 +167,11 @@ export default function Home() {
         // setIndexSlider,
         numberWidth
       ); // Change parameter name to divMovRef to reflect that it's a ref
-      console.log(
-        "this is the value of index Slider : ___________________________________",
-        indexSlider,
-        numberWidth
-      );
+      // console.log(
+      //   "this is the value of index Slider : ___________________________________",
+      //   indexSlider,
+      //   numberWidth
+      // );
     }
   }, [indexSlider, numberWidth]);
 
@@ -160,11 +180,23 @@ export default function Home() {
   // extract the arrayFromIndex array :
   useEffect(() => {
     setArrayFromIndex(
-      Array.from({ length: numberPagination }, (_, index) => index + 1)
+      Array.from(
+        { length: numberPagination ? numberPagination : 0 },
+        (_, index) => index + 1
+      )
     );
   }, [numberPagination]);
 
-  useEffect(() => {}, [arrayFromIndex]);
+  // useEffect(() => {
+  //   console.log(
+  //     "this is the arrayFromIndex : ",
+  //     arrayFromIndex,
+  //     "and this is the nubmerPagination : ",
+  //     numberPagination,
+  //     "and this is the numberWidth : ",
+  //     numberWidth
+  //   );
+  // }, [numberPagination, arrayFromIndex, numberWidth, theDataDb]);
 
   // // declare the array of array's
   // console.log("the value of the arrayFromIndex is :  ", arrayFromIndex);
@@ -193,12 +225,12 @@ export default function Home() {
           }} // this 200px for the item half height , and 16px for the padding , to make the movement div in the middle
           ref={moveDivRef}
         >
-          {data?.cars ? (
-            data.cars.map((elem, index) => {
-              return <Iteam objectVal={elem} key={index} theIndex={index} />;
+          {theDataDb.length > 0 ? (
+            theDataDb.map((elem, index) => {
+              return <Iteam objectVal={elem} key={index} />;
             })
           ) : (
-            <div> is loading</div>
+            <div> is loading </div>
           )}
         </div>
       </section>

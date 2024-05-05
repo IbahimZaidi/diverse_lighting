@@ -104,18 +104,6 @@ export const changeLeftMovDiv = (
           }
         }
 
-        // console.log(
-        //   "####################################### the number of current Width ",
-
-        //   numberWidth,
-        //   "and the previous number width : ",
-        //   historyPrevNumberWidth,
-        //   "indexSliderVal is change from    ",
-        //   prev,
-        //   " to :",
-        //   newValue
-        // );
-
         // set the setSaveOld3 back to null
         return newValue;
       });
@@ -147,17 +135,6 @@ export const changeLeftMovDiv = (
           }
         }
 
-        // console.log(
-        //   "####################################### the number of current Width ",
-        //   numberWidth,
-        //   "and the previous number width : ",
-        //   historyPrevNumberWidth,
-        //   "indexSliderVal is change from    ",
-        //   prev,
-        //   " to :",
-        //   newValue
-        // );
-
         // set the setSaveOld3 back to null
         return newValue;
       });
@@ -179,17 +156,6 @@ export const changeLeftMovDiv = (
             newValue = Math.floor((prev * 2) / 3);
           }
         }
-
-        // console.log(
-        //   "########################## the number of current Width ",
-        //   numberWidth,
-        //   "and the previous number width : ",
-        //   historyPrevNumberWidth,
-        //   "indexSliderVal is change from    ",
-        //   prev,
-        //   " to :",
-        //   newValue
-        // );
 
         // set the setSaveOld3 back to null
         return newValue;
@@ -218,18 +184,6 @@ export const changeLeftMovDiv = (
             newValue = prev * 2; // the case of prev = 0 don't exist and the case of 1 is already don't process do to the if fist in this function
           }
         }
-
-        // console.log(
-        //   "####################################### the number of current Width ",
-
-        //   numberWidth,
-        //   "and the previous number width : ",
-        //   historyPrevNumberWidth,
-        //   "indexSliderVal is change from    ",
-        //   prev,
-        //   " to :",
-        //   newValue
-        // );
 
         // set the setSaveOld3 back to null
         return newValue;
@@ -263,15 +217,6 @@ export const changeIndexSliderTracker = (
     } else {
       divMovRef.style.left = `${-1230 * (index - 1)}px`;
     }
-
-    // console.log(
-    //   "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% indexSlider ",
-    //   index,
-    //   " numberPagination : ",
-    //   numberPagination,
-    //   " number width : ",
-    //   valueOfLeft
-    // );
   }
   // }
 };
@@ -296,7 +241,6 @@ export const historyNubmerWidth = (
 };
 
 // slice only the 3 last elements :
-
 export const sliceLast3Element = (
   historyPrevNumberWidth,
   setHistoryPrevNumberWidth
