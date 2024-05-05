@@ -19,3 +19,16 @@ export const GET = async (req, { params }) => {
     throw new Error(error);
   }
 };
+
+// Define generateStaticParams function
+export async function generateStaticParams() {
+  // Logic to fetch dynamic IDs from database or other source
+  const dynamicIds = ["id1", "id2", "id3"]; // Example dynamic IDs
+
+  // Generate static parameters for each dynamic ID
+  const staticParams = dynamicIds.map((id) => ({
+    [`/api/items/${id}`]: { page: "/api/items/[id]", query: { id } },
+  }));
+
+  return Object.assign({}, ...staticParams);
+}
