@@ -1,6 +1,7 @@
+"use client";
 import React from "react";
 
-const ChildItem = ({ objectVal }) => {
+const ChildItem = ({ objectVal, setToggleVal, setCurrentColor_array_id }) => {
   return (
     <div className="border border-blue-600 bg-yellow-300 m-auto  w-90% py-2 min-h-20  flex justify-between">
       {" "}
@@ -15,6 +16,8 @@ const ChildItem = ({ objectVal }) => {
           className="edit_button"
           onClick={() => {
             // editFunction(objectVal.id);
+            setToggleVal(true);
+            setCurrentColor_array_id(objectVal.color_array_id);
           }}
         >
           {" "}
