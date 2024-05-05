@@ -32,7 +32,7 @@ const ScrollCompItems = () => {
 
   // the return component :
   return (
-    <div className="scrollDivMain w-80% overflow-y-scroll overflow-x-hidden h-400px m-auto bg-slate-300 border-2 border-black flex flex-col space-y-4 relative">
+    <div className="scrollDivMain w-80% overflow-y-scroll overflow-x-hidden h-400px m-auto bg-slate-300 border-2 border-black flex flex-col space-y-4 py-3 relative">
       {/* <div> Hello </div> */}
       {data.length > 0 ? (
         data.map((elem, index) => {
