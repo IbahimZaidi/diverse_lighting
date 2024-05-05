@@ -21,8 +21,6 @@ export const handleRight = (
       return index - 1;
     });
   }
-
-  // console.log("from Right function , the current left : ", elem.style.left);
 };
 
 // function handle the left +
@@ -33,12 +31,6 @@ export const handleLeft = (
   setIndexSlider,
   valueOfLeft
 ) => {
-  // console.log("Hello from the handleRight function ", elem);
-
-  // console.log(
-  //   "hello from the index in function handleLeft value _______________________ : ",
-  //   index
-  // );
   if (index < numberPagination) {
     // Update the left value
     if (valueOfLeft == 1) {
@@ -112,17 +104,17 @@ export const changeLeftMovDiv = (
           }
         }
 
-        console.log(
-          "####################################### the number of current Width ",
+        // console.log(
+        //   "####################################### the number of current Width ",
 
-          numberWidth,
-          "and the previous number width : ",
-          historyPrevNumberWidth,
-          "indexSliderVal is change from    ",
-          prev,
-          " to :",
-          newValue
-        );
+        //   numberWidth,
+        //   "and the previous number width : ",
+        //   historyPrevNumberWidth,
+        //   "indexSliderVal is change from    ",
+        //   prev,
+        //   " to :",
+        //   newValue
+        // );
 
         // set the setSaveOld3 back to null
         return newValue;
@@ -155,16 +147,16 @@ export const changeLeftMovDiv = (
           }
         }
 
-        console.log(
-          "####################################### the number of current Width ",
-          numberWidth,
-          "and the previous number width : ",
-          historyPrevNumberWidth,
-          "indexSliderVal is change from    ",
-          prev,
-          " to :",
-          newValue
-        );
+        // console.log(
+        //   "####################################### the number of current Width ",
+        //   numberWidth,
+        //   "and the previous number width : ",
+        //   historyPrevNumberWidth,
+        //   "indexSliderVal is change from    ",
+        //   prev,
+        //   " to :",
+        //   newValue
+        // );
 
         // set the setSaveOld3 back to null
         return newValue;
@@ -174,7 +166,6 @@ export const changeLeftMovDiv = (
       //
       setIndexSlider((prev) => {
         // const newValue = Math.floor((prev * 3) / 2);
-
         // declare the container of the new value :
         let newValue;
 
@@ -189,16 +180,16 @@ export const changeLeftMovDiv = (
           }
         }
 
-        console.log(
-          "########################## the number of current Width ",
-          numberWidth,
-          "and the previous number width : ",
-          historyPrevNumberWidth,
-          "indexSliderVal is change from    ",
-          prev,
-          " to :",
-          newValue
-        );
+        // console.log(
+        //   "########################## the number of current Width ",
+        //   numberWidth,
+        //   "and the previous number width : ",
+        //   historyPrevNumberWidth,
+        //   "indexSliderVal is change from    ",
+        //   prev,
+        //   " to :",
+        //   newValue
+        // );
 
         // set the setSaveOld3 back to null
         return newValue;
@@ -228,17 +219,17 @@ export const changeLeftMovDiv = (
           }
         }
 
-        console.log(
-          "####################################### the number of current Width ",
+        // console.log(
+        //   "####################################### the number of current Width ",
 
-          numberWidth,
-          "and the previous number width : ",
-          historyPrevNumberWidth,
-          "indexSliderVal is change from    ",
-          prev,
-          " to :",
-          newValue
-        );
+        //   numberWidth,
+        //   "and the previous number width : ",
+        //   historyPrevNumberWidth,
+        //   "indexSliderVal is change from    ",
+        //   prev,
+        //   " to :",
+        //   newValue
+        // );
 
         // set the setSaveOld3 back to null
         return newValue;
@@ -273,14 +264,14 @@ export const changeIndexSliderTracker = (
       divMovRef.style.left = `${-1230 * (index - 1)}px`;
     }
 
-    console.log(
-      "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% indexSlider ",
-      index,
-      " numberPagination : ",
-      numberPagination,
-      " number width : ",
-      valueOfLeft
-    );
+    // console.log(
+    //   "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% indexSlider ",
+    //   index,
+    //   " numberPagination : ",
+    //   numberPagination,
+    //   " number width : ",
+    //   valueOfLeft
+    // );
   }
   // }
 };
