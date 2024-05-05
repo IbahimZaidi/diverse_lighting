@@ -33,7 +33,6 @@ import { sliceLast3Element } from "@/helperFunctions/functionsItems";
 // start of the main component
 export default function Home() {
   // test the value of the data in the console first
-  // console.log("this is the data json info : ", data);
 
   // make the data into a state :
 
@@ -165,30 +164,9 @@ export default function Home() {
     );
   }, [numberPagination]);
 
-  useEffect(() => {
-    // console.log(
-    //   "-------------------------- arrayIndexFrom",
-    //   arrayFromIndex,
-    //   numberPagination
-    // );
-  }, [arrayFromIndex]);
+  useEffect(() => {}, [arrayFromIndex]);
 
   // // declare the array of array's
-  // const [arrayOfArrays, setArrayOfArrays] = useState([]);
-  // // arrayOfArrays :
-  // useEffect(() => {
-  //   setArrayOfArrays(
-  //     Array.from(
-  //       { length: Math.ceil(numberPagination / 5) },
-  //       (_, index) => (index + 1) * 5 // this 5 is the max slide span can show in the same time
-  //     )
-  //   );
-  // }, [arrayFromIndex]);
-
-  // console.log("###############################");
-  // console.log("test math equation : ", arrayOfArrays);
-  // console.log("###############################");
-
   // console.log("the value of the arrayFromIndex is :  ", arrayFromIndex);
 
   return (
@@ -258,17 +236,6 @@ export default function Home() {
               const start = Math.floor(indexSlider / 5) * 5 - 1;
               const end = Math.floor(indexSlider / 5) * 5 + 5;
 
-              // console.log(
-              //   "start , end  : ",
-              //   start,
-              //   end,
-              //   "index slider : ",
-              //   indexSlider,
-              //   arrayFromIndex.length,
-              //   "current element : ",
-              //   elem
-              // );
-
               if (
                 elem >= start && // case elem = 10
                 elem <= end
@@ -288,27 +255,7 @@ export default function Home() {
                           setIndexSlider,
                           numberWidth
                         );
-
-                        // console.log("#########################");
-                        // console.log(
-                        //   "index slider : ",
-                        //   indexSlider,
-                        //   "current element : ",
-                        //   elem
-                        // );
-                        // console.log("#########################");
                       } else if (elem < indexSlider) {
-                        // console.log("elem < index Slider ******************");
-
-                        // console.log("#########################");
-                        // console.log(
-                        //   "index slider : ",
-                        //   elem,
-                        //   "current element : ",
-                        //   elem
-                        // );
-                        // console.log("#########################");
-
                         handleRight(
                           moveDivRef.current,
                           numberPagination,
@@ -317,12 +264,6 @@ export default function Home() {
                           numberWidth
                         );
                       }
-
-                      // console.log(
-                      //   "Hello from the click function span",
-                      //   elem,
-                      //   indexSlider
-                      // );
                     }}
                     key={index}
                   >
