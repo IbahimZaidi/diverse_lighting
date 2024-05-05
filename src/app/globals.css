@@ -56,3 +56,14 @@ body {
 .activeLink {
   @apply bg-red-400 border-2 border-black;
 }
+
+/* delete Button  */
+.delete_Button {
+  @apply bg-red-500 hover:bg-red-600 text-white font-bold  rounded-sm cursor-pointer h-90% flex justify-center items-center w-40%;
+}
+
+/* Edite Button  */
+
+.edit_button {
+  @apply bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-sm cursor-pointer h-90% flex justify-center items-center w-40%;
+}
