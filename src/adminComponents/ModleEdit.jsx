@@ -223,7 +223,8 @@ const ModleEdit = ({
                       changeValueColor(e, elem.id);
                     }}
                   />
-                  {elem.id == colorArray[colorArray.length - 1].id ? (
+                  {elem.id == colorArray[colorArray.length - 1].id &&
+                  colorArray.length > 1 ? (
                     <span
                       className="border border-green-600 text-xl w-6 flex justify-center cursor-pointer"
                       onClick={() => {

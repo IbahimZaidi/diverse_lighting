@@ -13,6 +13,11 @@ const arrayLinks = [
     title: "admin",
     url: "/admin",
   },
+
+  {
+    title: "testUpload",
+    url: "/testUpload",
+  },
 ];
 
 // the start of the Links component :
