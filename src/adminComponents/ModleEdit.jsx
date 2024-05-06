@@ -7,6 +7,7 @@ import { CldUploadWidget } from "next-cloudinary";
 // import the data concerne the id passe in the props :
 import { getItemsColorsId } from "@/helperFetchDataDB/getItemsColorsId";
 import axios from "axios";
+import { getAllColors } from "@/helperFetchDataDB/getAllColors";
 // import the methode use Post to modifie the contenet :
 //
 const ModleEdit = ({
@@ -46,6 +47,25 @@ const ModleEdit = ({
   const [currentImageNew, setCurrentNewImage] = useState(
     currentObjectVal.image
   );
+
+  // const all_colors from the table of colors :
+  const [all_colors, setAllColors] = useState([]);
+
+  // insert the colors into the all_colors :
+  useEffect(() => {
+    //
+    getAllColors().then((resolve) => {
+      setAllColors(resolve);
+    });
+  }, []);
+
+  // cheak the value of the colors :
+  // useEffect(() => {
+  //   console.log(
+  //     "_______________******************this is the value of all colors : ",
+  //     all_colors
+  //   );
+  // }, [all_colors]);
 
   // the container of the value of the file :
   const [file, setFile] = useState();
@@ -137,23 +157,28 @@ const ModleEdit = ({
     //
 
     // create the data contain  the value of the file :
-    // const newData = new FormData();
+    const newData = new FormData();
 
-    // const arrayString = JSON.stringify(colorArray);
+    const arrayNewColorsString = JSON.stringify(colorArray);
+    const arrayOldColorIdString = JSON.stringify(arrayColorId);
+    const all_colorsString = JSON.stringify(all_colors);
 
-    // // set the value of the data to the value of the file :
-    // newData.set("model_name", valueModele);
-    // newData.set("image_name", currentImageNew?.split("\\").slice(-1));
-    // newData.set("array_colors", arrayString);
-    // //color_array_id
-    // newData.set("color_array_id", currentObjectVal.color_array_id);
+    // set the value of the data to the value of the file :
+    newData.set("model_name", valueModele);
+    newData.set("image_name", currentImageNew?.split("\\").slice(-1));
+    newData.set("array_colors", arrayNewColorsString);
+    newData.set("array_Old_colors", arrayOldColorIdString);
+    newData.set("all_colorsString", all_colorsString);
 
+    //color_array_id
+    newData.set("color_array_id", currentObjectVal.color_array_id);
     // console.log("this is the value of the data : ", data.get("file"));
-    // // make the request using the methode POST :
-    // const res = await fetch(`api/items/${currentObjectVal.id}`, {
-    //   method: "POST",
-    //   body: newData,
-    // });
+
+    // make the request using the methode POST :
+    const res = await fetch(`api/items/${currentObjectVal.id}`, {
+      method: "POST",
+      body: newData,
+    });
   }; // ****** end of the function hanldeSubmit
 
   //

@@ -37,18 +37,67 @@ export const POST = async (req, { params }) => {
       // get the color array :
       const array_colors = JSON.parse(data.get("array_colors"));
 
+      // get the color array :
+      const array_Old_colors = JSON.parse(data.get("array_Old_colors"));
+
+      // get the color array :
+      const all_colors = JSON.parse(data.get("all_colorsString"));
+
       // update the data :
       await queryDeployTest({
-        query:
-          "update table items set model = ? and image = ?    where id = ?    ",
+        query: "UPDATE items SET model = ? and image = ? where id = ? ",
         values: [model_name, image_name, params.id],
       });
 
       // for loop over the color_array :
       array_colors.map(async (elem, index) => {
+        // case exist :
+        // cheak if the color is alerady exsit :
+        const cheak = array_colors.find((elem, index) => {
+          return all_colors.contains(elem.value);
+        });
+
+        // case the color is already exist :
+        if (cheak) {
+          await queryDeployTest({
+            // you need to cheak first if the color already exist from the value of the color , or you can drop it then add it :
+
+            // update the colors table first , then update the
+            // UPDATE colors SET  color_name ="#000000"  where color_name = "#FFFFFF" AND id = old_id;
+            query:
+              "UPDATE colors SET  color_name = ?  where color_name = ?    ",
+            values: [elem.value, array_Old_colors[index].color_name],
+          });
+        }
+
+        // else the color not exist :
+        else {
+          await queryDeployTest({
+            // you need to cheak first if the color already exist from the value of the color , or you can drop it then add it :
+
+            // update the colors table first , then update the
+            // UPDATE colors SET  color_name ="#000000"  where color_name = "#FFFFFF" AND id = old_id;
+            query: "INSERT INTO  colors (color_name) values (?) ",
+            values: [elem.value],
+          });
+        }
+      });
+
+      // change the value of colors inside the table of colors_mapping :
+      // first delete old's color_id's
+      await queryDeployTest({
+        // delete all color's id have the same array_color_id
+        query: "Delete FROM color_mappings WHERE color_array_id = ? ",
+        values: [color_array_id],
+      });
+
+      // second add new color's id :
+      array_colors.map(async (elem) => {
         await queryDeployTest({
-          query: "drop then inset  ",
-          values: [color_id, elem.value, color_array_id],
+          // delete all color's id have the same array_color_id
+          query:
+            "INSERT INTO color_mappings (id_color , color_array_id) VALUES (?,?)",
+          values: [elem.value, color_array_id],
         });
       });
 

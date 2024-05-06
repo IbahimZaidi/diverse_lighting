@@ -17,6 +17,13 @@ const Iteam = ({ objectVal }) => {
     });
   }, []);
 
+  // useEffecto of valueOfColors :
+
+  useEffect(() => {
+    //
+    console.log(" this is the value of color's ", theColors);
+  }, [valueOfColor]);
+
   // refresh the default color when the colors come after fetching from the database :
   useEffect(() => {
     // set the first color from the array of colors :
