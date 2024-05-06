@@ -5,6 +5,22 @@ const page = () => {
   // the container of the value of the file :
   const [file, setFile] = useState();
 
+  // the image url of the selected image :
+  const [previewUrl, setPreviewUrl] = useState(null);
+
+  // handle the file change :
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+
   // the handleFunctionOnSubmit :
 
   const handleOnSubmit = async (e) => {
@@ -45,13 +61,21 @@ const page = () => {
         onSubmit={handleOnSubmit}
         className="border border-black w-50% h-52 m-auto pt-10 flex flex-col space-y-3"
       >
-        {/* the input of the file upload  */}
-        <input
-          type="file"
-          onChange={(e) => {
-            setFile(e.target.files?.[0]);
-          }}
-        />
+        <div className=" flex justify-start items-center space-x-3 bg-white">
+          <img
+            src={previewUrl ? previewUrl : ""}
+            alt="Error"
+            className={`${!previewUrl ? "hidden" : ""} w-20 h-20`}
+          />
+          {/* the input of the file upload  */}
+          <input
+            type="file"
+            onChange={(e) => {
+              // setFile(e.target.files?.[0]);
+              handleFileChange(e);
+            }}
+          />
+        </div>
 
         {/*  the submit button  */}
         <input

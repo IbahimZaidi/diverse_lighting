@@ -43,22 +43,16 @@ const ModleEdit = ({
   const imageNew = useRef();
 
   // const save the value of the imageNew.current.value :
-  const [currentImageNew, setCurrentNewImage] = useState();
+  const [currentImageNew, setCurrentNewImage] = useState(
+    currentObjectVal.image
+  );
 
-  // function handleUpload :
-  const handleUpload = async () => {
-    setUploading(true);
-    try {
-      if (!selectedFile) return;
-      const formData = new FormData();
-      formData.append("myImage", selectedFile); // Use formData.append, not FormData.append
-      const { data } = await axios.post("/api/image", formData);
-      console.log(data);
-    } catch (error) {
-      console.log("this", error.response?.data);
-    }
-    setUploading(false);
-  };
+  // the container of the value of the file :
+  const [file, setFile] = useState();
+
+  // the image url of the selected image :
+  const [previewUrl, setPreviewUrl] = useState(null);
+
   // function drop a element from arrayColor :
   const dropColorFromArray = (id) => {
     const newArray = colorArray.filter((elem) => {
@@ -82,19 +76,86 @@ const ModleEdit = ({
     setColorArray(() => newArray);
   };
 
+  // this is to change the value of the file , and affiche it before the submit handle the file change :
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+
   // function handleOnSubmit :
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = async (e) => {
     // prevent the submit for now , whene i testing the Modele :
     e.preventDefault();
     // set the toglle value to false :
     // setToggleValue(false);
+
+    console.log("############################################");
+    console.log("the colors Array is : ", colorArray);
     console.log(
-      "the type  of the setToggleValue ",
-      setToggleVal,
-      "toggle value ",
-      totoggleVal
+      "the new name of the new image is : ",
+      currentImageNew?.split("\\").slice(-1)
     );
-  };
+    console.log("the new value of the modele is : ", valueModele);
+    console.log("############################################");
+
+    // 1/ push the image into the folder of public/images:
+    // cheak if the file empty :
+    if (!file) return;
+
+    // the case of the file not empty :
+    try {
+      // create the data contain  the value of the file :
+      const data = new FormData();
+
+      // set the value of the data to the value of the file :
+      data.set("file", file);
+
+      console.log("this is the value of the data : ", data.get("file"));
+      // make the request using the methode POST :
+      const res = await fetch("api/upload", {
+        method: "POST",
+        body: data,
+      });
+
+      // handle the Error Case :
+
+      if (!res.ok) throw new Error(await res.text());
+    } catch (e) {
+      // Handler Error here :
+      console.error("this is the error : ", e);
+    }
+
+    // upload other info into db using post methode :
+    //
+    //
+
+    // create the data contain  the value of the file :
+    // const newData = new FormData();
+
+    // const arrayString = JSON.stringify(colorArray);
+
+    // // set the value of the data to the value of the file :
+    // newData.set("model_name", valueModele);
+    // newData.set("image_name", currentImageNew?.split("\\").slice(-1));
+    // newData.set("array_colors", arrayString);
+    // //color_array_id
+    // newData.set("color_array_id", currentObjectVal.color_array_id);
+
+    // console.log("this is the value of the data : ", data.get("file"));
+    // // make the request using the methode POST :
+    // const res = await fetch(`api/items/${currentObjectVal.id}`, {
+    //   method: "POST",
+    //   body: newData,
+    // });
+  }; // ****** end of the function hanldeSubmit
+
   //
   //
   // affiche the value of the color array :
@@ -143,6 +204,7 @@ const ModleEdit = ({
       {/* the form : */}
       <form
         action=""
+        onSubmit={(e) => handleSubmitForm(e)}
         className=" border border-green-500 p-3 flex flex-col space-y-4 m-3"
         // onSubmit={}
       >
@@ -178,17 +240,21 @@ const ModleEdit = ({
           ) : (
             ""
           )}
-          <input
-            type="file"
-            name="imageFile"
-            id="imageFile"
-            accept="image/*"
-            ref={imageNew}
-            onChange={() => {
-              // console.log(imageNew.current.value);
-              setCurrentNewImage(imageNew.current.value);
-            }}
-          />
+          <div className=" flex justify-start items-center space-x-3 bg-white">
+            <img
+              src={previewUrl ? previewUrl : ""}
+              alt="Error"
+              className={`${!previewUrl ? "hidden" : ""} w-20 h-20`}
+            />
+            {/* the input of the file upload  */}
+            <input
+              type="file"
+              onChange={(e) => {
+                // setFile(e.target.files?.[0]);
+                handleFileChange(e);
+              }}
+            />
+          </div>
         </div>
         <span
           className={`text-red-700 ${!toglleMaxColor ? "hidden" : "block"}`}
@@ -198,7 +264,7 @@ const ModleEdit = ({
         </span>
         {/* how to change the default value in the colors , and how to make sure the color in the list of the database :  */}
         <div className="listOfColors border border-white flex flex-col space-y-2">
-          {colorArray.length > 1 ? (
+          {colorArray.length > 0 ? (
             colorArray.map((elem, index) => {
               return (
                 <div className="flex space-x-3 w-60%">
@@ -224,7 +290,7 @@ const ModleEdit = ({
                     }}
                   />
                   {elem.id == colorArray[colorArray.length - 1].id &&
-                  colorArray.length > 1 ? (
+                  colorArray.length > 0 ? (
                     <span
                       className="border border-green-600 text-xl w-6 flex justify-center cursor-pointer"
                       onClick={() => {
