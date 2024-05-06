@@ -21,7 +21,12 @@ export const POST = async (req) => {
 
     // upload it to the pubic/imaes folder :
     const fileName = file.name;
-    const filePath = path.join(process.cwd(), "public", "images", fileName);
+    const filePath = path.join(
+      process.cwd(),
+      "public",
+      "images_test",
+      fileName
+    );
 
     // Write the file to the specified path
     await fs.writeFile(filePath, buffer);

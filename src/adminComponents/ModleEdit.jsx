@@ -101,6 +101,7 @@ const ModleEdit = ({
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       setFile(selectedFile);
+      setCurrentNewImage(selectedFile.name);
       const reader = new FileReader();
       reader.onload = () => {
         setPreviewUrl(reader.result);
@@ -120,7 +121,7 @@ const ModleEdit = ({
     console.log("the colors Array is : ", colorArray);
     console.log(
       "the new name of the new image is : ",
-      currentImageNew?.split("\\").slice(-1)
+      currentImageNew?.split("\\").slice(-1)[0]
     );
     console.log("the new value of the modele is : ", valueModele);
     console.log("############################################");
@@ -207,6 +208,11 @@ const ModleEdit = ({
     // console the value of the id :
     console.log("________________ the id is : ", id);
   }, [id]);
+
+  // cheak the currentImage :
+  useEffect(() => {
+    console.log("this is the current image value : ", currentImageNew);
+  }, [currentImageNew]);
   //
   //
   //
@@ -256,11 +262,11 @@ const ModleEdit = ({
           {currentImageNew ? (
             <>
               <span> to </span>
-              <img
-                src={currentImageNew}
+              {/* <img
+                src={`/images_test/${currentImageNew}`}
                 alt="Error 404"
                 className="w-10 h-10 "
-              />
+              /> */}
             </>
           ) : (
             ""

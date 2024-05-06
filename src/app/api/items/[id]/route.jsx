@@ -45,7 +45,7 @@ export const POST = async (req, { params }) => {
 
       // update the data :
       await queryDeployTest({
-        query: "UPDATE items SET model = ? and image = ? where id = ? ",
+        query: "UPDATE items SET model = ?, image = ? WHERE id = ?",
         values: [model_name, image_name, params.id],
       });
 
