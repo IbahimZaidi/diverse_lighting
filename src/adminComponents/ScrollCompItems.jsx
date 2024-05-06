@@ -15,6 +15,9 @@ const ScrollCompItems = () => {
   // currentId :
   const [currentColor_array_id, setCurrentColor_array_id] = useState(1);
 
+  // currentId :
+  const [currentObjectVal, setCurrentCurrentObjVal] = useState({});
+
   // the toggleValue of ModleEdit :
   const [toggleVal, setToggleVal] = useState(false);
 
@@ -42,6 +45,7 @@ const ScrollCompItems = () => {
               key={index}
               setToggleVal={setToggleVal}
               setCurrentColor_array_id={setCurrentColor_array_id}
+              setCurrentCurrentObjVal={setCurrentCurrentObjVal}
             />
           );
         })
@@ -56,6 +60,7 @@ const ScrollCompItems = () => {
           setToggleVal={setToggleVal}
           toggleVal={toggleVal}
           color_array_id={currentColor_array_id}
+          currentObjectVal={currentObjectVal}
         />
       ) : (
         ""

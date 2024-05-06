@@ -1,11 +1,21 @@
 "use client";
-import React, { use, useEffect, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 
+// import :
+
+import { CldUploadWidget } from "next-cloudinary";
 // import the data concerne the id passe in the props :
 import { getItemsColorsId } from "@/helperFetchDataDB/getItemsColorsId";
+import axios from "axios";
 // import the methode use Post to modifie the contenet :
 //
-const ModleEdit = ({ id, color_array_id, totoggleVal, setToggleVal }) => {
+const ModleEdit = ({
+  id,
+  color_array_id,
+  totoggleVal,
+  setToggleVal,
+  currentObjectVal,
+}) => {
   // the colors data :
   const [arrayColorId, setColorArrayId] = useState([]);
 
@@ -20,12 +30,35 @@ const ModleEdit = ({ id, color_array_id, totoggleVal, setToggleVal }) => {
   // the state of new color :
   const [valueOfColor, setValueOfColor] = useState("#FFFFFF");
 
+  // the modele state :
+  const [valueModele, setVAlueModele] = useState(currentObjectVal.model);
+
   // the maxToglleColor:
   const [toglleMaxColor, setToggleMaxColor] = useState(false);
 
   // const colors Array :
   const [colorArray, setColorArray] = useState([]);
 
+  // const the imageNew state :
+  const imageNew = useRef();
+
+  // const save the value of the imageNew.current.value :
+  const [currentImageNew, setCurrentNewImage] = useState();
+
+  // function handleUpload :
+  const handleUpload = async () => {
+    setUploading(true);
+    try {
+      if (!selectedFile) return;
+      const formData = new FormData();
+      formData.append("myImage", selectedFile); // Use formData.append, not FormData.append
+      const { data } = await axios.post("/api/image", formData);
+      console.log(data);
+    } catch (error) {
+      console.log("this", error.response?.data);
+    }
+    setUploading(false);
+  };
   // function drop a element from arrayColor :
   const dropColorFromArray = (id) => {
     const newArray = colorArray.filter((elem) => {
@@ -111,12 +144,52 @@ const ModleEdit = ({ id, color_array_id, totoggleVal, setToggleVal }) => {
       <form
         action=""
         className=" border border-green-500 p-3 flex flex-col space-y-4 m-3"
-        onSubmit={(e) => {
-          handleSubmitForm(e);
-        }}
+        // onSubmit={}
       >
-        <input className="w-70%" type="text" placeholder="modele name ?" />
-        <input className="w-70%" type="text" placeholder="image here !" />
+        <input
+          className="w-70%"
+          type="text"
+          value={valueModele}
+          placeholder="modele name ?"
+          onChange={(e) => {
+            setVAlueModele(e.currentTarget.value);
+          }}
+        />
+
+        {/* div of selected image :  */}
+
+        {/* <input className="w-70%" type="text" placeholder="image here !" /> */}
+        <div className="imageDivChange border border-black flex justify-around p-2">
+          <img
+            src={`images_test/${currentObjectVal.image}`}
+            alt="Error 404"
+            className="w-10 h-10 "
+          />
+
+          {currentImageNew ? (
+            <>
+              <span> to </span>
+              <img
+                src={currentImageNew}
+                alt="Error 404"
+                className="w-10 h-10 "
+              />
+            </>
+          ) : (
+            ""
+          )}
+          <input
+            type="file"
+            name="imageFile"
+            id="imageFile"
+            accept="image/*"
+            ref={imageNew}
+            onChange={() => {
+              // console.log(imageNew.current.value);
+              setCurrentNewImage(imageNew.current.value);
+            }}
+          />
+        </div>
         <span
           className={`text-red-700 ${!toglleMaxColor ? "hidden" : "block"}`}
         >
@@ -198,7 +271,6 @@ const ModleEdit = ({ id, color_array_id, totoggleVal, setToggleVal }) => {
             <div> is loading ....... </div>
           )}
         </div>
-
         {/* <span
           className="bg-green-400 border border-yellow-300 w-24 flex justify-center py-2"
           onClick={() => {
@@ -208,7 +280,6 @@ const ModleEdit = ({ id, color_array_id, totoggleVal, setToggleVal }) => {
           {" "}
           Add All{" "}
         </span> */}
-
         {/* input of submit the changig , must show other modele of confirmation */}
         <button type="submit" className=" bg-blue-400 text-white w-32 h-10 ">
           {" "}

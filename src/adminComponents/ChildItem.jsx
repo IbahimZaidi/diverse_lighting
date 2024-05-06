@@ -1,7 +1,12 @@
 "use client";
 import React from "react";
 
-const ChildItem = ({ objectVal, setToggleVal, setCurrentColor_array_id }) => {
+const ChildItem = ({
+  objectVal,
+  setToggleVal,
+  setCurrentColor_array_id,
+  setCurrentCurrentObjVal,
+}) => {
   return (
     <div className="border border-blue-600 bg-yellow-300 m-auto  w-90% py-2 min-h-20  flex justify-between">
       {" "}
@@ -18,6 +23,7 @@ const ChildItem = ({ objectVal, setToggleVal, setCurrentColor_array_id }) => {
             // editFunction(objectVal.id);
             setToggleVal(true);
             setCurrentColor_array_id(objectVal.color_array_id);
+            setCurrentCurrentObjVal(objectVal);
           }}
         >
           {" "}
