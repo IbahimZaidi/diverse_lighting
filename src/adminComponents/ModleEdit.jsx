@@ -1,23 +1,15 @@
 "use client";
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // import :
 
-import { CldUploadWidget } from "next-cloudinary";
 // import the data concerne the id passe in the props :
 import { getItemsColorsId } from "@/helperFetchDataDB/getItemsColorsId";
-import axios from "axios";
 import { getAllColors } from "@/helperFetchDataDB/getAllColors";
 import { updateIems } from "@/helperFetchDataDB/updateIems";
 // import the methode use Post to modifie the contenet :
 //
-const ModleEdit = ({
-  id,
-  color_array_id,
-  totoggleVal,
-  setToggleVal,
-  currentObjectVal,
-}) => {
+const ModleEdit = ({ id, color_array_id, setToggleVal, currentObjectVal }) => {
   // the colors data :
   const [arrayColorId, setColorArrayId] = useState([]);
 
@@ -42,6 +34,16 @@ const ModleEdit = ({
 
   // const colors Array :
   const [colorArray, setColorArray] = useState([]);
+
+  // cheak if the colorArray == 5 or < 5 , and change the value of max :
+  useEffect(() => {
+    // cheak the length of colorArray :
+    if (colorArray.length > 4) {
+      setToggleMaxColor(true);
+    } else if (colorArray.length < 5) {
+      setToggleMaxColor(false);
+    }
+  }, [colorArray]);
 
   useEffect(() => {
     //

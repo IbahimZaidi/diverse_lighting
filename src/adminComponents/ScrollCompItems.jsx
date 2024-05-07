@@ -6,6 +6,7 @@ import ChildItem from "./ChildItem";
 // import the function fetch data from the database :
 import { getItems } from "@/helperFetchDataDB/getItems";
 import ModleEdit from "./ModleEdit";
+import ModleCreate from "./ModleCreate";
 
 // start the main component of ScrollCompItems :
 const ScrollCompItems = () => {
@@ -71,6 +72,8 @@ const ScrollCompItems = () => {
       ) : (
         ""
       )}
+
+      <ModleCreate />
     </div>
   );
 };
