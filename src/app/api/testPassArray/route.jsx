@@ -11,7 +11,7 @@ export const GET = async (req) => {
       ];
 
       // // Stringify the array
-      const url = await new URL(req.url);
+      const url = new URL(req.url);
       const stringifiedArray = url.searchParams.get("array_colors");
 
       console.log(stringifiedArray);

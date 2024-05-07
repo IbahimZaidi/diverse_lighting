@@ -201,24 +201,30 @@ const ModleEdit = ({
 
     // create the data contain  the value of the file :
     const newData = new FormData();
+    // const arrayColorsString = encodeURIComponent(JSON.stringify(array_colors));
 
-    const arrayNewColorsString = JSON.stringify(colorArray);
-    const arrayOldColorIdString = JSON.stringify(arrayColorId);
-    const all_colorsString = JSON.stringify(all_colors);
+    //**********
+    // this is the tree Array cause the issue :
+    const arrayNewColorsString = encodeURIComponent(JSON.stringify(colorArray));
+    const arrayOldColorIdString = encodeURIComponent(
+      JSON.stringify(arrayColorId)
+    );
+    const all_colorsString = encodeURIComponent(JSON.stringify(all_colors));
+    const url = `http://localhost:3000/api/items/${currentObjectVal.id}?arrayNewColorsString=${arrayNewColorsString}&arrayOldColorIdString=${arrayOldColorIdString}&all_colorsString=${all_colorsString}`;
 
-    // set the value of the data to the value of the file :
-    newData.set("model_name", valueModele);
+    // newData.set("array_colors", arrayNewColorsString);
+    // newData.set("array_Old_colors", arrayOldColorIdString);
+    // newData.set("all_colorsString", all_colorsString);
+
+    // // set the value of the data to the value of the file :
     newData.set("image_name", currentImageNew?.split("\\").slice(-1));
-    newData.set("array_colors", arrayNewColorsString);
-    newData.set("array_Old_colors", arrayOldColorIdString);
-    newData.set("all_colorsString", all_colorsString);
-
+    newData.set("model_name", valueModele);
     //color_array_id
     newData.set("color_array_id", currentObjectVal.color_array_id);
     // console.log("this is the value of the data : ", data.get("file"));
 
     // make the request using the methode POST :
-    const res = await fetch(`api/items/${currentObjectVal.id}`, {
+    const res = await fetch(url, {
       method: "POST",
       body: newData,
     });

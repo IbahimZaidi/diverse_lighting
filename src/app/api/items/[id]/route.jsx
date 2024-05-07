@@ -34,14 +34,29 @@ export const POST = async (req, { params }) => {
       // get color_array_id :
       const color_array_id = data.get("color_array_id");
 
-      // get the color array :
-      const array_colors = JSON.parse(data.get("array_colors"));
+      // test this time the search params :
+      const url = new URL(req.url);
+      // const stringifiedArray = url.searchParams.get("array_colors");
 
       // get the color array :
-      const array_Old_colors = JSON.parse(data.get("array_Old_colors"));
+      // const array_colors = JSON.parse(data.get("array_colors"));
+      const stringifiedArray_colors = url.searchParams.get(
+        "arrayNewColorsString"
+      );
+      const array_colors = JSON.parse(stringifiedArray_colors);
 
       // get the color array :
-      const all_colors = JSON.parse(data.get("all_colorsString"));
+      // const array_Old_colors = JSON.parse(data.get("array_Old_colors"));
+      const stringifiedArray_Old_colors = url.searchParams.get(
+        "arrayOldColorIdString"
+      );
+      const array_Old_colors = JSON.parse(stringifiedArray_Old_colors);
+
+      // get the color array :
+      // const all_colors = JSON.parse(data.get("all_colorsString"));
+      const stringifiedArray_All_colors =
+        url.searchParams.get("all_colorsString");
+      const all_colors = JSON.parse(stringifiedArray_All_colors);
 
       // logger.info("this is the value of the array : ", array_colors);
       // update the data :
