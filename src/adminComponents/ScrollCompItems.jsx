@@ -26,12 +26,17 @@ const ScrollCompItems = () => {
   }, [toggleVal]);
 
   console.log("HHHHHHHHHHHHHHHHHHHHHHHh");
-  // updatae the state of the data :
-  useEffect((elem, index) => {
-    getItems().then((resolve) => {
-      setData(resolve);
-    });
-  }, []);
+  // updatae the state function of the data :
+  const fetchData = async () => {
+    const resolvedData = await getItems();
+    setData(resolvedData);
+  };
+
+  // update the data each toggleVal change :
+  useEffect(() => {
+    console.log("this is the value of the toggle Value : ", toggleVal);
+    fetchData();
+  }, [toggleVal]); // Fetch data only when toggleVal changes
 
   // the return component :
   return (

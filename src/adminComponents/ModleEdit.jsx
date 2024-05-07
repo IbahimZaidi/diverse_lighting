@@ -268,6 +268,10 @@ const ModleEdit = ({
         resolve
       );
     });
+
+    // setToggleVal(false);
+    setToggleVal(false);
+    window.location.reload();
   };
   //
   // the return of the ModleEdit :
