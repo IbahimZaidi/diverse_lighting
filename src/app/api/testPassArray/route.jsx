@@ -63,25 +63,23 @@ export const GET = async (req, { params }) => {
           })
         : "";
 
-      // cheakNotExistColorsIdAndValuesArray
-      // let cheakNotExistColorsIdAndValuesArray = newColors.filter((elem) => {
-      //   return !cheakExistColorsIdAndValuesArray.includes({
-      //     id: elem.id,
-      //     value: elem.value,
-      //   });
-      // });
-
+      // the other colors in the newColors array don't exist already in the table of colors :
       const resultArray = newColors.filter(
         (item) =>
           !cheakExistColorsIdAndValuesArray.some(
             (subItem) => subItem.id === item.id
           )
       );
-      // let cheakNotExistColorsIdAndValuesArray = newColors
-      //   ? newColors.filter(
-      //       (elem) => !arrayToSubtract.some((subElem) => subElem.id === elem.id)
-      //     )
-      //   : [];
+
+      // add the new colors in the tables of colors in db :
+      if (resultArray) {
+        resultArray.map(async (elem) => {
+          await queryDeployTest({
+            query: "INSERT INTO colors (color_name) VALUES (?)",
+            values: [elem.value],
+          });
+        });
+      }
 
       //
       return NextResponse.json({
