@@ -97,13 +97,29 @@ export const GET = async (req, { params }) => {
             arrayIdNewColors.push(lengthOfAllColor + index + 1);
           })
         : "";
+
       // remove the colors inside the colors-mapping have the array_color_id = ?
+      if (array_color_id) {
+        await queryDeployTest({
+          query: "DELETE FROM color_mappings WHERE color_array_id = ?",
+          values: [array_color_id],
+        });
+      }
 
-      // get the new Colors'id's :
-
-      // add all colors inside the color_mapping where the array_color_id = ?
-
+      // add all colors (using arrayIdNewColors array ) inside the color_mapping where the array_color_id = ?
+      arrayIdNewColors && array_color_id
+        ? arrayIdNewColors.map(async (elem) => {
+            await queryDeployTest({
+              query:
+                "INSERT INTO color_mappings (id_color, color_array_id) VALUES (?, ?)",
+              values: [elem, array_color_id],
+            });
+          })
+        : "";
       //
+
+      // done
+      // done with colors ;
       return NextResponse.json({
         newColors,
         old_colors,
