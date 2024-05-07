@@ -28,6 +28,8 @@ const ModleEdit = ({
     });
   }, []);
 
+  // cheak the arrayColorId variable :
+
   // the state of new color :
   const [valueOfColor, setValueOfColor] = useState("#FFFFFF");
 
@@ -40,6 +42,13 @@ const ModleEdit = ({
   // const colors Array :
   const [colorArray, setColorArray] = useState([]);
 
+  useEffect(() => {
+    //
+    console.log(
+      "this is the NEW color  Array : ######################## ",
+      colorArray
+    );
+  }, [colorArray]);
   // const the imageNew state :
   const imageNew = useRef();
 
@@ -110,6 +119,39 @@ const ModleEdit = ({
     }
   };
 
+  //
+  //
+  // affiche the value of the color array :
+  useEffect(() => {
+    // affiche the value of the colorArray :
+    console.log("the array color is : ", colorArray);
+  }, [colorArray]);
+
+  // replace the arrayColors news with the arrayColor from the id array color :
+
+  useEffect(() => {
+    // change the value of the arrayColor new :
+    const newArray = arrayColorId.map((elem, index) => {
+      return { id: index + 1, value: elem.color_name };
+    });
+
+    // change the arrayColor :
+    setColorArray(() => newArray);
+  }, [arrayColorId]);
+
+  // cheak the value of the id :
+
+  useEffect(() => {
+    // console the value of the id :
+    console.log("________________ the id is : ", id);
+  }, [id]);
+
+  // cheak the currentImage :
+  useEffect(() => {
+    console.log("this is the current image value : ", currentImageNew);
+  }, [currentImageNew]);
+  //
+  //
   // function handleOnSubmit :
   const handleSubmitForm = async (e) => {
     // prevent the submit for now , whene i testing the Modele :
@@ -182,39 +224,6 @@ const ModleEdit = ({
     });
   }; // ****** end of the function hanldeSubmit
 
-  //
-  //
-  // affiche the value of the color array :
-  useEffect(() => {
-    // affiche the value of the colorArray :
-    console.log("the array color is : ", colorArray);
-  }, [colorArray]);
-
-  // replace the arrayColors news with the arrayColor from the id array color :
-
-  useEffect(() => {
-    // change the value of the arrayColor new :
-    const newArray = arrayColorId.map((elem, index) => {
-      return { id: index + 1, value: elem.color_name };
-    });
-
-    // change the arrayColor :
-    setColorArray(() => newArray);
-  }, [arrayColorId]);
-
-  // cheak the value of the id :
-
-  useEffect(() => {
-    // console the value of the id :
-    console.log("________________ the id is : ", id);
-  }, [id]);
-
-  // cheak the currentImage :
-  useEffect(() => {
-    console.log("this is the current image value : ", currentImageNew);
-  }, [currentImageNew]);
-  //
-  //
   //
   // the return of the ModleEdit :
   return (

@@ -43,17 +43,19 @@ export const POST = async (req, { params }) => {
       // get the color array :
       const all_colors = JSON.parse(data.get("all_colorsString"));
 
+      // logger.info("this is the value of the array : ", array_colors);
       // update the data :
       await queryDeployTest({
         query: "UPDATE items SET model = ?, image = ? WHERE id = ?",
         values: [model_name, image_name, params.id],
       });
 
+      let cheak;
       // for loop over the color_array :
       array_colors.map(async (elem, index) => {
         // case exist :
         // cheak if the color is alerady exsit :
-        const cheak = array_colors.find((elem, index) => {
+        cheak = array_colors.find((elem, index) => {
           return all_colors.contains(elem.value);
         });
 
@@ -84,22 +86,25 @@ export const POST = async (req, { params }) => {
       });
 
       // change the value of colors inside the table of colors_mapping :
-      // first delete old's color_id's
-      await queryDeployTest({
-        // delete all color's id have the same array_color_id
-        query: "Delete FROM color_mappings WHERE color_array_id = ? ",
-        values: [color_array_id],
-      });
 
-      // second add new color's id :
-      array_colors.map(async (elem) => {
-        await queryDeployTest({
-          // delete all color's id have the same array_color_id
-          query:
-            "INSERT INTO color_mappings (id_color , color_array_id) VALUES (?,?)",
-          values: [elem.value, color_array_id],
+      if (
+        array_colors.lenght > 0 // first delete old's color_id's
+          ? await queryDeployTest({
+              // delete all color's id have the same array_color_id
+              query: "Delete FROM color_mappings WHERE color_array_id = ? ",
+              values: [color_array_id],
+            })
+          : ""
+      )
+        // second add new color's id :
+        array_colors.map(async (elem) => {
+          await queryDeployTest({
+            // delete all color's id have the same array_color_id
+            query:
+              "INSERT INTO color_mappings (id_color , color_array_id) VALUES (?,?)",
+            values: [elem.value, color_array_id],
+          });
         });
-      });
 
       // neccery to return something :
       return NextResponse.json({
