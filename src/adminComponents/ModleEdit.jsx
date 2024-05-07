@@ -107,19 +107,19 @@ const ModleEdit = ({
   };
 
   // this is to change the value of the file , and affiche it before the submit handle the file change :
+  // handle the file change :
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       setFile(selectedFile);
-      setCurrentNewImage(selectedFile.name);
       const reader = new FileReader();
       reader.onload = () => {
         setPreviewUrl(reader.result);
+        setCurrentNewImage(selectedFile.name);
       };
       reader.readAsDataURL(selectedFile);
     }
   };
-
   //
   //
   // affiche the value of the color array :
@@ -154,22 +154,11 @@ const ModleEdit = ({
   //
   //
   // function handleOnSubmit :
-  const handleSubmitForm = async (e) => {
-    // prevent the submit for now , whene i testing the Modele :
-    e.preventDefault();
-    // set the toglle value to false :
-    // setToggleValue(false);
+  const uploadTheImage = async () => {
+    // e.preventDefault() ;
+    // e.preventDefault();
 
-    console.log("############################################");
-    console.log("the colors Array is : ", colorArray);
-    console.log(
-      "the new name of the new image is : ",
-      currentImageNew?.split("\\").slice(-1)[0]
-    );
-    console.log("the new value of the modele is : ", valueModele);
-    console.log("############################################");
-
-    // 1/ push the image into the folder of public/images:
+    console.log("hello from the handle function !!!!!!!! ");
     // cheak if the file empty :
     if (!file) return;
 
@@ -179,9 +168,11 @@ const ModleEdit = ({
       const data = new FormData();
 
       // set the value of the data to the value of the file :
+
+      // set the value of the data to the value of the file :
       data.set("file", file);
 
-      console.log("this is the value of the data : ", data.get("file"));
+      // console.log("this is the value of the data : ", data.get("file"));
       // make the request using the methode POST :
       const res = await fetch("api/upload", {
         method: "POST",
@@ -195,64 +186,13 @@ const ModleEdit = ({
       // Handler Error here :
       console.error("this is the error : ", e);
     }
-
-    // upload other info into db using post methode :
-    //
-    //
-
-    // create the data contain  the value of the file :
-    // const newData = new FormData();
-    // // const arrayColorsString = encodeURIComponent(JSON.stringify(array_colors));
-
-    // //**********
-    // // this is the tree Array cause the issue :
-    // const arrayNewColorsString = encodeURIComponent(JSON.stringify(colorArray));
-    // const arrayOldColorIdString = encodeURIComponent(
-    //   JSON.stringify(arrayColorId)
-    // );
-    // const all_colorsString = encodeURIComponent(JSON.stringify(all_colors));
-    // const currentImage_value = currentImageNew?.split("\\").slice(-1);
-
-    // const valueModeleStringfy = encodeURI(JSON.stringify(valueModele));
-    // const currentImage_valueStringfy = encodeURI(
-    //   JSON.stringify(currentImage_value)
-    // );
-    // const color_array_idStringfy = encodeURI(JSON.stringify(color_array_id));
-    // // const url = `http://localhost:3000/api/itemsIdUpdate/${currentObjectVal.id}?model_name=${valueModeleStringfy}&currentImage_value=${currentImage_valueStringfy}&color_array_id=${color_array_idStringfy}&arrayNewColorsString=${arrayNewColorsString}&arrayOldColorIdString=${arrayOldColorIdString}&all_colorsString=${all_colorsString}`;
-    // const url = `http://localhost:3000/api/itemsIdUpdate/${currentObjectVal.id}?model_name=${valueModele}&currentImage_value=${currentImage_value}&color_array_id=${color_array_id}`;
-
-    // newData.set("array_colors", arrayNewColorsString);
-    // newData.set("array_Old_colors", arrayOldColorIdString);
-    // newData.set("all_colorsString", all_colorsString);
-
-    // // set the value of the data to the value of the file :
-    // newData.set("image_name", currentImage_value);
-    // newData.set("model_name", valueModele);
-    //color_array_id
-    // newData.set("color_array_id", currentObjectVal.color_array_id);
-    // console.log("this is the value of the data : ", data.get("file"));
-
-    // make the request using the methode POST :
-    // const res = await fetch(url, {
-    //   method: "POST",
-    //   body: newData,
-    // });
-    // const res = await fetch(url);
-    // const result = await res.json();
-    // console.log("this is the return from the request api : ", result);
-
-    // updateIems(colorArray, currentImage_value).then((resolve) => {
-    //   console.log(
-    //     "******************************* _________________ this the return from the api route ",
-    //     resolve
-    //   );
-    // });
-    // close the Modele :
-    // setToggleVal(false);
   }; // ****** end of the function hanldeSubmits
   const handleClick = async () => {
     // the logic here :
 
+    // upload the image function :
+    await uploadTheImage();
+    //
     console.log("hello from the click ");
     updateIems(
       colorArray,
@@ -271,7 +211,6 @@ const ModleEdit = ({
 
     // setToggleVal(false);
     setToggleVal(false);
-    window.location.reload();
   };
   //
   //
@@ -294,7 +233,9 @@ const ModleEdit = ({
       {/* the form : */}
       <form
         action=""
-        onSubmit={(e) => handleSubmitForm(e)}
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
         className=" border border-green-500 p-3 flex flex-col space-y-4 m-3"
         // onSubmit={}
       >
