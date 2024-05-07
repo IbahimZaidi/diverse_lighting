@@ -23,7 +23,7 @@ const ScrollCompItems = () => {
 
   useEffect(() => {
     console.log("this is the value of the toggle Value : ", toggleVal);
-    window.location.reload();
+    // window.location.reload();
   }, [toggleVal]);
 
   console.log("HHHHHHHHHHHHHHHHHHHHHHHh");
