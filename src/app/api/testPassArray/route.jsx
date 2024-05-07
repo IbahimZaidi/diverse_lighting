@@ -8,18 +8,18 @@ export const GET = async (req, { params }) => {
 
       // // Stringify the array
       const url = new URL(req.url);
-      const stringifiedArray = url.searchParams.get("array_colors");
-      const stringifiedArray_old_colors = url.searchParams.get(
+      const stringifiedArray = await url.searchParams.get("array_colors");
+      const stringifiedArray_old_colors = await url.searchParams.get(
         "old_array_colorsString"
       );
-      const stringifiedArrayAll_Color = url.searchParams.get(
+      const stringifiedArrayAll_Color = await url.searchParams.get(
         "all_colors_arrayString"
       );
       // get the exemple of the image :
-      const newImage = url.searchParams.get("exempleLikImage");
-      const model_name = url.searchParams.get("model_name");
-      const currentId = url.searchParams.get("currentId");
-      const array_color_id = url.searchParams.get("array_color_id");
+      const newImage = await url.searchParams.get("exempleLikImage");
+      const model_name = await url.searchParams.get("model_name");
+      const currentId = await url.searchParams.get("currentId");
+      const array_color_id = await url.searchParams.get("array_color_id");
 
       // '[{"id":1,"value":"#000000"},{"id":2,"value":"#C0C0C0"},{"id":3,"value":"#00000000000"}]'
       const newColors = JSON.parse(stringifiedArray); // 1 : { id: 1, value: "#FFFFFF" }
@@ -41,6 +41,10 @@ export const GET = async (req, { params }) => {
       // this array contain objects of color {id : ... , value : .... }
 
       let cheakExistColorsIdAndValuesArray = [];
+
+      // array contain the new id's of the colors :
+      let arrayIdNewColors = [];
+
       // update the data in the colors table after cheaking the new colors exists or not :
       //  newColors.map(())
       All_colors
@@ -57,6 +61,8 @@ export const GET = async (req, { params }) => {
                       id: elemNew.id,
                       value: elemNew.value,
                     });
+                    // push the id of color from id's of table colors :
+                    arrayIdNewColors.push(elem.id);
                   }
                 })
               : "";
@@ -72,14 +78,30 @@ export const GET = async (req, { params }) => {
       );
 
       // add the new colors in the tables of colors in db :
-      if (resultArray) {
-        resultArray.map(async (elem) => {
+      if (resultArray && All_colors) {
+        resultArray.map(async (elem, index) => {
           await queryDeployTest({
             query: "INSERT INTO colors (color_name) VALUES (?)",
             values: [elem.value],
           });
+
+          // push the new id into the arrayIdNewColors :
+          // const newIndex = (await All_colors.length) + index + 1;
+          // arrayIdNewColors.push(newIndex);
         });
       }
+
+      resultArray
+        ? resultArray.map((_, index) => {
+            const lengthOfAllColor = All_colors ? All_colors.length : "";
+            arrayIdNewColors.push(lengthOfAllColor + index + 1);
+          })
+        : "";
+      // remove the colors inside the colors-mapping have the array_color_id = ?
+
+      // get the new Colors'id's :
+
+      // add all colors inside the color_mapping where the array_color_id = ?
 
       //
       return NextResponse.json({
@@ -92,6 +114,7 @@ export const GET = async (req, { params }) => {
         array_color_id,
         cheakExistColorsIdAndValuesArray,
         resultArray,
+        arrayIdNewColors,
       }); // return in the response a json with value of posts;
     }
   } catch (error) {
