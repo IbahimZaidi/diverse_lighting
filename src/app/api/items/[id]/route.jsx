@@ -20,114 +20,86 @@ export const GET = async (req, { params }) => {
   }
 };
 
-//
-export const POST = async (req, { params }) => {
-  if (req.method === "POST") {
-    try {
-      const data = await req.formData();
-      // get the new name of the modele :
-      const model_name = data.get("model_name");
+// // Import the necessary modules
+// import { queryDeployTest } from "@/connectDB/queryDeployTest"; // Replace with your actual database module
+// import { NextResponse } from "next/server";
+// import { URLSearchParams } from "url";
 
-      // get the image new name :
-      const image_name = data.get("image_name");
+// // Define the GET handler function
+// export const GET = async (req, { params }) => {
+//   if (req.method !== "GET") {
+//     return NextResponse.error(new Error("Method not allowed"), { status: 405 });
+//   }
 
-      // get color_array_id :
-      const color_array_id = data.get("color_array_id");
+//   try {
+//     // Parse the query parameters from the URL
+//     const urlParams = new URLSearchParams(req.url);
 
-      // test this time the search params :
-      const url = new URL(req.url);
-      // const stringifiedArray = url.searchParams.get("array_colors");
+//     // Extract query parameters and validate JSON
+//     const model_name = JSON.parse(urlParams.get("model_name") || null);
+//     const image_name = JSON.parse(urlParams.get("image_name") || null);
+//     const color_array_id = JSON.parse(urlParams.get("color_array_id") || null);
+//     const arrayNewColorsString = JSON.parse(
+//       urlParams.get("arrayNewColorsString") || null
+//     );
+//     const arrayOldColorIdString = JSON.parse(
+//       urlParams.get("arrayOldColorIdString") || null
+//     );
+//     const all_colors = JSON.parse(urlParams.get("all_colorsString") || null);
 
-      // get the color array :
-      // const array_colors = JSON.parse(data.get("array_colors"));
-      const stringifiedArray_colors = url.searchParams.get(
-        "arrayNewColorsString"
-      );
-      const array_colors = JSON.parse(stringifiedArray_colors);
+//     // Update the data in the database
+//     await queryDeployTest({
+//       query: "UPDATE items SET model = ?, image = ? WHERE id = ?",
+//       values: [model_name, image_name, params.id],
+//     });
 
-      // get the color array :
-      // const array_Old_colors = JSON.parse(data.get("array_Old_colors"));
-      const stringifiedArray_Old_colors = url.searchParams.get(
-        "arrayOldColorIdString"
-      );
-      const array_Old_colors = JSON.parse(stringifiedArray_Old_colors);
+//     // Process color array
+//     for (const elem of arrayNewColorsString || []) {
+//       const exists = all_colors.find(
+//         (color) => color.color_name === elem.value
+//       );
+//       if (exists) {
+//         await queryDeployTest({
+//           query: "UPDATE colors SET color_name = ? WHERE color_name = ?",
+//           values: [
+//             elem.value,
+//             arrayOldColorIdString.find(
+//               (oldColor) => oldColor.color_name === elem.value
+//             ).color_name,
+//           ],
+//         });
+//       } else {
+//         await queryDeployTest({
+//           query: "INSERT INTO colors (color_name) VALUES (?)",
+//           values: [elem.value],
+//         });
+//       }
+//     }
 
-      // get the color array :
-      // const all_colors = JSON.parse(data.get("all_colorsString"));
-      const stringifiedArray_All_colors =
-        url.searchParams.get("all_colorsString");
-      const all_colors = JSON.parse(stringifiedArray_All_colors);
+//     // Update color mappings
+//     await queryDeployTest({
+//       query: "DELETE FROM color_mappings WHERE color_array_id = ?",
+//       values: [color_array_id],
+//     });
 
-      // logger.info("this is the value of the array : ", array_colors);
-      // update the data :
-      await queryDeployTest({
-        query: "UPDATE items SET model = ?, image = ? WHERE id = ?",
-        values: [model_name, image_name, params.id],
-      });
+//     for (const elem of arrayNewColorsString || []) {
+//       await queryDeployTest({
+//         query:
+//           "INSERT INTO color_mappings (id_color, color_array_id) VALUES (?, ?)",
+//         values: [elem.value, color_array_id],
+//       });
+//     }
 
-      let cheak;
-      // for loop over the color_array :
-      array_colors.map(async (elem, index) => {
-        // case exist :
-        // cheak if the color is alerady exsit :
-        cheak = array_colors.find((elem, index) => {
-          return all_colors.contains(elem.value);
-        });
-
-        // case the color is already exist :
-        if (cheak) {
-          await queryDeployTest({
-            // you need to cheak first if the color already exist from the value of the color , or you can drop it then add it :
-
-            // update the colors table first , then update the
-            // UPDATE colors SET  color_name ="#000000"  where color_name = "#FFFFFF" AND id = old_id;
-            query:
-              "UPDATE colors SET  color_name = ?  where color_name = ?    ",
-            values: [elem.value, array_Old_colors[index].color_name],
-          });
-        }
-
-        // else the color not exist :
-        else {
-          await queryDeployTest({
-            // you need to cheak first if the color already exist from the value of the color , or you can drop it then add it :
-
-            // update the colors table first , then update the
-            // UPDATE colors SET  color_name ="#000000"  where color_name = "#FFFFFF" AND id = old_id;
-            query: "INSERT INTO  colors (color_name) values (?) ",
-            values: [elem.value],
-          });
-        }
-      });
-
-      // change the value of colors inside the table of colors_mapping :
-
-      if (
-        array_colors.lenght > 0 // first delete old's color_id's
-          ? await queryDeployTest({
-              // delete all color's id have the same array_color_id
-              query: "Delete FROM color_mappings WHERE color_array_id = ? ",
-              values: [color_array_id],
-            })
-          : ""
-      )
-        // second add new color's id :
-        array_colors.map(async (elem) => {
-          await queryDeployTest({
-            // delete all color's id have the same array_color_id
-            query:
-              "INSERT INTO color_mappings (id_color , color_array_id) VALUES (?,?)",
-            values: [elem.value, color_array_id],
-          });
-        });
-
-      // neccery to return something :
-      return NextResponse.json({
-        message: `Post added successfully`,
-      });
-    } catch (error) {
-      console.log(error);
-      throw new Error(error);
-    }
-  }
-};
+//     // Return response
+//     return NextResponse.json({
+//       array_colors: arrayNewColorsString,
+//       array_Old_colors: arrayOldColorIdString,
+//       all_colors,
+//     });
+//   } catch (error) {
+//     console.error("Error:", error);
+//     return NextResponse.error(new Error("Internal Server Error"), {
+//       status: 500,
+//     });
+//   }
+// };

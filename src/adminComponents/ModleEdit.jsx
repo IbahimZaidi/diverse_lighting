@@ -8,6 +8,7 @@ import { CldUploadWidget } from "next-cloudinary";
 import { getItemsColorsId } from "@/helperFetchDataDB/getItemsColorsId";
 import axios from "axios";
 import { getAllColors } from "@/helperFetchDataDB/getAllColors";
+import { updateIems } from "@/helperFetchDataDB/updateIems";
 // import the methode use Post to modifie the contenet :
 //
 const ModleEdit = ({
@@ -210,24 +211,44 @@ const ModleEdit = ({
       JSON.stringify(arrayColorId)
     );
     const all_colorsString = encodeURIComponent(JSON.stringify(all_colors));
-    const url = `http://localhost:3000/api/items/${currentObjectVal.id}?arrayNewColorsString=${arrayNewColorsString}&arrayOldColorIdString=${arrayOldColorIdString}&all_colorsString=${all_colorsString}`;
+    const currentImage_value = currentImageNew?.split("\\").slice(-1);
+
+    const valueModeleStringfy = encodeURI(JSON.stringify(valueModele));
+    const currentImage_valueStringfy = encodeURI(
+      JSON.stringify(currentImage_value)
+    );
+    const color_array_idStringfy = encodeURI(JSON.stringify(color_array_id));
+    // const url = `http://localhost:3000/api/itemsIdUpdate/${currentObjectVal.id}?model_name=${valueModeleStringfy}&currentImage_value=${currentImage_valueStringfy}&color_array_id=${color_array_idStringfy}&arrayNewColorsString=${arrayNewColorsString}&arrayOldColorIdString=${arrayOldColorIdString}&all_colorsString=${all_colorsString}`;
+    const url = `http://localhost:3000/api/itemsIdUpdate/${currentObjectVal.id}?model_name=${valueModele}&currentImage_value=${currentImage_value}&color_array_id=${color_array_id}`;
 
     // newData.set("array_colors", arrayNewColorsString);
     // newData.set("array_Old_colors", arrayOldColorIdString);
     // newData.set("all_colorsString", all_colorsString);
 
     // // set the value of the data to the value of the file :
-    newData.set("image_name", currentImageNew?.split("\\").slice(-1));
-    newData.set("model_name", valueModele);
+    // newData.set("image_name", currentImage_value);
+    // newData.set("model_name", valueModele);
     //color_array_id
-    newData.set("color_array_id", currentObjectVal.color_array_id);
+    // newData.set("color_array_id", currentObjectVal.color_array_id);
     // console.log("this is the value of the data : ", data.get("file"));
 
     // make the request using the methode POST :
-    const res = await fetch(url, {
-      method: "POST",
-      body: newData,
+    // const res = await fetch(url, {
+    //   method: "POST",
+    //   body: newData,
+    // });
+    // const res = await fetch(url);
+    // const result = await res.json();
+    // console.log("this is the return from the request api : ", result);
+
+    updateIems(colorArray, currentImage_value).then((resolve) => {
+      console.log(
+        "******************************* _________________ this the return from the api route ",
+        resolve
+      );
     });
+    // close the Modele :
+    // setToggleVal(false);
   }; // ****** end of the function hanldeSubmit
 
   //
@@ -394,7 +415,24 @@ const ModleEdit = ({
           Add All{" "}
         </span> */}
         {/* input of submit the changig , must show other modele of confirmation */}
-        <button type="submit" className=" bg-blue-400 text-white w-32 h-10 ">
+        <button
+          type="submit"
+          className=" bg-blue-400 text-white w-32 h-10 "
+          onClick={() => {
+            console.log("hello from the click ");
+            updateIems(
+              colorArray,
+              arrayColorId,
+              all_colors,
+              currentImageNew
+            ).then((resolve) => {
+              console.log(
+                "******************************* _________________ this the return from the api route ",
+                resolve
+              );
+            });
+          }}
+        >
           {" "}
           save change{" "}
         </button>

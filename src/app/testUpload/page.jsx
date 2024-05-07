@@ -1,4 +1,5 @@
 "use client";
+import { updateIems } from "@/helperFetchDataDB/updateIems";
 import React, { useState } from "react";
 
 const page = () => {
@@ -22,7 +23,6 @@ const page = () => {
   };
 
   // the handleFunctionOnSubmit :
-
   const handleOnSubmit = async (e) => {
     // e.preventDefault() ;
     e.preventDefault();
@@ -57,14 +57,9 @@ const page = () => {
     }
   };
 
+  //
   // handle testFunction testing the passing array to api route  :
   const testFunction = async () => {
-    // const newData = new FormData();
-    // const array_color = [
-    //   { id: 1, value: "#000000" },
-    //   { id: 2, value: "#C0C0C0" },
-    //   { id: 3, value: "#FFFFFF" },
-    // ];
     // const arrayColorStringy = JSON.stringify(array_color);
     const array_colors = [
       { id: 1, value: "#000000" },
@@ -72,25 +67,15 @@ const page = () => {
       { id: 3, value: "#FFFFFF" },
     ];
 
-    const arrayColorsString = encodeURIComponent(JSON.stringify(array_colors));
-    const url = `http://localhost:3000/api/testPassArray?array_colors=${arrayColorsString}`;
+    const exempleLikImage = "image_name.jpg";
 
-    // test with word :
-    // const wordTest = "brahim zaidi";
-
-    console.log(
-      "this is the stringfy array :  ",
-      arrayColorsString,
-      " and this the type of the string ",
-      typeof arrayColorsString
-    );
-    const resNew = await fetch(url);
-
-    const result = await resNew.json();
-    console.log(
-      "_________________---- this is the return json value : ",
-      result.parsedArray
-    );
+    // cheak the value return from the updateItems :
+    updateIems(array_colors, exempleLikImage).then((resolve) => {
+      console.log(
+        "_________________---- this is the return value from the function updateItems : ",
+        resolve
+      );
+    });
   };
 
   //

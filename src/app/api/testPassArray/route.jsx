@@ -4,28 +4,30 @@ export const GET = async (req) => {
   try {
     if (req.method === "GET") {
       // Create an array
-      const colorsArray = [
-        { id: 1, value: "#000000" },
-        { id: 2, value: "#C0C0C0" },
-        { id: 3, value: "#FFFFFF" },
-      ];
 
       // // Stringify the array
       const url = new URL(req.url);
       const stringifiedArray = url.searchParams.get("array_colors");
-
-      console.log(stringifiedArray);
-      // console.log("Stringified array:", stringifiedArray);
-      // const stringifiedArray = JSON.stringify(colorsArray);
-      // // Parse the string back to an array
-      const parsedArray = JSON.parse(
-        // '[{"id":1,"value":"#000000"},{"id":2,"value":"#C0C0C0"},{"id":3,"value":"#00000000000"}]'
-        stringifiedArray
+      const stringifiedArray_old_colors = url.searchParams.get(
+        "old_array_colorsString"
       );
-      console.log("Parsed array:", parsedArray);
+      const stringifiedArrayAll_Color = url.searchParams.get(
+        "all_colors_arrayString"
+      );
+      // get the exemple of the image :
+      const exempleImage = url.searchParams.get("exempleLikImage");
+
+      // '[{"id":1,"value":"#000000"},{"id":2,"value":"#C0C0C0"},{"id":3,"value":"#00000000000"}]'
+      const parsedArray = JSON.parse(stringifiedArray);
+      const parsedArray_old_colors = JSON.parse(stringifiedArray_old_colors);
+      const parsedArray_All_colors = JSON.parse(stringifiedArrayAll_Color);
+      // console.log("Parsed array:", parsedArray);
 
       return NextResponse.json({
         parsedArray,
+        parsedArray_old_colors,
+        parsedArray_All_colors,
+        exempleImage,
       }); // return in the response a json with value of posts;
     }
   } catch (error) {
