@@ -29,7 +29,7 @@ const Iteam = ({ objectVal }) => {
         }}
       >
         <img
-          src={`images_test/${objectVal.image}`}
+          src={`images_test/${objectVal.image ? objectVal.image : "hi.jpeg"}`}
           alt="Error 404"
           className="w-100% h-100%"
         />

@@ -201,25 +201,25 @@ const ModleEdit = ({
     //
 
     // create the data contain  the value of the file :
-    const newData = new FormData();
-    // const arrayColorsString = encodeURIComponent(JSON.stringify(array_colors));
+    // const newData = new FormData();
+    // // const arrayColorsString = encodeURIComponent(JSON.stringify(array_colors));
 
-    //**********
-    // this is the tree Array cause the issue :
-    const arrayNewColorsString = encodeURIComponent(JSON.stringify(colorArray));
-    const arrayOldColorIdString = encodeURIComponent(
-      JSON.stringify(arrayColorId)
-    );
-    const all_colorsString = encodeURIComponent(JSON.stringify(all_colors));
-    const currentImage_value = currentImageNew?.split("\\").slice(-1);
+    // //**********
+    // // this is the tree Array cause the issue :
+    // const arrayNewColorsString = encodeURIComponent(JSON.stringify(colorArray));
+    // const arrayOldColorIdString = encodeURIComponent(
+    //   JSON.stringify(arrayColorId)
+    // );
+    // const all_colorsString = encodeURIComponent(JSON.stringify(all_colors));
+    // const currentImage_value = currentImageNew?.split("\\").slice(-1);
 
-    const valueModeleStringfy = encodeURI(JSON.stringify(valueModele));
-    const currentImage_valueStringfy = encodeURI(
-      JSON.stringify(currentImage_value)
-    );
-    const color_array_idStringfy = encodeURI(JSON.stringify(color_array_id));
-    // const url = `http://localhost:3000/api/itemsIdUpdate/${currentObjectVal.id}?model_name=${valueModeleStringfy}&currentImage_value=${currentImage_valueStringfy}&color_array_id=${color_array_idStringfy}&arrayNewColorsString=${arrayNewColorsString}&arrayOldColorIdString=${arrayOldColorIdString}&all_colorsString=${all_colorsString}`;
-    const url = `http://localhost:3000/api/itemsIdUpdate/${currentObjectVal.id}?model_name=${valueModele}&currentImage_value=${currentImage_value}&color_array_id=${color_array_id}`;
+    // const valueModeleStringfy = encodeURI(JSON.stringify(valueModele));
+    // const currentImage_valueStringfy = encodeURI(
+    //   JSON.stringify(currentImage_value)
+    // );
+    // const color_array_idStringfy = encodeURI(JSON.stringify(color_array_id));
+    // // const url = `http://localhost:3000/api/itemsIdUpdate/${currentObjectVal.id}?model_name=${valueModeleStringfy}&currentImage_value=${currentImage_valueStringfy}&color_array_id=${color_array_idStringfy}&arrayNewColorsString=${arrayNewColorsString}&arrayOldColorIdString=${arrayOldColorIdString}&all_colorsString=${all_colorsString}`;
+    // const url = `http://localhost:3000/api/itemsIdUpdate/${currentObjectVal.id}?model_name=${valueModele}&currentImage_value=${currentImage_value}&color_array_id=${color_array_id}`;
 
     // newData.set("array_colors", arrayNewColorsString);
     // newData.set("array_Old_colors", arrayOldColorIdString);
@@ -241,16 +241,16 @@ const ModleEdit = ({
     // const result = await res.json();
     // console.log("this is the return from the request api : ", result);
 
-    updateIems(colorArray, currentImage_value).then((resolve) => {
-      console.log(
-        "******************************* _________________ this the return from the api route ",
-        resolve
-      );
-    });
+    // updateIems(colorArray, currentImage_value).then((resolve) => {
+    //   console.log(
+    //     "******************************* _________________ this the return from the api route ",
+    //     resolve
+    //   );
+    // });
     // close the Modele :
     // setToggleVal(false);
   }; // ****** end of the function hanldeSubmits
-  const handleClick = () => {
+  const handleClick = async () => {
     // the logic here :
 
     console.log("hello from the click ");
