@@ -249,8 +249,26 @@ const ModleEdit = ({
     });
     // close the Modele :
     // setToggleVal(false);
-  }; // ****** end of the function hanldeSubmit
+  }; // ****** end of the function hanldeSubmits
+  const handleClick = () => {
+    // the logic here :
 
+    console.log("hello from the click ");
+    updateIems(
+      colorArray,
+      arrayColorId,
+      all_colors,
+      currentImageNew,
+      valueModele,
+      currentObjectVal.id,
+      currentObjectVal.color_array_id
+    ).then((resolve) => {
+      console.log(
+        "******************************* _________________ this the return from the api route ",
+        resolve
+      );
+    });
+  };
   //
   // the return of the ModleEdit :
   return (
@@ -419,20 +437,7 @@ const ModleEdit = ({
         <button
           type="submit"
           className=" bg-blue-400 text-white w-32 h-10 "
-          onClick={() => {
-            console.log("hello from the click ");
-            updateIems(
-              colorArray,
-              arrayColorId,
-              all_colors,
-              currentImageNew
-            ).then((resolve) => {
-              console.log(
-                "******************************* _________________ this the return from the api route ",
-                resolve
-              );
-            });
-          }}
+          onClick={handleClick}
         >
           {" "}
           save change{" "}

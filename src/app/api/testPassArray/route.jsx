@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
-export const GET = async (req) => {
+import { queryDeployTest } from "@/connectDB/queryDeployTest";
+export const GET = async (req, { params }) => {
   try {
     if (req.method === "GET") {
       // Create an array
@@ -15,19 +16,37 @@ export const GET = async (req) => {
         "all_colors_arrayString"
       );
       // get the exemple of the image :
-      const exempleImage = url.searchParams.get("exempleLikImage");
+      const newImage = url.searchParams.get("exempleLikImage");
+      const model_name = url.searchParams.get("model_name");
+      const currentId = url.searchParams.get("currentId");
+      const array_color_id = url.searchParams.get("array_color_id");
 
       // '[{"id":1,"value":"#000000"},{"id":2,"value":"#C0C0C0"},{"id":3,"value":"#00000000000"}]'
-      const parsedArray = JSON.parse(stringifiedArray);
-      const parsedArray_old_colors = JSON.parse(stringifiedArray_old_colors);
-      const parsedArray_All_colors = JSON.parse(stringifiedArrayAll_Color);
+      const newColors = JSON.parse(stringifiedArray);
+      const old_colors = JSON.parse(stringifiedArray_old_colors);
+      const All_colors = JSON.parse(stringifiedArrayAll_Color);
       // console.log("Parsed array:", parsedArray);
 
+      // update the db base on the new values :
+      // Update the data in the database
+
+      if (model_name && newImage && currentId) {
+        await queryDeployTest({
+          query: "UPDATE items SET model = ?, image = ? WHERE id = ?",
+          values: [model_name, newImage, currentId],
+          // query: "select * from items ",
+          // values: [],
+        });
+      }
+
       return NextResponse.json({
-        parsedArray,
-        parsedArray_old_colors,
-        parsedArray_All_colors,
-        exempleImage,
+        newColors,
+        old_colors,
+        All_colors,
+        newImage,
+        model_name,
+        currentId,
+        array_color_id,
       }); // return in the response a json with value of posts;
     }
   } catch (error) {
