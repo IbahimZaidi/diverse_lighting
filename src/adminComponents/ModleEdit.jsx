@@ -414,6 +414,7 @@ const ModleEdit = ({
           {" "}
           Add All{" "}
         </span> */}
+        {/*  */}
         {/* input of submit the changig , must show other modele of confirmation */}
         <button
           type="submit"
