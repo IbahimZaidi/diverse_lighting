@@ -99,20 +99,21 @@ export const GET = async (req, { params }) => {
 
       // create the newColor inside the colors arrary in the database :
 
-      // add the new colors in the tables of colors in db :
-      // if (notExistColors && allColors) {
-      //   notExistColors.map(async (elem, index) => {
-      //     await queryDeployTest({
-      //       query: "INSERT INTO colors (color_name) VALUES (?)",
-      //       values: [elem.value],
-      //     });
-      //   });
-      // }
       // the other colors in the newColors array don't exist already in the table of colors :
       const notExistColors = newColors.filter(
         (item) =>
           !colorAlreadyExist.some((subItem) => subItem.value === item.value)
       );
+
+      // add the new colors in the tables of colors in db :
+      if (notExistColors && allColors) {
+        notExistColors.map(async (elem, index) => {
+          await queryDeployTest({
+            query: "INSERT INTO colors (color_name) VALUES (?)",
+            values: [elem.value],
+          });
+        });
+      }
       // push the newId's of the newColors the id's of new Colors :
       notExistColors
         ? notExistColors.map((_, index) => {
@@ -211,6 +212,8 @@ export const GET = async (req, { params }) => {
         });
       });
 
+      // the container of the oldExistCombination :
+      let oldExistCombinationId = 1;
       // loop over arrayOfArrayPossible :
 
       if (arrayOfArrayPossible) {
@@ -223,11 +226,53 @@ export const GET = async (req, { params }) => {
               }
             }
 
-            theCheak ? (combinitionExist = true) : "";
+            // theCheak ?(  : "";
+            if (theCheak) {
+              combinitionExist = true;
+              oldExistCombinationId = elem.color_array_id;
+            }
           }
         });
       }
       // start the for loop :
+
+      // insert base on the value of the combinitionExist false or true :
+      if (!combinitionExist && arrayColorIdDistinctMappingArray && newColors) {
+        // insert in the array Mapping also :
+        newColors.map(async (elem) => {
+          await queryDeployTest({
+            query:
+              "INSERT INTO color_array_id (id_color , color_array_id) VALUES(?,?)",
+            values: [elem.id, arrayColorIdDistinctMappingArray.length + 1],
+          });
+        });
+        // INSERT INTO items (model,image,color_array_id) VALUES("testfromDBphpymyadmin" , "hi.jpg" , 3) ;
+        await queryDeployTest({
+          query:
+            "INSERT INTO items (model,image,color_array_id) VALUES(? , ? , ?)",
+          values: [
+            model_name,
+            newImage,
+            arrayColorIdDistinctMappingArray.length + 1,
+          ],
+        });
+      }
+
+      /// handle case is combination already exist :
+
+      if (
+        combinitionExist &&
+        arrayColorIdDistinctMappingArray &&
+        newColors &&
+        oldExistCombinationId
+      ) {
+        // INSERT INTO items (model,image,color_array_id) VALUES("testfromDBphpymyadmin" , "hi.jpg" , 3) ;
+        await queryDeployTest({
+          query:
+            "INSERT INTO items (model,image,color_array_id) VALUES(? , ? , ?)",
+          values: [model_name, newImage, oldExistCombinationId],
+        });
+      }
 
       // arrayColorIdDistinctMappingArray;
       // pass to the client to make sure he extract the array well :
