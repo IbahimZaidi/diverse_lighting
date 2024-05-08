@@ -165,15 +165,14 @@ export const GET = async (req, { params }) => {
       let arrayColorIdDistinctMappingArray = [];
 
       //
-      if (notExistColors.length == 0 && colorAlreadyExist.length > 0) {
-        // loop over
-        allColorsMapping.map((elem) => {
-          // push into color_array_id :
-          !arrayColorIdDistinctMappingArray.includes(elem.color_array_id)
-            ? arrayColorIdDistinctMappingArray.push(elem.color_array_id)
-            : "";
-        });
-      }
+
+      // loop over
+      allColorsMapping.map((elem) => {
+        // push into color_array_id :
+        !arrayColorIdDistinctMappingArray.includes(elem.color_array_id)
+          ? arrayColorIdDistinctMappingArray.push(elem.color_array_id)
+          : "";
+      });
 
       if (notExistColors.length == 0 && colorAlreadyExist.length > 0) {
         //
@@ -234,16 +233,22 @@ export const GET = async (req, { params }) => {
           }
         });
       }
+
+      // change the value of oldExistCombinationId
+      if (!combinitionExist) {
+        oldExistCombinationId = arrayColorIdDistinctMappingArray.length + 1;
+      }
       // start the for loop :
 
+      ///////////////////////////// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& ********************
       // insert base on the value of the combinitionExist false or true :
       if (!combinitionExist && arrayColorIdDistinctMappingArray && newColors) {
         // insert in the array Mapping also :
-        newColors.map(async (elem) => {
+        arrayIdNewColors.map(async (elem) => {
           await queryDeployTest({
             query:
-              "INSERT INTO color_array_id (id_color , color_array_id) VALUES(?,?)",
-            values: [elem.id, arrayColorIdDistinctMappingArray.length + 1],
+              "INSERT INTO color_mappings (id_color , color_array_id) VALUES(?,?)",
+            values: [elem, oldExistCombinationId],
           });
         });
         // INSERT INTO items (model,image,color_array_id) VALUES("testfromDBphpymyadmin" , "hi.jpg" , 3) ;
@@ -297,6 +302,8 @@ export const GET = async (req, { params }) => {
         arrayOfArraysBaseOnColor_id_array,
         arrayColorIdDistinctMappingArray,
         arrayOfArrayPossible,
+        oldExistCombinationId,
+        supposeValue: arrayColorIdDistinctMappingArray.length + 1,
       }); // return in the response a json with value of posts;
     }
   } catch (error) {

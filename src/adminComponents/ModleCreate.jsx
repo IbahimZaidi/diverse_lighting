@@ -191,6 +191,12 @@ const ModleCreate = ({ settoggleValCreate }) => {
         resolve
       );
     });
+
+    // close the modele :
+    settoggleValCreate(false);
+
+    // toggle the reload :
+    window.location.reload();
   };
   // the return component :
   return (
