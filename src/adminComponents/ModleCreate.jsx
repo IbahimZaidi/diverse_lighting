@@ -178,7 +178,7 @@ const ModleCreate = ({ settoggleValCreate }) => {
     // the corps function insert the data into database :
 
     // import the function do the work :
-    insertNewItem(
+    await insertNewItem(
       colorArray,
       currentImageNew,
       valueModele,

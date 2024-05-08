@@ -227,7 +227,7 @@ export default function Home() {
         >
           {theDataDb.length > 0 ? (
             theDataDb.map((elem, index) => {
-              return <Iteam objectVal={elem} key={index} />;
+              return <Iteam objectVal={elem} key={index} theIndex={index} />;
             })
           ) : (
             <div> is loading </div>

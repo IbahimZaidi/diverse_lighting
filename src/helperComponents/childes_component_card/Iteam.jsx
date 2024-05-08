@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getItemsColorsId } from "@/helperFetchDataDB/getItemsColorsId";
 
-const Iteam = ({ objectVal }) => {
+const Iteam = ({ objectVal, theIndex }) => {
   const [theColors, setTheColors] = useState([]);
   const [valueOfColor, setValueOfColor] = useState("white");
 
@@ -29,7 +29,13 @@ const Iteam = ({ objectVal }) => {
         }}
       >
         <img
-          src={`images_test/${objectVal.image ? objectVal.image : "hi.jpeg"}`}
+          src={`images_test/${
+            objectVal.image
+              ? objectVal.image
+              : objectVal.image == "null"
+              ? "default_image.jpg"
+              : ""
+          }`}
           alt="Error 404"
           className="w-100% h-100%"
         />
@@ -42,7 +48,7 @@ const Iteam = ({ objectVal }) => {
         }}
       >
         <span className="w-6 h-6 flex justify-center items-center text-white bg-yellow-500 ">
-          {objectVal.id}
+          {theIndex + 1}
         </span>
         {theColors && theColors.length > 0 ? (
           theColors.map((elem, index) => (
