@@ -275,6 +275,7 @@ export const GET = async (req, { params }) => {
       }
 
       //
+      //
 
       // arrayColorIdDistinctMappingArray;
       // pass to the client to make sure he extract the array well :

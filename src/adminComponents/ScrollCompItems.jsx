@@ -22,6 +22,9 @@ const ScrollCompItems = () => {
   // the toggleValue of ModleEdit :
   const [toggleVal, setToggleVal] = useState(false);
 
+  // the toggleValue of ModeleEdite:
+  const [toggleValCreate, settoggleValCreate] = useState(false);
+
   useEffect(() => {
     console.log("this is the value of the toggle Value : ", toggleVal);
     // window.location.reload();
@@ -43,6 +46,17 @@ const ScrollCompItems = () => {
   // the return component :
   return (
     <div className="scrollDivMain w-80% overflow-y-scroll overflow-x-hidden h-400px m-auto bg-slate-300 border-2 border-black flex flex-col space-y-4 py-3 relative">
+      <div className=" flex justify-end px-3 ">
+        <span
+          className=" bg-green-400  w-26 h-16  p-3 rounded-sm cursor-pointer text-lg font-bold flex justify-center  items-center"
+          onClick={() => {
+            settoggleValCreate(true);
+          }}
+        >
+          {" "}
+          {"create + "}
+        </span>
+      </div>
       {/* <div> Hello </div> */}
       {data.length > 0 ? (
         data.map((elem, index) => {
@@ -73,7 +87,11 @@ const ScrollCompItems = () => {
         ""
       )}
 
-      <ModleCreate />
+      {toggleValCreate ? (
+        <ModleCreate settoggleValCreate={settoggleValCreate} />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

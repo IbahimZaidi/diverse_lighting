@@ -6,7 +6,7 @@ import { insertNewItem } from "@/helperFetchDataDB/insertNewIteam";
 import React, { useEffect } from "react";
 
 import { useState } from "react";
-const ModleCreate = () => {
+const ModleCreate = ({ settoggleValCreate }) => {
   // the container of the value of the file :
   const [file, setFile] = useState();
 
@@ -199,7 +199,12 @@ const ModleCreate = () => {
       style={{ left: "calc(50% - 300px)", top: "120px" }}
     >
       {/* the close span :  */}
-      <span className=" absolute top-0 right-0 bg-green-500 h-12 w-12 flex justify-center items-center rounded-full">
+      <span
+        className=" absolute top-0 right-0 bg-green-500 h-12 w-12 flex justify-center items-center rounded-full cursor-pointer"
+        onClick={() => {
+          settoggleValCreate(false);
+        }}
+      >
         {" "}
         close{" "}
       </span>
