@@ -1,4 +1,5 @@
 "use client";
+import { deleteFunction } from "@/helperFetchDataDB/deleteFunction";
 import React from "react";
 
 const ChildItem = ({
@@ -6,6 +7,9 @@ const ChildItem = ({
   setToggleVal,
   setCurrentColor_array_id,
   setCurrentCurrentObjVal,
+  setCurrentItemId,
+  setToggleAreYouSure,
+  setTheIdAreYouSure,
 }) => {
   return (
     <div className="border border-blue-600 bg-yellow-300 m-auto  w-90% py-2 min-h-20  flex justify-between">
@@ -24,6 +28,8 @@ const ChildItem = ({
             setToggleVal(true);
             setCurrentColor_array_id(objectVal.color_array_id);
             setCurrentCurrentObjVal(objectVal);
+            setCurrentItemId(objectVal.id);
+            setTheIdAreYouSure(1);
           }}
         >
           {" "}
@@ -31,26 +37,10 @@ const ChildItem = ({
         </span>
         <span
           className="delete_Button"
-          onClick={async () => {
-            try {
-              // the id :
-              const theId = objectVal.id;
-              const res = await fetch(
-                `http://localhost:3000/api/deleteItem?theId=${theId}`
-              );
-
-              // Check if the response is successful
-              if (!res.ok) {
-                throw new Error("Failed to delete item");
-              }
-
-              window.location.reload();
-              // Optionally, you can perform additional actions after successful deletion
-              // For example, update the UI or fetch updated data
-            } catch (error) {
-              console.error("Error deleting item:", error);
-              // Optionally, you can show an error message to the user
-            }
+          onClick={() => {
+            setCurrentItemId(objectVal.id);
+            setToggleAreYouSure(true);
+            setTheIdAreYouSure(0);
           }}
         >
           {" "}

@@ -7,6 +7,8 @@ import ChildItem from "./ChildItem";
 import { getItems } from "@/helperFetchDataDB/getItems";
 import ModleEdit from "./ModleEdit";
 import ModleCreate from "./ModleCreate";
+import AreYouSure from "./AreYouSure";
+import { deleteFunction } from "@/helperFetchDataDB/deleteFunction";
 
 // start the main component of ScrollCompItems :
 const ScrollCompItems = () => {
@@ -24,6 +26,15 @@ const ScrollCompItems = () => {
 
   // the toggleValue of ModeleEdite:
   const [toggleValCreate, settoggleValCreate] = useState(false);
+
+  // current object :
+  const [currentItemId, setCurrentItemId] = useState();
+
+  // const
+  const [toggleAreYouSure, setToggleAreYouSure] = useState(false);
+
+  // the id of Are you sure :
+  const [theIdAreYouSure, setTheIdAreYouSure] = useState();
 
   useEffect(() => {
     console.log("this is the value of the toggle Value : ", toggleVal);
@@ -67,6 +78,9 @@ const ScrollCompItems = () => {
               setToggleVal={setToggleVal}
               setCurrentColor_array_id={setCurrentColor_array_id}
               setCurrentCurrentObjVal={setCurrentCurrentObjVal}
+              setCurrentItemId={setCurrentItemId}
+              setToggleAreYouSure={setToggleAreYouSure}
+              setTheIdAreYouSure={setTheIdAreYouSure}
             />
           );
         })
@@ -89,6 +103,17 @@ const ScrollCompItems = () => {
 
       {toggleValCreate ? (
         <ModleCreate settoggleValCreate={settoggleValCreate} />
+      ) : (
+        ""
+      )}
+
+      {/* deleteFunction(objectVal.id); */}
+      {toggleAreYouSure ? (
+        <AreYouSure
+          currentItemId={currentItemId}
+          theID={theIdAreYouSure}
+          setToggleAreYouSure={setToggleAreYouSure}
+        />
       ) : (
         ""
       )}

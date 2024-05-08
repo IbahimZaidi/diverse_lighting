@@ -198,7 +198,7 @@ const ModleEdit = ({ id, color_array_id, setToggleVal, currentObjectVal }) => {
     await uploadTheImage();
     //
     console.log("hello from the click ");
-    updateIems(
+    await updateIems(
       colorArray,
       arrayColorId,
       all_colors,
@@ -387,7 +387,10 @@ const ModleEdit = ({ id, color_array_id, setToggleVal, currentObjectVal }) => {
         <button
           type="submit"
           className=" bg-blue-400 text-white w-32 h-10 "
-          onClick={handleClick}
+          onClick={() => {
+            handleClick();
+            // setToggleAreYouSure(true);
+          }}
         >
           {" "}
           save change{" "}
