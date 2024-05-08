@@ -47,10 +47,10 @@ export const GET = async (req, { params }) => {
 
       // update the data in the colors table after cheaking the new colors exists or not :
       //  newColors.map(())
-      All_colors
-        ? All_colors.map((elem, index) => {
-            newColors
-              ? newColors.map((elemNew) => {
+      newColors
+        ? newColors.map((elemNew) => {
+            All_colors
+              ? All_colors.map((elem, index) => {
                   if (elem.color_name == elemNew.value) {
                     //
                     //

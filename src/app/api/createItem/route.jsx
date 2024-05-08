@@ -66,6 +66,9 @@ export const GET = async (req, { params }) => {
       // **
 
       // return the arrayOfColors of newColors array exists in the table of colors in db :
+      // declare the array contain the id's of the colors (exist or not exist) :
+      let arrayIdNewColors = [];
+
       // declare first the container of the color already exist :
       let colorAlreadyExist = [];
 
@@ -82,6 +85,8 @@ export const GET = async (req, { params }) => {
                 id: elem.id,
                 value: element.color_name,
               });
+              // push into the arrayIdNewColors the id of colors already exist in the colors table :
+              arrayIdNewColors.push(element.id);
             }
           });
         });
@@ -89,10 +94,30 @@ export const GET = async (req, { params }) => {
 
       // extract the array of color's news to create them :
 
+      // create the newColor inside the colors arrary in the database :
+
+      // add the new colors in the tables of colors in db :
+      // if (notExistColors && allColors) {
+      //   notExistColors.map(async (elem, index) => {
+      //     await queryDeployTest({
+      //       query: "INSERT INTO colors (color_name) VALUES (?)",
+      //       values: [elem.value],
+      //     });
+      //   });
+      // }
       // the other colors in the newColors array don't exist already in the table of colors :
       const notExistColors = newColors.filter(
         (item) => !colorAlreadyExist.some((subItem) => subItem.id === item.id)
       );
+      // push the newId's of the newColors the id's of new Colors :
+      notExistColors
+        ? notExistColors.map((_, index) => {
+            const lengthOfAllColor = allColors ? allColors.length : "";
+            arrayIdNewColors.push(lengthOfAllColor + index + 1);
+          })
+        : "";
+
+      // pass the new Array to make sure it correct :
 
       // pass to the client to make sure he extract the array well :
 
@@ -106,6 +131,7 @@ export const GET = async (req, { params }) => {
         allColorsMapping,
         colorAlreadyExist,
         notExistColors,
+        arrayIdNewColors,
       }); // return in the response a json with value of posts;
     }
   } catch (error) {
