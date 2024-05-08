@@ -155,7 +155,7 @@ const ModleEdit = ({ id, color_array_id, setToggleVal, currentObjectVal }) => {
   }, [currentImageNew]);
   //
   //
-  // function handleOnSubmit :
+  // function upload image  :
   const uploadTheImage = async () => {
     // e.preventDefault() ;
     // e.preventDefault();
@@ -188,7 +188,9 @@ const ModleEdit = ({ id, color_array_id, setToggleVal, currentObjectVal }) => {
       // Handler Error here :
       console.error("this is the error : ", e);
     }
-  }; // ****** end of the function hanldeSubmits
+  }; // ****** end of the function handle the upload of the image
+  //
+  //
   const handleClick = async () => {
     // the logic here :
 
