@@ -120,11 +120,80 @@ export const GET = async (req, { params }) => {
           })
         : "";
 
-      // change the value of combinitionExist in case of notExistColors.length >0
-
+      // change the value of combinitionExist in case of notExistColors.length > 0
       if (notExistColors && notExistColors.length > 0) {
         combinitionExist = true;
       }
+
+      // cheak in case of notExistColors.length = 0 , and we need to know if the combination of colors of alreadyExist array or newColors combination eixst or not :
+      // declare the array contain the color_array_id and the color's id :
+      let color_array_idPluscolors_ids = [];
+      // array of saving the color_array_id's :
+      let color_array_idArray = [];
+
+      if (notExistColors.length == 0 && colorAlreadyExist.length > 0) {
+        // do loop over the mappin_colors Array and save the rows how have the same color's id :
+
+        arrayIdNewColors.map((elem) => {
+          // over the mappingcolors array :
+          allColorsMapping.map((element, index) => {
+            // cheak the match rows :
+            //{id_color: 1, color_array_id: 5}
+            if (elem == element.id_color) {
+              // push into color_array_idPluscolors_ids :
+              color_array_idPluscolors_ids.push({
+                id_color: element.id_color,
+                color_array_id: element.color_array_id,
+              });
+              // push into color_array_id :
+              !color_array_idArray.includes(element.color_array_id)
+                ? color_array_idArray.push(element.color_array_id)
+                : "";
+            }
+          });
+        });
+      }
+
+      // the next step is extract the array combination of colorMapping.color_id  table how equal the array == arrayIdNewColors.id
+
+      // first devide the colors mapping into arrayOfArrays base on value of color_array_id value :
+      let arrayOfArraysBaseOnColor_id_array = [];
+
+      // declate the variable contain allArray_color_id in the table mapping color :
+      let arrayColorIdDistinctMappingArray = [];
+
+      //
+      if (notExistColors.length == 0 && colorAlreadyExist.length > 0) {
+        // loop over
+        allColorsMapping.map((elem) => {
+          // push into color_array_id :
+          !arrayColorIdDistinctMappingArray.includes(elem.color_array_id)
+            ? arrayColorIdDistinctMappingArray.push(elem.color_array_id)
+            : "";
+        });
+      }
+
+      if (notExistColors.length == 0 && colorAlreadyExist.length > 0) {
+        //
+        arrayColorIdDistinctMappingArray.map((elem) => {
+          //
+          let newArray = [];
+          allColorsMapping.map((element) => {
+            // cheak matched then push :
+            if (elem == element.color_array_id) {
+              newArray.push({
+                id_color: element.id_color,
+                color_array_id: element.color_array_id,
+              });
+            }
+          });
+
+          // push the new Array :
+          arrayOfArraysBaseOnColor_id_array.push(newArray);
+        });
+      }
+
+      // show the array of array base on the value of the array_id_color :
 
       // pass to the client to make sure he extract the array well :
 
@@ -140,6 +209,10 @@ export const GET = async (req, { params }) => {
         notExistColors,
         arrayIdNewColors,
         combinitionExist,
+        color_array_idPluscolors_ids,
+        color_array_idArray,
+        arrayOfArraysBaseOnColor_id_array,
+        arrayColorIdDistinctMappingArray,
       }); // return in the response a json with value of posts;
     }
   } catch (error) {
