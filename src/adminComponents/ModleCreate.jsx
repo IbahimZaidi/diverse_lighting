@@ -169,12 +169,12 @@ const ModleCreate = () => {
 
   /// the function hanlde on Submit the form :
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     // prevent the default  :
     e.preventDefault();
 
     // first upload the image into the local repo : public/images_test ;
-    uploadTheImage();
+    await uploadTheImage();
     // the corps function insert the data into database :
 
     // import the function do the work :

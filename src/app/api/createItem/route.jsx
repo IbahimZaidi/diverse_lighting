@@ -22,8 +22,8 @@ export const GET = async (req, { params }) => {
 
       // '[{"id":1,"value":"#000000"},{"id":2,"value":"#C0C0C0"},{"id":3,"value":"#00000000000"}]'
       const newColors = JSON.parse(stringifiedArray); // 1 : { id: 1, value: "#FFFFFF" }
-      const allColors = JSON.parse(stringifiedAllColors); // 1 : { id: 1, value: "#FFFFFF" }
-      const allColorsMapping = JSON.parse(stringifiedAllColorsMapping); // 1 : { id: 1, value: "#FFFFFF" }
+      const allColors = JSON.parse(stringifiedAllColors); // 0 : {id: 1, color_name: '#FFFFFF'}
+      const allColorsMapping = JSON.parse(stringifiedAllColorsMapping); // 11 : {id_color: 1, color_array_id: 5}
       // console.log("Parsed array:", parsedArray);
 
       // update the db base on the new values :
@@ -31,7 +31,7 @@ export const GET = async (req, { params }) => {
 
       // insert into the database :
       // first cheak if the combination of newColors array already exist or not :
-      let cheak = false;
+      // let cheak = false;
 
       // first algorithme :
 
@@ -65,9 +65,37 @@ export const GET = async (req, { params }) => {
       // what you need : ( all_colorsArrray , newColors array , all_rows_color_mapping )
       // **
 
-      if (newColors) {
-        //
+      // return the arrayOfColors of newColors array exists in the table of colors in db :
+      // declare first the container of the color already exist :
+      let colorAlreadyExist = [];
+
+      // start of the loop :
+      if (newColors && allColors) {
+        // make loop over the allColors and save the colors how already exist :
+        newColors.map((elem) => {
+          // cheak if the the elemnt of newColors is already exist in the table of colors :
+          allColors.map((element) => {
+            // if element matching and not selected before (mean don't exist already repedted in the colorAlreadyExist table ) :
+            if (elem.value == element.color_name) {
+              // if matched push it in the colorAlreadyExist array :
+              colorAlreadyExist.push({
+                id: elem.id,
+                value: element.color_name,
+              });
+            }
+          });
+        });
       }
+
+      // extract the array of color's news to create them :
+
+      // the other colors in the newColors array don't exist already in the table of colors :
+      const notExistColors = newColors.filter(
+        (item) => !colorAlreadyExist.some((subItem) => subItem.id === item.id)
+      );
+
+      // pass to the client to make sure he extract the array well :
+
       // done
       // done with colors ;
       return NextResponse.json({
@@ -76,6 +104,8 @@ export const GET = async (req, { params }) => {
         model_name,
         allColors,
         allColorsMapping,
+        colorAlreadyExist,
+        notExistColors,
       }); // return in the response a json with value of posts;
     }
   } catch (error) {
