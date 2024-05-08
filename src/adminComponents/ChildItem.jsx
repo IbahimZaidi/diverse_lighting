@@ -29,7 +29,7 @@ const ChildItem = ({
             setCurrentColor_array_id(objectVal.color_array_id);
             setCurrentCurrentObjVal(objectVal);
             setCurrentItemId(objectVal.id);
-            setTheIdAreYouSure(1);
+            // setTheIdAreYouSure(1);
           }}
         >
           {" "}
