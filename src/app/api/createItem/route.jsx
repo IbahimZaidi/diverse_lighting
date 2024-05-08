@@ -65,6 +65,9 @@ export const GET = async (req, { params }) => {
       // what you need : ( all_colorsArrray , newColors array , all_rows_color_mapping )
       // **
 
+      // the cheak if the comibination is already exist :
+      let combinitionExist = false; // the default value is true , mean not  exist ;
+
       // return the arrayOfColors of newColors array exists in the table of colors in db :
       // declare the array contain the id's of the colors (exist or not exist) :
       let arrayIdNewColors = [];
@@ -117,7 +120,11 @@ export const GET = async (req, { params }) => {
           })
         : "";
 
-      // pass the new Array to make sure it correct :
+      // change the value of combinitionExist in case of notExistColors.length >0
+
+      if (notExistColors && notExistColors.length > 0) {
+        combinitionExist = true;
+      }
 
       // pass to the client to make sure he extract the array well :
 
@@ -132,6 +139,7 @@ export const GET = async (req, { params }) => {
         colorAlreadyExist,
         notExistColors,
         arrayIdNewColors,
+        combinitionExist,
       }); // return in the response a json with value of posts;
     }
   } catch (error) {
