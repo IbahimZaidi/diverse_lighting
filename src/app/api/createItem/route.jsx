@@ -85,7 +85,7 @@ export const GET = async (req, { params }) => {
             if (elem.value == element.color_name) {
               // if matched push it in the colorAlreadyExist array :
               colorAlreadyExist.push({
-                id: elem.id,
+                id: element.id,
                 value: element.color_name,
               });
               // push into the arrayIdNewColors the id of colors already exist in the colors table :
@@ -110,7 +110,8 @@ export const GET = async (req, { params }) => {
       // }
       // the other colors in the newColors array don't exist already in the table of colors :
       const notExistColors = newColors.filter(
-        (item) => !colorAlreadyExist.some((subItem) => subItem.id === item.id)
+        (item) =>
+          !colorAlreadyExist.some((subItem) => subItem.value === item.value)
       );
       // push the newId's of the newColors the id's of new Colors :
       notExistColors
@@ -122,7 +123,7 @@ export const GET = async (req, { params }) => {
 
       // change the value of combinitionExist in case of notExistColors.length > 0
       if (notExistColors && notExistColors.length > 0) {
-        combinitionExist = true;
+        combinitionExist = false;
       }
 
       // cheak in case of notExistColors.length = 0 , and we need to know if the combination of colors of alreadyExist array or newColors combination eixst or not :
@@ -189,12 +190,46 @@ export const GET = async (req, { params }) => {
           });
 
           // push the new Array :
-          arrayOfArraysBaseOnColor_id_array.push(newArray);
+          arrayOfArraysBaseOnColor_id_array.push({
+            color_array_id: newArray[0].color_array_id,
+            newArray: newArray,
+          });
         });
       }
 
       // show the array of array base on the value of the array_id_color :
 
+      // cheak the if combination exist in the arrayofArray of combination base on color_array_id :
+
+      let arrayOfArrayPossible = [];
+      arrayOfArraysBaseOnColor_id_array.map((elem) => {
+        color_array_idArray.map((element) => {
+          if (element == elem.color_array_id) {
+            // push into the arrayOfArrayPossible :
+            arrayOfArrayPossible.push(elem);
+          }
+        });
+      });
+
+      // loop over arrayOfArrayPossible :
+
+      if (arrayOfArrayPossible) {
+        arrayOfArrayPossible.map((elem) => {
+          if (elem.newArray.length == colorAlreadyExist.length) {
+            let theCheak = true;
+            for (let i = 0; i < colorAlreadyExist.length; i++) {
+              if (elem.newArray[i].id_color != colorAlreadyExist[i].id) {
+                theCheak = false;
+              }
+            }
+
+            theCheak ? (combinitionExist = true) : "";
+          }
+        });
+      }
+      // start the for loop :
+
+      // arrayColorIdDistinctMappingArray;
       // pass to the client to make sure he extract the array well :
 
       // done
@@ -213,6 +248,7 @@ export const GET = async (req, { params }) => {
         color_array_idArray,
         arrayOfArraysBaseOnColor_id_array,
         arrayColorIdDistinctMappingArray,
+        arrayOfArrayPossible,
       }); // return in the response a json with value of posts;
     }
   } catch (error) {
