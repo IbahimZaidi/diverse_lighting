@@ -9,7 +9,7 @@ const AreYouSure = ({ theID, currentItemId, setToggleAreYouSure }) => {
   //   const idAreYouSure = 0;
   return (
     <div
-      className="  border border-black absolute  w-500px flex flex-col space-y-5 top-16 left-1/3 bg-white px-3 "
+      className="  border border-black   w-500px flex flex-col space-y-5 top-1/3 fixed left-1/3 bg-white px-3 "
       style={{ height: "140px" }}
     >
       <span className=" text-lg font-semibold">
@@ -26,7 +26,7 @@ const AreYouSure = ({ theID, currentItemId, setToggleAreYouSure }) => {
       </span>
       <div className="buttons  flex justify-between w-100% h-10 border border-blue-700 ">
         <span
-          className="flex justify-around w-20% bg-green-300 text-xl cursor-pointer"
+          className="flex justify-around w-20% bg-green-300 text-xl cursor-pointer hover:bg-green-500 duration-700  transition-all "
           onClick={() => {
             theID == 0 ? deleteFunction(currentItemId) : "";
           }}
@@ -35,7 +35,7 @@ const AreYouSure = ({ theID, currentItemId, setToggleAreYouSure }) => {
           Yes <IoMdDoneAll className="  pt-1 w-8 h-8 " />
         </span>
         <span
-          className="flex justify-around w-20% bg-red-400 text-xl cursor-pointer"
+          className="flex justify-around w-20% bg-red-400 hover:bg-red-600 duration-700  text-xl cursor-pointer"
           onClick={() => {
             // close the Are you sure :
             setToggleAreYouSure(false);

@@ -56,7 +56,7 @@ const ScrollCompItems = () => {
 
   // the return component :
   return (
-    <div className="scrollDivMain w-80% overflow-y-scroll overflow-x-hidden h-400px m-auto bg-slate-300 border-2 border-black flex flex-col space-y-4 py-3 relative">
+    <div className="scrollDivMain w-80% overflow-y-scroll overflow-x-hidden h-400px m-auto bg-slate-300 border-2 border-black flex flex-col space-y-4 py-3 ">
       <div className=" flex justify-end px-3 ">
         <span
           className=" bg-green-400  w-26 h-16  p-3 rounded-sm cursor-pointer text-lg font-bold flex justify-center  items-center"
