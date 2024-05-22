@@ -5,6 +5,8 @@ export async function middleware(req) {
   // Logging to ensure middleware is running
   console.log("Middleware is running");
 
+  // window.location.reload();
+
   // await req.cookies.set("userObject", {});
 
   const cookies = await req.cookies;

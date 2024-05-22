@@ -42,7 +42,6 @@ const Login = () => {
       const userObject = { email: emailVal, password: passwordVal };
       Cookies.set("userObject", JSON.stringify(userObject), { expires: 1 }); // Cookie expires in 1 day
       // Redirect to dashboard or perform other actions
-      window.location.reload();
       route.push("/admin");
     }
 
