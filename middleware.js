@@ -1,14 +1,19 @@
 import { NextResponse } from "next/server";
 import { getCookie } from "cookies-next";
 
-export function middleware(req) {
+export async function middleware(req) {
   // Logging to ensure middleware is running
   console.log("Middleware is running");
 
+  // await req.cookies.set("userObject", {});
+
+  const cookies = await req.cookies;
+  console.log("this is the values of cookies : ", cookies);
+
   //
-  const userObject = getCookie("userObject", { req });
-  const cheak = true;
-  console.log("this is the value of the userObject ", userObject);
+  const userObject = await req.cookies?.get("userObject");
+  const cheak = userObject?.value;
+  console.log("this is the value of the userObject ", userObject, cheak);
 
   if (!cheak) {
     return NextResponse.redirect(new URL("/login", req.url)); // Absolute URL redirection

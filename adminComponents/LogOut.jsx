@@ -7,10 +7,14 @@ const LogOut = () => {
   // function handle logout :
   const route = useRouter();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     // Remove the cookie
     Cookies.remove("userObject");
+
+    await fetch("/api/deleteCookies");
+
     // Optionally redirect to the login page or another action
+    window.location.reload();
     route.push("/login");
   };
   return (
