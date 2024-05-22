@@ -11,7 +11,9 @@ const LogOut = () => {
     // Remove the cookie
     Cookies.remove("userObject");
 
-    await fetch("/api/deleteCookies");
+    await fetch("/api/deleteCookies", {
+      method: "DELETE",
+    });
 
     // Optionally redirect to the login page or another action
     window.location.reload();
