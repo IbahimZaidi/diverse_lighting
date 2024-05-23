@@ -1,115 +1,99 @@
+//
+
+//
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-
 import Cookies from "js-cookie";
-//
 
-// start of the component login :
+// Start of the component login:
 const Login = () => {
-  // the state of the showPass toggle :
+  // State for toggling password visibility
   const [showPass, setShowPass] = useState(false);
 
+  // the states of email and password :
+  const [password, setPassword] = useState();
+  const [email, setEmail] = useState();
+
+  // this is the route variable :
   const route = useRouter();
-
-  //
-  const [passwordVal, setPassword] = useState();
-  const [emailVal, setEmail] = useState();
-
-  // the ref value :
-  const emailValRef = useRef();
-
-  // the ref value  :
-  const passValRef = useRef();
-
-  //
-  const [authVal, setAutorize] = useState(false);
-
-  // handlOnSubmit :
-  const handleOnSubmit = async (e) => {
-    //
-    e.preventDefault();
-
-    //
-
-    console.log(
-      "this is the value of emailVa and passwrodVal",
-      emailVal,
-      passwordVal
-    );
-    if (emailVal == "brahim" && passwordVal == "123") {
-      //
-      const userObject = { email: emailVal, password: passwordVal };
-      Cookies.set("userObject", JSON.stringify(userObject), { expires: 1 }); // Cookie expires in 1 day
-      // Redirect to dashboard or perform other actions
-      // window.location.reload();
-      setAutorize(true);
-    }
-
-    //
-  };
 
   useEffect(() => {
     //
-    // window.location.reload();
-    authVal ? route.push("/admin") : "";
-
     console.log(
-      "this is the value of authVal : ",
-      authVal,
-      "and this is the value of Cookies ",
-      Cookies.get("userObject")
+      "this is the value of password  : ",
+      password,
+      "and this is the value of email : ",
+      email
     );
-  }, [authVal]);
-  // the return of the component Login :
+
+    //
+  }, [password, email]);
+
+  // this is the funtion of handle the click button :
+  const handleClickButton = () => {
+    //
+    console.log("hello from the click button ");
+
+    // outside the cheak username and the password :
+
+    console.log("this is the value of Cookies  : ", Cookies.get("userObject"));
+
+    if (email == "brahim" && password == "123") {
+      console.log("&&&&&&&&&&&& this is the correct code ");
+      const userObject = JSON.stringify({ email, password });
+
+      Cookies.set("userObject", userObject);
+
+      // console.log("this is the stringy object : ", userObject);
+      // localStorage.setItem("userObject", userObject);
+      route.push("/admin");
+
+      console.log(
+        "this is the value of Cookies  : ",
+        JSON.parse(Cookies.get("userObject"))
+      );
+    }
+  };
+
   return (
-    <div className=" min-h-90vh w-100% bg-green-300 p-3  ">
-      {" "}
+    <div className="min-h-90vh w-100% bg-green-300 p-3">
       <form
-        action=""
-        className=" flex flex-col space-y-10 w-30%   border border-black"
+        className="flex flex-col space-y-10 w-30% border border-black"
         onSubmit={(e) => {
-          handleOnSubmit(e);
+          //
+          e.preventDefault();
+          //
         }}
       >
-        {/* this div for email  */}
+        {/* Email input */}
         <div className="flex justify-between w-90% px-3">
-          <label htmlFor="email"> Email : </label>
+          <label htmlFor="email">Email:</label>
           <input
             type="text"
             name="email"
-            className=" h-8 px-2"
-            placeholder=" exemple@gmail.com"
-            ref={emailValRef}
-            onChange={(e) => {
-              setEmail(e.currentTarget.value);
-            }}
+            className="h-8 px-2"
+            placeholder="exemple@gmail.com"
+            onChange={(e) => setEmail(e.currentTarget.value)}
           />
         </div>
-        {/* this div for password  */}
+        {/* Password input */}
         <div className="flex justify-between w-90% px-3 mb-10">
-          <label htmlFor="password"> Password :</label>
+          <label htmlFor="password">Password:</label>
           <input
             type={showPass ? "text" : "password"}
             placeholder="password"
             name="password"
-            className=" h-8 px-2"
-            ref={passValRef}
-            onChange={(e) => {
-              setPassword(e.currentTarget.value);
-            }}
+            className="h-8 px-2"
+            onChange={(e) => setPassword(e.currentTarget.value)}
           />
         </div>
-        {/* submit input */}
+        {/* Submit button */}
         <button
           type="submit"
-          className=" bg-yellow-300 w-52 flex justify-center h-10 items-center m-auto  "
-          onClick={() => {
-            // the function cheak the values of the input of email and the input of the passkey and base on the value change the value of the session :
-            // cheakValueInput();
-          }}
+          className="bg-yellow-300 w-52 flex justify-center h-10 items-center m-auto"
+          onClick={handleClickButton}
         >
-          {" "}
           Login
         </button>
       </form>

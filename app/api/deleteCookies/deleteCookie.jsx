@@ -3,7 +3,11 @@ import { NextResponse } from "next/server";
 export const DELETE = async (req) => {
   //
 
-  await req.cookies.set("userObject", {});
+  //
+  // localStorage.setItem("userObject", {});
+
+  // Cookies.set("userObject", null);
+  await req.cookies.clear();
 
   return NextResponse.json({
     result: "succeffully deleted ",
