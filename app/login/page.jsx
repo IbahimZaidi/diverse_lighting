@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Cookies from "js-cookie";
 //
@@ -23,6 +23,7 @@ const Login = () => {
   const passValRef = useRef();
 
   //
+  const [authVal, setAutorize] = useState(false);
 
   // handlOnSubmit :
   const handleOnSubmit = async (e) => {
@@ -38,16 +39,28 @@ const Login = () => {
     );
     if (emailVal == "brahim" && passwordVal == "123") {
       //
-      // setAutorize(true);
       const userObject = { email: emailVal, password: passwordVal };
       Cookies.set("userObject", JSON.stringify(userObject), { expires: 1 }); // Cookie expires in 1 day
       // Redirect to dashboard or perform other actions
-      window.location.reload();
-      route.push("/admin");
+      // window.location.reload();
+      setAutorize(true);
     }
 
     //
   };
+
+  useEffect(() => {
+    //
+    // window.location.reload();
+    authVal ? route.push("/admin") : "";
+
+    console.log(
+      "this is the value of authVal : ",
+      authVal,
+      "and this is the value of Cookies ",
+      Cookies.get("userObject")
+    );
+  }, [authVal]);
   // the return of the component Login :
   return (
     <div className=" min-h-90vh w-100% bg-green-300 p-3  ">
