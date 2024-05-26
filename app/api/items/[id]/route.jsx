@@ -1,4 +1,5 @@
-import { queryDeployTest } from "@/connectDB/queryDeployTest";
+import { queryDeployTest } from "../../../../connectDB/queryDeployTest";
+
 import { NextResponse } from "next/server";
 
 export const GET = async (req, { params }) => {

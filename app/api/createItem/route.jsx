@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { queryDeployTest } from "@/connectDB/queryDeployTest";
+import { queryDeployTest } from "../../../connectDB/queryDeployTest";
+
 export const GET = async (req, { params }) => {
   try {
     if (req.method === "GET") {

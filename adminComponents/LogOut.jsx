@@ -1,32 +1,43 @@
 "use client";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import React from "react";
 
 const LogOut = () => {
-  // function handle logout :
+  //
   const route = useRouter();
 
-  const handleLogout = async () => {
-    // Remove the cookie
-    Cookies.remove("userObject");
+  // deleteToken() function :
+  const deleteToken = async () => {
+    //
+    const response = await fetch("api/deleteCookie");
 
-    await fetch("/api/deleteCookies", {
-      method: "DELETE",
-    });
+    //
+    const resultVal = await response.json();
 
-    // Optionally redirect to the login page or another action
+    //
+
+    alert(resultVal.result);
+
+    // trigged the reload :
     window.location.reload();
+
+    // redirect to login page  :
     route.push("/login");
+    //
   };
+
   return (
     <div>
       <button
-        className=" bg-red-400 w-[200px] h-[40px] "
-        onClick={handleLogout}
+        className=" bg-yellow-400 border border-black rounded-sm m-4 p-3 text-black"
+        onClick={() => {
+          //
+          console.log("hello from the console ");
+          deleteToken();
+        }}
       >
         {" "}
-        Log Out
+        Log Out{" "}
       </button>
     </div>
   );

@@ -1,8 +1,8 @@
 "use client";
 
-import { getAllColors } from "@/helperFetchDataDB/getAllColors";
-import { getRowsColorsMapping } from "@/helperFetchDataDB/getRowsColor_mapping";
-import { insertNewItem } from "@/helperFetchDataDB/insertNewIteam";
+import { getAllColors } from "../helperFetchDataDB/getAllColors";
+import { getRowsColorsMapping } from "../helperFetchDataDB/getRowsColor_mapping";
+import { insertNewItem } from "../helperFetchDataDB/insertNewIteam";
 import React, { useEffect } from "react";
 
 import { useState } from "react";

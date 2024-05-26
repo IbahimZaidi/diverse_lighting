@@ -1,102 +1,129 @@
-//
-
-//
 "use client";
+
+import Link from "next/link";
+// import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-import Cookies from "js-cookie";
 
-// Start of the component login:
+import Cookies from "js-cookie";
+//
+
+// start of the component login :
 const Login = () => {
-  // State for toggling password visibility
+  // the state of the showPass toggle :
   const [showPass, setShowPass] = useState(false);
 
-  // the states of email and password :
-  const [password, setPassword] = useState();
-  const [email, setEmail] = useState();
-
-  // this is the route variable :
   const route = useRouter();
 
-  useEffect(() => {
+  //
+  const [passwordVal, setPassword] = useState();
+  const [emailVal, setEmail] = useState();
+
+  const [userObject, setUserObject] = useState();
+
+  // handlOnSubmit :
+  const handleOnSubmit = async (e) => {
     //
-    console.log(
-      "this is the value of password  : ",
-      password,
-      "and this is the value of email : ",
-      email
-    );
+    e.preventDefault();
 
     //
-  }, [password, email]);
 
-  // this is the funtion of handle the click button :
-  const handleClickButton = () => {
-    //
-    console.log("hello from the click button ");
+    if (emailVal == "brahim" && passwordVal == "123") {
+      //
 
-    // outside the cheak username and the password :
+      setUserObject({ email: emailVal, password: passwordVal });
+      Cookies.set(
+        "tokenVal",
+        JSON.stringify({ email: emailVal, password: passwordVal }),
+        { expires: 1 }
+      ); // Cookie expires in 1 day
 
-    console.log("this is the value of Cookies  : ", Cookies.get("userObject"));
+      //
 
-    if (email == "brahim" && password == "123") {
-      console.log("&&&&&&&&&&&& this is the correct code ");
-      const userObject = JSON.stringify({ email, password });
-
-      Cookies.set("userObject", userObject);
-
-      // console.log("this is the stringy object : ", userObject);
-      // localStorage.setItem("userObject", userObject);
-      route.push("/admin");
-
-      console.log(
-        "this is the value of Cookies  : ",
-        JSON.parse(Cookies.get("userObject"))
-      );
+      // Redirect to dashboard or perform other actions
     }
+
+    //
   };
 
+  //
+  useEffect(() => {
+    userObject ? window.location.reload() : "";
+
+    console.log("this is the value of userObject", userObject);
+    //
+    route.push("/admin");
+  }, [userObject]);
+
+  // the return of the component Login :
   return (
-    <div className="min-h-90vh w-100% bg-green-300 p-3">
+    <div className=" min-h-90vh w-100% bg-green-300 p-3  ">
+      {" "}
       <form
-        className="flex flex-col space-y-10 w-30% border border-black"
+        action=""
+        className=" flex flex-col space-y-10 w-30%   border border-black"
         onSubmit={(e) => {
-          //
-          e.preventDefault();
-          //
+          handleOnSubmit(e);
         }}
       >
-        {/* Email input */}
+        {/* this div for email  */}
         <div className="flex justify-between w-90% px-3">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email"> Email : </label>
           <input
             type="text"
             name="email"
-            className="h-8 px-2"
-            placeholder="exemple@gmail.com"
-            onChange={(e) => setEmail(e.currentTarget.value)}
+            className=" h-8 px-2"
+            placeholder=" exemple@gmail.com"
+            onChange={(e) => {
+              setEmail(e.currentTarget.value);
+            }}
           />
         </div>
-        {/* Password input */}
+        {/* this div for password  */}
         <div className="flex justify-between w-90% px-3 mb-10">
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password"> Password :</label>
           <input
             type={showPass ? "text" : "password"}
             placeholder="password"
             name="password"
-            className="h-8 px-2"
-            onChange={(e) => setPassword(e.currentTarget.value)}
+            className=" h-8 px-2"
+            onChange={(e) => {
+              setPassword(e.currentTarget.value);
+            }}
           />
         </div>
-        {/* Submit button */}
+        {/* submit input */}
         <button
           type="submit"
-          className="bg-yellow-300 w-52 flex justify-center h-10 items-center m-auto"
-          onClick={handleClickButton}
+          className=" bg-yellow-300 w-52 flex justify-center h-10 items-center m-auto  "
+          onClick={() => {
+            // the function cheak the values of the input of email and the input of the passkey and base on the value change the value of the session :
+            // cheakValueInput();
+          }}
         >
+          {" "}
           Login
         </button>
       </form>
+      <div className="providersGoogleGithub flex flex-col space-y-4 mt-3">
+        {/* option of login with email google account */}
+        <button className=" singIn_google h-10 w-10% bg-blue-300">
+          Sing In using GOOGLE
+        </button>
+        {/* option of login with github account   */}
+        <button className=" singIn_github h-10 w-10% bg-blue-300">
+          Sing In using Github
+        </button>
+      </div>
+      {/* case you don't have account and you want to create account : (re-direct to register page )  */}
+      <button className="">
+        {" "}
+        you don't have account ?{" "}
+        <Link href="/register" className=" text-blue-500 ">
+          {" "}
+          Sing Up{" "}
+        </Link>{" "}
+      </button>
     </div>
   );
 };

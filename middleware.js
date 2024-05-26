@@ -1,33 +1,23 @@
 import { NextResponse } from "next/server";
-import Cookies from "js-cookie";
 import { getCookie } from "cookies-next";
+export function middleware(req) {
+  // middleware
+  //
 
-export async function middleware(req) {
-  // Logging to ensure middleware is running
-  console.log("Middleware is running");
+  // const user = false;
+  const userObject = getCookie("tokenVal", { req });
 
-  window.location.reload();
-  // await req.cookies.set("userObject", {});
-
-  const cookies = await req.cookies;
-
-  // const userObject = false;
-
-  console.log("&&&&&&&&&&&&&&&&&&___________---- cookies : ", cookies);
-
-  const userObject = getCookie("userObject", { req });
-
-  // const { userObject } = cookies;
-
+  console.log("hello this is the tokenVal : ", userObject);
   if (!userObject) {
-    return NextResponse.redirect(new URL("/login", req.url)); // Absolute URL redirection
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  //
-  return NextResponse.next();
+  return NextResponse.next(); // this is to make hem pass to dashbord page
 }
 
+// the path when you can call the midlleware function :
 // Matcher configuration
+
 export const config = {
-  matcher: ["/admin/:path*"], // Directly match the /admin path
+  matcher: ["/admin/:path*"],
 };

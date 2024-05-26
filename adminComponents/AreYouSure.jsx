@@ -3,7 +3,7 @@ import React from "react";
 // icons :
 import { IoMdDoneAll } from "react-icons/io";
 import { ImCancelCircle } from "react-icons/im";
-import { deleteFunction } from "@/helperFetchDataDB/deleteFunction";
+import { deleteFunction } from "../helperFetchDataDB/deleteFunction";
 const AreYouSure = ({ theID, currentItemId, setToggleAreYouSure }) => {
   // test the idAreYouSure :
   //   const idAreYouSure = 0;

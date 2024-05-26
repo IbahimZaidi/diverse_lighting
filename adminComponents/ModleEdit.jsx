@@ -4,9 +4,9 @@ import React, { useEffect, useRef, useState } from "react";
 // import :
 
 // import the data concerne the id passe in the props :
-import { getItemsColorsId } from "@/helperFetchDataDB/getItemsColorsId";
-import { getAllColors } from "@/helperFetchDataDB/getAllColors";
-import { updateIems } from "@/helperFetchDataDB/updateIems";
+import { getItemsColorsId } from "../helperFetchDataDB/getItemsColorsId";
+import { getAllColors } from "../helperFetchDataDB/getAllColors";
+import { updateIems } from "../helperFetchDataDB/updateIems";
 // import the methode use Post to modifie the contenet :
 //
 const ModleEdit = ({ id, color_array_id, setToggleVal, currentObjectVal }) => {

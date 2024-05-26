@@ -4,11 +4,10 @@ import React, { useEffect, useState } from "react";
 import ChildItem from "./ChildItem";
 
 // import the function fetch data from the database :
-import { getItems } from "@/helperFetchDataDB/getItems";
+import { getItems } from "../helperFetchDataDB/getItems";
 import ModleEdit from "./ModleEdit";
 import ModleCreate from "./ModleCreate";
 import AreYouSure from "./AreYouSure";
-import { deleteFunction } from "@/helperFetchDataDB/deleteFunction";
 
 // start the main component of ScrollCompItems :
 const ScrollCompItems = () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import ScrollCompItems from "@/adminComponents/scrollCompItems";
+import ScrollCompItems from "../../adminComponents/ScrollCompItems";
 import LogOut from "../../adminComponents/LogOut";
 
 const page = () => {
@@ -7,6 +7,7 @@ const page = () => {
     <div className=" w-100% bg-yellow-300 min-h-100vh  m-1  py-16 ">
       {" "}
       <ScrollCompItems />
+      hello from admin
       <LogOut />
     </div>
   );

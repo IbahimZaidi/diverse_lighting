@@ -1,5 +1,5 @@
 "use client";
-import { updateIems } from "@/helperFetchDataDB/updateIems";
+import { updateIems } from "../../helperFetchDataDB/updateIems";
 import React, { useState } from "react";
 
 const page = () => {

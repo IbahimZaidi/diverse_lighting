@@ -1,5 +1,5 @@
 "use client";
-import { deleteFunction } from "@/helperFetchDataDB/deleteFunction";
+import { deleteFunction } from "../helperFetchDataDB/deleteFunction";
 import React from "react";
 
 const ChildItem = ({
