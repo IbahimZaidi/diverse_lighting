@@ -13,13 +13,14 @@ const Login = () => {
   // the state of the showPass toggle :
   const [showPass, setShowPass] = useState(false);
 
-  const route = useRouter();
-
   //
   const [passwordVal, setPassword] = useState();
   const [emailVal, setEmail] = useState();
 
   const [cheakVal, setCheak] = useState(false);
+
+  //
+  const [wrongDivToggle, setWrongDivToggle] = useState(false);
 
   // const [userObject, setUserObject] = useState();
   const handleOnSubmit = async (e) => {
@@ -54,6 +55,8 @@ const Login = () => {
       setCheak(true);
 
       //
+    } else {
+      setWrongDivToggle(true);
     }
 
     //
@@ -83,6 +86,14 @@ const Login = () => {
           handleOnSubmit(e);
         }}
       >
+        {wrongDivToggle ? (
+          <div className=" bg-red-500 text-white text-lg ">
+            {" "}
+            *** Wrong Pass or email{" "}
+          </div>
+        ) : (
+          ""
+        )}
         {/* this div for email  */}
         <div className="flex justify-between w-90% px-3">
           <label htmlFor="email"> Email : </label>
