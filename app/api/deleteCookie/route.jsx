@@ -20,6 +20,11 @@ export const GET = async () => {
       expires: new Date(0),
     });
 
+    response.cookies.set("cheak", false, {
+      httpOnly: true,
+      expires: new Date(0),
+    });
+
     //
 
     return response;

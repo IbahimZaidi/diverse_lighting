@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
-import { getCookie } from "cookies-next";
 export function middleware(req) {
   // middleware
   //
 
+  //
   // const user = false;
-  const userObject = getCookie("tokenVal", { req });
+  const cheak = req.cookies.get("cheak") || "";
 
-  console.log("hello this is the tokenVal : ", userObject);
-  if (!userObject) {
+  if (!cheak) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 

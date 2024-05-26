@@ -19,42 +19,59 @@ const Login = () => {
   const [passwordVal, setPassword] = useState();
   const [emailVal, setEmail] = useState();
 
-  const [userObject, setUserObject] = useState();
+  const [cheakVal, setCheak] = useState(false);
 
-  // handlOnSubmit :
+  // const [userObject, setUserObject] = useState();
   const handleOnSubmit = async (e) => {
     //
     e.preventDefault();
 
     //
 
-    if (emailVal == "brahim" && passwordVal == "123") {
+    // if (emailVal == "brahim" && passwordVal == "123") {
+    //
+    // setAutorize(true);
+    const userObject = { email: emailVal, password: passwordVal };
+    Cookies.set("tokenVal", JSON.stringify(userObject), { expires: 1 }); // Cookie expires in 1 day
+    // Redirect to dashboard or perform other actions
+
+    const response = await fetch("/api/cheakCookies");
+
+    const result = await response.json();
+
+    //
+
+    console.log(
+      "HHHHHH , this is the return value of cheakCookies route : ",
+      result
+    );
+
+    if (result.cheak) {
       //
+      const cheak = result.cheak;
+      Cookies.set("cheak", cheak, { expires: 1 }); // Cookie expires in 1 day
 
-      setUserObject({ email: emailVal, password: passwordVal });
-      Cookies.set(
-        "tokenVal",
-        JSON.stringify({ email: emailVal, password: passwordVal }),
-        { expires: 1 }
-      ); // Cookie expires in 1 day
+      setCheak(true);
 
       //
-
-      // Redirect to dashboard or perform other actions
     }
+
+    //
+    // }
 
     //
   };
 
   //
+  const router = useRouter();
+
   useEffect(() => {
-    userObject ? window.location.reload() : "";
-
-    console.log("this is the value of userObject", userObject);
+    console.log("this is the value of cheakValue : ", cheakVal);
     //
-    route.push("/admin");
-  }, [userObject]);
 
+    cheakVal ? window.location.reload() : "";
+    router.push("/admin");
+  }, [cheakVal]);
   // the return of the component Login :
   return (
     <div className=" min-h-90vh w-100% bg-green-300 p-3  ">
