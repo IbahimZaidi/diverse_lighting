@@ -203,7 +203,6 @@ export default function Home() {
 
   return (
     <main className=" bg-yellow-300 min-h-100vh  m-1  py-16   ">
-      {" "}
       {/* this section have the container of the items */}
       <section
         className="container m-auto  flex bg-slate-500  relative h-400px lg:h-500px overflow-hidden w-350px lg:w-830px 2xl:w-1240px  "
@@ -248,8 +247,7 @@ export default function Home() {
           }
           className={`buttonClick ${indexSlider == 1 ? "disableClass" : ""}`}
         >
-          {" "}
-          <ImPrevious className="w-6 h-6" />{" "}
+          <ImPrevious className="w-6 h-6" />
         </buttonc>
         <div className="containerOfIndex  justify-center space-x-1 w-50%  hidden lg:flex ">
           {/* add this div for more element div  */}
@@ -299,7 +297,6 @@ export default function Home() {
                     }}
                     key={index}
                   >
-                    {" "}
                     {elem}
                   </sapn>
                 );
@@ -333,8 +330,7 @@ export default function Home() {
             indexSlider == arrayFromIndex.length ? "disableClass" : ""
           }`}
         >
-          {" "}
-          <BiSkipNextCircle className="w-6 h-6" />{" "}
+          <BiSkipNextCircle className="w-6 h-6" />
         </button>
       </section>
     </main>
