@@ -49,6 +49,7 @@ const Login = () => {
 
     if (result.cheak) {
       //
+<<<<<<< HEAD
       const cheak = result.cheak;
       Cookies.set("cheak", cheak, { expires: 1 }); // Cookie expires in 1 day
 
@@ -57,6 +58,13 @@ const Login = () => {
       //
     } else {
       setWrongDivToggle(true);
+=======
+      // setAutorize(true);
+      const userObject = { email: emailVal, password: passwordVal };
+      Cookies.set("userObject", JSON.stringify(userObject), { expires: 1 }); // Cookie expires in 1 day
+      // Redirect to dashboard or perform other actions
+      route.push("/admin");
+>>>>>>> 62e99994b46e3d0d4c144d2032b0bfbf2b21f655
     }
 
     //
