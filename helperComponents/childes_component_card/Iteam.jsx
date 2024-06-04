@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { getItemsColorsId } from "../../helperFetchDataDB/getItemsColorsId";
 const Iteam = ({ objectVal, theIndex }) => {
@@ -19,12 +21,13 @@ const Iteam = ({ objectVal, theIndex }) => {
   }, [theColors]);
 
   return (
-    <div className="bg-green border border-red-500 mr-25px lg:mr-10px w-300px h-300px lg:h-400px lg:w-400px flex flex-col justify-center items-center">
+    <div className="bg-green-300 overflow-hidden border border-red-500 mr-25px lg:mr-10px w-300px h-300px lg:h-400px lg:w-400px flex flex-col justify-center items-center ">
       <div
-        className="containerImage w-100% h-70%"
+        // className="containerImage w-100% h-70% "
+        className="containerImage w-100% h-70%  overflow-hidden  hover:h-[110%] hover:w-[110%] transition-all duration-700 origin-center"
         style={{
           backgroundColor: valueOfColor,
-          transition: "background-color 1s",
+          // transition: "background-color 1s",
         }}
       >
         <img
@@ -36,7 +39,9 @@ const Iteam = ({ objectVal, theIndex }) => {
               : ""
           }`}
           alt="Error 404"
-          className="w-100% h-100%"
+          // className="w-full h-full overflow-hidden transition-all duration-700 transform hover:scale-120"
+          // className="w-full h-full "
+          className="w-100% h-100% border border-black "
         />
       </div>
 
