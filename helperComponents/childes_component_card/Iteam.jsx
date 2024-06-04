@@ -30,6 +30,7 @@ const Iteam = ({ objectVal, theIndex }) => {
           // transition: "background-color 1s",
         }}
       >
+        {/*  hello from this comment to avoid the issue of behind by one  */}
         <img
           src={`images_test/${
             objectVal.image
